@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Spiga · Cómo funciona tu Spiga — Manual para Aldana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    --oliva-profundo: #54613F;
+    --oliva-mas-oscuro: #3F4A30;
+    --oliva-texto: #6F7A5C;
+    --oliva: #8A9476;
+    --oliva-soft: #B8BFA8;
+    --crema: #F2EBDD;
+    --crema-soft: #E6DCC4;
+    --tinta: #1A1A18;
+    --madera: #A07545;
+    --madera-suave: #C9A581;
+    --madera-oscuro: #5C3D1F;
+    --acento: #C9573A;
+    --acento-2: #E8C766;
+    --alerta: #A04646;
+
+    --font-display: "Cormorant Garamond", Georgia, serif;
+    --font-ui: "Inter", system-ui, sans-serif;
+
+    --title-size: clamp(2rem, 5.5vw, 4.8rem);
+    --h2-size: clamp(1.5rem, 3.8vw, 3rem);
+    --h3-size: clamp(1.1rem, 2.4vw, 1.75rem);
+    --body-size: clamp(0.85rem, 1.3vw, 1.05rem);
+    --small-size: clamp(0.7rem, 1vw, 0.85rem);
+    --eyebrow-size: clamp(0.7rem, 0.85vw, 0.78rem);
+
+    --slide-padding: clamp(2rem, 5vw, 5rem);
+    --content-gap: clamp(0.75rem, 1.6vw, 1.5rem);
+    --element-gap: clamp(0.4rem, 1vw, 0.85rem);
+
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration-normal: 0.7s;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ============ MANDATORY VIEWPORT BASE ============ */
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--crema);
+    color: var(--tinta);
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100%;
+    overflow: hidden;
+    padding: var(--slide-padding);
+  }
+
+  /* ============ SHARED COMPONENTS ============ */
+  .eyebrow {
+    font-family: var(--font-ui);
+    font-size: var(--eyebrow-size);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--madera);
+  }
+  .eyebrow .sep { color: var(--oliva-soft); margin: 0 8px; }
+  .slide-num {
+    position: absolute;
+    bottom: clamp(1rem, 2vw, 2rem);
+    right: clamp(1rem, 2vw, 2rem);
+    font-family: var(--font-ui);
+    font-size: var(--small-size);
+    color: var(--oliva-texto);
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    z-index: 5;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--oliva-profundo);
+    letter-spacing: -0.015em;
+  }
+  em { color: var(--madera); font-style: italic; font-weight: 400; }
+  p { font-family: var(--font-display); font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.6; color: var(--tinta); }
+  .small { font-family: var(--font-ui); font-size: var(--small-size); color: var(--oliva-texto); }
+
+  /* Reveal animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--duration-normal) var(--ease-out-expo),
+                transform var(--duration-normal) var(--ease-out-expo);
+  }
+  .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+  .reveal:nth-child(1) { transition-delay: 0.05s; }
+  .reveal:nth-child(2) { transition-delay: 0.15s; }
+  .reveal:nth-child(3) { transition-delay: 0.25s; }
+  .reveal:nth-child(4) { transition-delay: 0.35s; }
+  .reveal:nth-child(5) { transition-delay: 0.45s; }
+  .reveal:nth-child(6) { transition-delay: 0.55s; }
+  .reveal:nth-child(7) { transition-delay: 0.65s; }
+  .reveal:nth-child(8) { transition-delay: 0.75s; }
+
+  /* ============ NAV DOTS ============ */
+  .nav-dots {
+    position: fixed;
+    top: 50%;
+    right: clamp(0.75rem, 1.5vw, 1.5rem);
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+  }
+  .nav-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--oliva-soft);
+    border: none;
+    cursor: pointer;
+    transition: all 250ms ease;
+    padding: 0;
+  }
+  .nav-dot:hover { background: var(--madera); transform: scale(1.3); }
+  .nav-dot.is-active {
+    background: var(--madera);
+    transform: scale(1.5);
+  }
+
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--madera);
+    width: 0%;
+    transition: width 350ms ease;
+    z-index: 100;
+  }
+
+  /* ============ SLIDE: TITLE ============ */
+  .title-slide .slide-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 6rem);
+  }
+  .title-meta {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.5rem, 1.5vw, 1.5rem);
+  }
+  .title-meta .eyebrow { margin-bottom: 8px; }
+  .title-slide h1 {
+    font-size: var(--title-size);
+    line-height: 0.98;
+    font-weight: 400;
+    color: var(--oliva-profundo);
+  }
+  .title-slide h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--madera);
+    display: block;
+  }
+  .title-slide .subtitle {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    color: var(--oliva-texto);
+    margin-top: clamp(0.5rem, 1.5vw, 1.5rem);
+    max-width: 30ch;
+  }
+  .title-credits {
+    margin-top: clamp(1.5rem, 3vw, 3rem);
+    padding-top: clamp(1rem, 2vw, 1.5rem);
+    border-top: 1px solid var(--madera-suave);
+    display: flex;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    flex-wrap: wrap;
+  }
+  .title-credits div { display: flex; flex-direction: column; gap: 4px; }
+  .title-credits .credit-label {
+    font-family: var(--font-ui);
+    font-size: var(--small-size);
+    color: var(--madera);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 500;
+  }
+  .title-credits .credit-value {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    color: var(--tinta);
+  }
+  .title-seal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .title-seal svg { width: 100%; max-width: clamp(220px, 28vw, 380px); height: auto; }
+
+  /* ============ STANDARD CONTENT SLIDE ============ */
+  .head-block { margin-bottom: clamp(1rem, 2.5vw, 2.5rem); }
+  .head-block .eyebrow { display: block; margin-bottom: clamp(0.5rem, 1vw, 0.8rem); }
+  .head-block h2 {
+    font-size: var(--h2-size);
+    line-height: 1.05;
+    font-weight: 400;
+  }
+  .head-block h2 em { font-style: italic; color: var(--madera); font-weight: 300; }
+  .head-block .lead {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    color: var(--oliva-texto);
+    margin-top: clamp(0.4rem, 0.8vw, 0.7rem);
+    max-width: 56ch;
+  }
+
+  /* ============ SLIDE: 3 COLUMNS GRID ============ */
+  .cols-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2.5vw, 2.5rem);
+  }
+  .col-card {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.4rem, 1vw, 0.75rem);
+  }
+  .col-card .col-eyebrow {
+    font-family: var(--font-ui);
+    font-size: var(--eyebrow-size);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--madera);
+    font-weight: 500;
+  }
+  .col-card .col-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+    color: var(--oliva-profundo);
+    line-height: 1.1;
+    margin-bottom: clamp(0.3rem, 0.8vw, 0.6rem);
+  }
+  .col-card .col-text {
+    font-family: var(--font-display);
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    line-height: 1.55;
+    color: var(--tinta);
+  }
+  .col-card .col-badge {
+    font-family: var(--font-ui);
+    font-size: clamp(0.7rem, 0.9vw, 0.8rem);
+    color: var(--madera);
+    background: var(--crema-soft);
+    border: 1px solid var(--madera-suave);
+    padding: 4px 10px;
+    border-radius: 999px;
+    align-self: flex-start;
+    margin-top: clamp(0.4rem, 1vw, 0.8rem);
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+
+  /* ============ SLIDE: BRAND ============ */
+  .brand-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+  }
+  .brand-seal-big svg {
+    width: 100%;
+    max-width: clamp(240px, 30vw, 380px);
+    display: block;
+    margin: 0 auto;
+  }
+  .brand-data { display: flex; flex-direction: column; gap: clamp(1rem, 2vw, 1.5rem); }
+  .brand-row { display: flex; flex-direction: column; gap: 4px; }
+  .brand-row-label {
+    font-family: var(--font-ui);
+    font-size: var(--eyebrow-size);
+    color: var(--madera);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .brand-row-value {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    color: var(--oliva-profundo);
+    line-height: 1.2;
+  }
+  .palette-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .palette-row .swatch {
+    width: clamp(34px, 4vw, 44px);
+    height: clamp(34px, 4vw, 44px);
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .brand-note {
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+    padding-top: clamp(0.8rem, 1.5vw, 1.2rem);
+    border-top: 1px solid var(--madera-suave);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    color: var(--oliva-texto);
+  }
+
+  /* ============ SLIDE: CAJONES TABLE ============ */
+  .cajones-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.8rem, 1.8vw, 1.5rem);
+  }
+  .cajon-card {
+    border: 1px solid var(--madera-suave);
+    border-radius: 6px;
+    padding: clamp(1rem, 2vw, 1.75rem);
+    background: var(--crema);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.4rem, 1vw, 0.7rem);
+    position: relative;
+  }
+  .cajon-card.featured {
+    background: var(--oliva-profundo);
+    color: var(--crema);
+    border-color: var(--oliva-profundo);
+  }
+  .cajon-card.featured .cajon-eyebrow { color: var(--madera-suave); }
+  .cajon-card.featured .cajon-name { color: var(--crema); }
+  .cajon-card.featured .cajon-personas { color: var(--oliva-soft); }
+  .cajon-card.featured .cajon-items { color: var(--crema); }
+  .cajon-card.featured .cajon-items strong { color: var(--acento-2); }
+  .cajon-card.featured .cajon-items li::before { color: var(--madera-suave); }
+  .cajon-card.featured .featured-badge {
+    background: var(--madera);
+    color: var(--crema);
+  }
+  .featured-badge {
+    position: absolute;
+    top: -10px;
+    right: clamp(1rem, 1.5vw, 1.25rem);
+    font-family: var(--font-ui);
+    font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+    background: var(--madera);
+    color: var(--crema);
+    padding: 4px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .cajon-eyebrow {
+    font-family: var(--font-ui);
+    font-size: var(--eyebrow-size);
+    color: var(--madera);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+  }
+  .cajon-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    color: var(--oliva-profundo);
+    line-height: 1;
+  }
+  .cajon-personas {
+    font-family: var(--font-ui);
+    font-size: clamp(0.75rem, 1vw, 0.85rem);
+    color: var(--oliva-texto);
+    letter-spacing: 0.04em;
+  }
+  .cajon-items {
+    list-style: none;
+    margin-top: clamp(0.3rem, 0.7vw, 0.6rem);
+  }
+  .cajon-items li {
+    font-family: var(--font-display);
+    font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+    color: var(--tinta);
+    padding: 3px 0;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.35;
+  }
+  .cajon-items li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--madera);
+    font-size: 1.4em;
+    line-height: 1;
+  }
+  .cajon-items li strong { color: var(--madera); font-weight: 500; font-style: italic; }
+
+  /* ============ SLIDE: OFICINAS ============ */
+  .ofic-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+  }
+  .ofic-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    line-height: 1.25;
+    color: var(--oliva-profundo);
+    font-weight: 300;
+  }
+  .ofic-quote em { color: var(--madera); }
+  .ofic-features {
+    list-style: none;
+    background: var(--crema-soft);
+    border: 1px solid var(--madera-suave);
+    border-radius: 6px;
+    padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1rem, 2.5vw, 1.75rem) clamp(1rem, 2.5vw, 1.75rem) clamp(2rem, 3.5vw, 2.5rem);
+  }
+  .ofic-features li {
+    font-family: var(--font-display);
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    color: var(--tinta);
+    padding: 8px 0;
+    position: relative;
+    line-height: 1.45;
+  }
+  .ofic-features li::before {
+    content: "·";
+    position: absolute;
+    left: -18px;
+    color: var(--madera);
+    font-size: 1.6em;
+    line-height: 1;
+  }
+
+  /* ============ SLIDE: WEEK TIMELINE ============ */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: clamp(0.5rem, 1vw, 0.85rem);
+  }
+  .day-col {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.4rem, 0.8vw, 0.6rem);
+    text-align: center;
+  }
+  .day-col.is-active { background: var(--crema-soft); border-radius: 6px; padding: clamp(0.6rem, 1vw, 0.9rem) clamp(0.3rem, 0.6vw, 0.5rem); }
+  .day-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+    color: var(--oliva-profundo);
+    font-weight: 500;
+  }
+  .day-col.is-active .day-name { color: var(--madera); }
+  .day-marker {
+    font-family: var(--font-ui);
+    font-size: clamp(0.6rem, 0.7vw, 0.7rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--madera);
+    font-weight: 500;
+  }
+  .day-event {
+    background: var(--crema);
+    border: 1px solid var(--madera-suave);
+    border-radius: 4px;
+    padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.3rem, 0.6vw, 0.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .day-event.entrega { background: var(--oliva-profundo); border-color: var(--oliva-profundo); }
+  .day-event.entrega .event-time, .day-event.entrega .event-label { color: var(--crema); }
+  .day-event.entrega .event-detail { color: var(--oliva-soft); }
+  .day-event.cierre { background: var(--alerta); border-color: var(--alerta); }
+  .day-event.cierre .event-time, .day-event.cierre .event-label { color: var(--crema); }
+  .day-event.cierre .event-detail { color: rgba(242,235,221,0.85); }
+  .event-time {
+    font-family: var(--font-ui);
+    font-size: clamp(0.7rem, 0.9vw, 0.8rem);
+    font-weight: 600;
+    color: var(--tinta);
+    letter-spacing: 0.05em;
+  }
+  .event-label {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(0.85rem, 1.1vw, 1rem);
+    color: var(--oliva-profundo);
+    line-height: 1.15;
+    font-weight: 500;
+  }
+  .event-detail {
+    font-family: var(--font-ui);
+    font-size: clamp(0.65rem, 0.8vw, 0.72rem);
+    color: var(--oliva-texto);
+    line-height: 1.25;
+  }
+  .week-legend {
+    margin-top: clamp(0.8rem, 1.5vw, 1.2rem);
+    display: flex;
+    gap: clamp(1rem, 2vw, 2rem);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-ui);
+    font-size: clamp(0.7rem, 0.85vw, 0.8rem);
+    color: var(--oliva-texto);
+    letter-spacing: 0.04em;
+  }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+  .legend-dot.cierre { background: var(--alerta); }
+  .legend-dot.compra { background: var(--crema-soft); border: 1px solid var(--madera-suave); }
+  .legend-dot.armado { background: var(--crema-soft); border: 1px solid var(--madera-suave); }
+  .legend-dot.entrega { background: var(--oliva-profundo); }
+
+  /* ============ SLIDE: TEAM ============ */
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 3vw, 3rem);
+  }
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.5rem, 1vw, 0.9rem);
+  }
+  .team-portrait {
+    width: clamp(80px, 10vw, 120px);
+    height: clamp(80px, 10vw, 120px);
+    border-radius: 50%;
+    background: var(--crema-soft);
+    border: 2px solid var(--madera-suave);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: var(--madera);
+    margin-bottom: clamp(0.4rem, 0.8vw, 0.6rem);
+  }
+  .team-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+    color: var(--oliva-profundo);
+  }
+  .team-role {
+    font-family: var(--font-ui);
+    font-size: var(--eyebrow-size);
+    color: var(--madera);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .team-tasks {
+    list-style: none;
+    margin-top: clamp(0.3rem, 0.8vw, 0.5rem);
+  }
+  .team-tasks li {
+    font-family: var(--font-display);
+    font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+    color: var(--tinta);
+    padding: 4px 0 4px 18px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .team-tasks li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--madera);
+    font-size: 1.5em;
+    line-height: 1;
+  }
+
+  /* ============ SLIDE: SISTEMA DIAGRAM ============ */
+  .flow-diagram {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: clamp(0.4rem, 1vw, 0.8rem);
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    background: var(--crema-soft);
+    border: 1px solid var(--madera-suave);
+    border-radius: 6px;
+    padding: clamp(0.8rem, 1.5vw, 1.2rem);
+    flex: 1;
+    min-width: 130px;
+    max-width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+  .flow-step.is-trigger { background: var(--oliva-profundo); border-color: var(--oliva-profundo); }
+  .flow-step.is-trigger .flow-title, .flow-step.is-trigger .flow-desc { color: var(--crema); }
+  .flow-step.is-final { background: var(--madera); border-color: var(--madera); }
+  .flow-step.is-final .flow-title, .flow-step.is-final .flow-desc { color: var(--crema); }
+  .flow-num {
+    font-family: var(--font-ui);
+    font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+    color: var(--madera);
+    letter-spacing: 0.18em;
+    font-weight: 500;
+  }
+  .flow-step.is-trigger .flow-num, .flow-step.is-final .flow-num { color: var(--madera-suave); }
+  .flow-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+    color: var(--oliva-profundo);
+    line-height: 1.1;
+  }
+  .flow-desc {
+    font-family: var(--font-ui);
+    font-size: clamp(0.7rem, 0.85vw, 0.8rem);
+    color: var(--oliva-texto);
+    line-height: 1.35;
+  }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--madera);
+    font-size: clamp(1rem, 1.5vw, 1.4rem);
+  }
+
+  /* ============ SLIDE: TOOLS GRID ============ */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(0.8rem, 1.5vw, 1.25rem);
+  }
+  .tool-card {
+    background: var(--crema-soft);
+    border: 1px solid var(--madera-suave);
+    border-radius: 6px;
+    padding: clamp(0.8rem, 1.5vw, 1.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.3rem, 0.7vw, 0.5rem);
+  }
+  .tool-icon {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+    color: var(--madera);
+    line-height: 1;
+  }
+  .tool-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+    color: var(--oliva-profundo);
+    line-height: 1.1;
+  }
+  .tool-desc {
+    font-family: var(--font-ui);
+    font-size: clamp(0.7rem, 0.85vw, 0.78rem);
+    color: var(--oliva-texto);
+    line-height: 1.4;
+  }
+
+  /* ============ SLIDE: ROUTINE TABLE ============ */
+  .routine-table {
+    display: grid;
+    grid-template-columns: clamp(85px, 12vw, 130px) 1fr;
+    gap: 0;
+    border-top: 1px solid var(--madera-suave);
+  }
+  .routine-day {
+    padding: clamp(0.6rem, 1.2vw, 1rem) clamp(0.6rem, 1.2vw, 1rem);
+    border-bottom: 1px solid var(--madera-suave);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    color: var(--oliva-profundo);
+    background: var(--crema-soft);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .routine-day-name { font-weight: 500; line-height: 1.05; }
+  .routine-day-zones {
+    font-family: var(--font-ui);
+    font-size: clamp(0.62rem, 0.75vw, 0.7rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--madera);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  .routine-tasks {
+    padding: clamp(0.6rem, 1.2vw, 1rem) clamp(0.8rem, 1.5vw, 1.2rem);
+    border-bottom: 1px solid var(--madera-suave);
+    font-family: var(--font-display);
+    font-size: clamp(0.9rem, 1.2vw, 1.02rem);
+    color: var(--tinta);
+    line-height: 1.45;
+  }
+  .routine-tasks strong { color: var(--madera); font-weight: 500; font-style: italic; }
+
+  /* ============ SLIDE: PRICING FORMULA ============ */
+  .pricing-block {
+    background: var(--crema-soft);
+    border: 1px solid var(--madera-suave);
+    border-radius: 8px;
+    padding: clamp(1.2rem, 2.5vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.5rem, 1.2vw, 1rem);
+  }
+  .pricing-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: clamp(0.4rem, 0.8vw, 0.6rem) 0;
+    border-bottom: 1px dashed var(--madera-suave);
+    font-family: var(--font-display);
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    color: var(--tinta);
+    gap: 12px;
+  }
+  .pricing-line.subtotal {
+    border-bottom: 1px solid var(--madera);
+    color: var(--oliva-profundo);
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    margin-top: 4px;
+    padding-top: clamp(0.6rem, 1vw, 0.8rem);
+  }
+  .pricing-line.result {
+    border: none;
+    color: var(--madera);
+    font-style: italic;
+    font-size: clamp(1.3rem, 2vw, 1.7rem);
+    margin-top: 8px;
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+  .pricing-line .op {
+    color: var(--madera);
+    font-family: var(--font-ui);
+    font-size: 0.85em;
+    padding: 0 8px;
+    font-weight: 500;
+  }
+  .pricing-note {
+    margin-top: clamp(0.5rem, 1vw, 0.8rem);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+    color: var(--oliva-texto);
+    line-height: 1.5;
+  }
+
+  /* ============ SLIDE: LEGAL (RED) ============ */
+  .legal-slide {
+    background: linear-gradient(135deg, var(--alerta) 0%, #7A2E2E 100%);
+    color: var(--crema);
+  }
+  .legal-slide .eyebrow { color: var(--acento-2); }
+  .legal-slide h2 { color: var(--crema); }
+  .legal-slide h2 em { color: var(--acento-2); }
+  .legal-slide .lead { color: rgba(242,235,221,0.85); }
+  .legal-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(0.8rem, 1.5vw, 1.3rem);
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+  }
+  .legal-item {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(242,235,221,0.18);
+    border-radius: 6px;
+    padding: clamp(0.9rem, 1.6vw, 1.3rem);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .legal-item h4 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    color: var(--crema);
+    font-weight: 500;
+    line-height: 1.15;
+  }
+  .legal-item p {
+    font-family: var(--font-display);
+    font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+    color: rgba(242,235,221,0.85);
+    line-height: 1.4;
+  }
+  .legal-warning {
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+    text-align: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    color: var(--acento-2);
+    font-weight: 500;
+  }
+
+  /* ============ SLIDE: CHECKLIST ============ */
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+  .check-col h4 {
+    font-family: var(--font-ui);
+    font-size: var(--eyebrow-size);
+    color: var(--madera);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: clamp(0.4rem, 0.8vw, 0.6rem);
+    padding-bottom: clamp(0.4rem, 0.8vw, 0.6rem);
+    border-bottom: 1px solid var(--madera-suave);
+  }
+  .check-list { list-style: none; }
+  .check-list li {
+    font-family: var(--font-display);
+    font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+    color: var(--tinta);
+    padding: 8px 0 8px 28px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .check-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--madera-suave);
+    border-radius: 3px;
+  }
+
+  /* ============ SLIDE: GROWTH PHASES ============ */
+  .phases-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.8rem, 1.8vw, 1.5rem);
+  }
+  .phase-card {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.4rem, 0.8vw, 0.7rem);
+    padding: clamp(1rem, 2vw, 1.5rem);
+    border-left: 3px solid var(--madera);
+    background: var(--crema-soft);
+    border-radius: 0 4px 4px 0;
+  }
+  .phase-num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+    color: var(--madera);
+    line-height: 0.9;
+    opacity: 0.7;
+  }
+  .phase-when {
+    font-family: var(--font-ui);
+    font-size: clamp(0.7rem, 0.85vw, 0.8rem);
+    color: var(--madera);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .phase-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+    color: var(--oliva-profundo);
+    line-height: 1.1;
+  }
+  .phase-list { list-style: none; margin-top: clamp(0.3rem, 0.8vw, 0.5rem); }
+  .phase-list li {
+    font-family: var(--font-display);
+    font-size: clamp(0.85rem, 1.1vw, 0.98rem);
+    color: var(--tinta);
+    padding: 3px 0 3px 14px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .phase-list li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--madera);
+    font-size: 1.4em;
+    line-height: 1;
+  }
+
+  /* ============ SLIDE: RACI MATRIX ============ */
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .matrix th, .matrix td {
+    padding: clamp(0.5rem, 1vw, 0.85rem) clamp(0.5rem, 1vw, 0.85rem);
+    text-align: left;
+    border-bottom: 1px solid var(--madera-suave);
+    font-family: var(--font-display);
+    font-size: clamp(0.85rem, 1.1vw, 1rem);
+    line-height: 1.3;
+    color: var(--tinta);
+    vertical-align: middle;
+  }
+  .matrix th {
+    font-family: var(--font-ui);
+    font-weight: 500;
+    font-size: var(--eyebrow-size);
+    color: var(--madera);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: var(--crema-soft);
+  }
+  .matrix th:first-child, .matrix td:first-child {
+    font-style: italic;
+    color: var(--oliva-profundo);
+    width: 36%;
+  }
+  .matrix td.dot {
+    text-align: center;
+    color: var(--madera);
+    font-size: 1.4em;
+    width: 16%;
+  }
+  .matrix td.dot.full::after { content: "●"; }
+  .matrix td.dot.half::after { content: "◐"; opacity: 0.6; }
+
+  /* ============ SLIDE: CLOSE (INVERTED) ============ */
+  .close-slide {
+    background: linear-gradient(180deg, var(--oliva-mas-oscuro) 0%, var(--oliva-profundo) 100%);
+    color: var(--crema);
+  }
+  .close-slide .slide-content {
+    align-items: center;
+    text-align: center;
+  }
+  .close-slide h2 {
+    color: var(--crema);
+    font-size: clamp(2rem, 4.5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.05;
+  }
+  .close-slide h2 em { color: var(--madera-suave); font-style: italic; font-weight: 400; }
+  .close-slide .lead {
+    color: var(--oliva-soft);
+    font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+    max-width: 52ch;
+    margin: clamp(1rem, 2vw, 1.5rem) auto 0;
+  }
+  .close-contacts {
+    display: flex;
+    gap: clamp(2rem, 5vw, 5rem);
+    margin-top: clamp(2rem, 4vw, 3.5rem);
+    padding-top: clamp(1.2rem, 2.5vw, 2rem);
+    border-top: 1px solid rgba(201,165,129,0.4);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .close-contact { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .close-contact .label {
+    font-family: var(--font-ui);
+    font-size: var(--small-size);
+    color: var(--madera-suave);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .close-contact .value {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+    color: var(--crema);
+  }
+  .close-tag {
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    color: var(--madera-suave);
+  }
+  .close-seal {
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    width: clamp(80px, 10vw, 130px);
+  }
+
+  /* Responsive squeezes */
+  @media (max-width: 900px) {
+    .title-slide .slide-content { grid-template-columns: 1fr; }
+    .title-seal { display: none; }
+    .brand-grid, .ofic-grid { grid-template-columns: 1fr; }
+    .cols-3, .cajones-grid, .phases-row { grid-template-columns: 1fr; }
+    .week-grid { grid-template-columns: repeat(4, 1fr); }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .legal-list, .checklist-grid, .team-grid { grid-template-columns: 1fr; }
+    .flow-diagram { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+  @media (max-height: 700px) {
+    .cajon-items li { padding: 2px 0 2px 14px; }
+    .team-portrait { width: 70px; height: 70px; font-size: 2rem; }
+  }
+
+  ::selection { background: var(--oliva-profundo); color: var(--crema); }
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Nav dots -->
+<nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+<!-- ============ SLIDE 1: TITLE ============ -->
+<section class="slide title-slide">
+  <div class="slide-content">
+    <div class="title-seal">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="100" cy="100" r="95" fill="none" stroke="#54613F" stroke-width="1.2" />
+        <circle cx="100" cy="100" r="86" fill="none" stroke="#54613F" stroke-width="0.5" />
+        <g fill="#54613F">
+          <g transform="translate(100,46) scale(0.55)"><polygon points="0,-10 3,-3 10,-3 4,2 6,10 0,5 -6,10 -4,2 -10,-3 -3,-3"/></g>
+          <g transform="translate(100,144) scale(0.55)"><polygon points="0,-10 3,-3 10,-3 4,2 6,10 0,5 -6,10 -4,2 -10,-3 -3,-3"/></g>
+        </g>
+        <text x="100" y="125" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="78" font-style="italic" font-weight="500" fill="#54613F">S</text>
+        <defs>
+          <path id="topArcT" d="M 30,100 A 70,70 0 0 1 170,100" fill="none"/>
+          <path id="botArcT" d="M 30,100 A 70,70 0 0 0 170,100" fill="none"/>
+        </defs>
+        <text font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="4" fill="#54613F">
+          <textPath href="#topArcT" startOffset="50%" text-anchor="middle">FRESCHEZZA · CURATA</textPath>
+        </text>
+        <text font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="4" fill="#54613F">
+          <textPath href="#botArcT" startOffset="50%" text-anchor="middle">SPIGA · DAL 2026</textPath>
+        </text>
+      </svg>
+    </div>
+    <div class="title-meta">
+      <span class="eyebrow reveal">Manual de operación</span>
+      <h1 class="reveal">Cómo funciona <em>tu Spiga.</em></h1>
+      <p class="subtitle reveal">Todo lo que necesitás saber para operar tu delivery de fruta y verdura premium — desde el día uno.</p>
+      <div class="title-credits reveal">
+        <div>
+          <span class="credit-label">Para</span>
+          <span class="credit-value">Aldana Rodríguez</span>
+        </div>
+        <div>
+          <span class="credit-label">Versión</span>
+          <span class="credit-value">1.0 · Mayo 2026</span>
+        </div>
+        <div>
+          <span class="credit-label">Launch</span>
+          <span class="credit-value">1 de julio, 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">01 · 17</div>
+</section>
+
+<!-- ============ SLIDE 2: RESUMEN ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">01 <span class="sep">·</span> El proyecto en una página</span>
+      <h2 class="reveal">Tu Spiga en <em>tres preguntas.</em></h2>
+      <p class="lead reveal">Lo que vendés, a quién, y cómo cobrás. El resto del deck explica cómo se sostiene esto operativamente.</p>
+    </div>
+    <div class="cols-3">
+      <div class="col-card reveal">
+        <span class="col-eyebrow">Qué vendés</span>
+        <div class="col-title">Cajones curados de fruta y verdura premium.</div>
+        <div class="col-text">Tres tamaños (Piccolo, Abbondanza, Famiglia) más cajones de frutas a medida para oficinas. Mix de productos siempre presentes + rotación estacional.</div>
+        <span class="col-badge">5 productos distintos</span>
+      </div>
+      <div class="col-card reveal">
+        <span class="col-eyebrow">A quién</span>
+        <div class="col-title">Familias y oficinas de zona norte.</div>
+        <div class="col-text">Nordelta, Villanueva, Tigre, Maschwitz, Escobar y Pilar. Target: hogares premium que delegan tiempo y oficinas que dan desayunos/breaks naturales.</div>
+        <span class="col-badge">6 zonas, 2 días</span>
+      </div>
+      <div class="col-card reveal">
+        <span class="col-eyebrow">Cómo cobrás</span>
+        <div class="col-title">Suscripción mensual por adelantado.</div>
+        <div class="col-text">Transferencia (CBU personal al arranque, después cuenta corporativa), Mercado Pago alias y tarjeta. Sin pausa: 12 meses sin pausa = cajón premium sorpresa cada 3 meses.</div>
+        <span class="col-badge">Pago mensual</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">02 · 17</div>
+</section>
+
+<!-- ============ SLIDE 3: MARCA ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">02 <span class="sep">·</span> Tu marca</span>
+      <h2 class="reveal">Spiga <em>— la cosecha de la semana.</em></h2>
+    </div>
+    <div class="brand-grid">
+      <div class="brand-seal-big reveal">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="100" cy="100" r="95" fill="none" stroke="#54613F" stroke-width="1.4" />
+          <circle cx="100" cy="100" r="86" fill="none" stroke="#54613F" stroke-width="0.5" />
+          <g fill="#54613F">
+            <g transform="translate(100,46) scale(0.55)"><polygon points="0,-10 3,-3 10,-3 4,2 6,10 0,5 -6,10 -4,2 -10,-3 -3,-3"/></g>
+            <g transform="translate(100,144) scale(0.55)"><polygon points="0,-10 3,-3 10,-3 4,2 6,10 0,5 -6,10 -4,2 -10,-3 -3,-3"/></g>
+          </g>
+          <text x="100" y="125" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="78" font-style="italic" font-weight="500" fill="#54613F">S</text>
+          <defs>
+            <path id="topArcB" d="M 30,100 A 70,70 0 0 1 170,100" fill="none"/>
+            <path id="botArcB" d="M 30,100 A 70,70 0 0 0 170,100" fill="none"/>
+          </defs>
+          <text font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="4" fill="#54613F">
+            <textPath href="#topArcB" startOffset="50%" text-anchor="middle">FRESCHEZZA · CURATA</textPath>
+          </text>
+          <text font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="4" fill="#54613F">
+            <textPath href="#botArcB" startOffset="50%" text-anchor="middle">SPIGA · DAL 2026</textPath>
+          </text>
+        </svg>
+      </div>
+      <div class="brand-data">
+        <div class="brand-row reveal">
+          <span class="brand-row-label">Significado</span>
+          <span class="brand-row-value">Spiga = espiga · cabeza del cereal en italiano. Símbolo universal de cosecha.</span>
+        </div>
+        <div class="brand-row reveal">
+          <span class="brand-row-label">Pronunciación</span>
+          <span class="brand-row-value">spí-ga · acento en la primera sílaba.</span>
+        </div>
+        <div class="brand-row reveal">
+          <span class="brand-row-label">Paleta</span>
+          <div class="palette-row">
+            <div class="swatch" style="background: #54613F" title="Oliva profundo · primario"></div>
+            <div class="swatch" style="background: #F2EBDD" title="Crema cálida · fondo"></div>
+            <div class="swatch" style="background: #A07545" title="Madera · acento"></div>
+            <div class="swatch" style="background: #C9A581" title="Madera suave"></div>
+            <div class="swatch" style="background: #E8C766" title="Limón · acento secundario"></div>
+            <div class="swatch" style="background: #C9573A" title="Tomate · estacional verano"></div>
+          </div>
+        </div>
+        <div class="brand-row reveal">
+          <span class="brand-row-label">Tipografía</span>
+          <span class="brand-row-value">Cormorant Garamond (display) + Inter (UI). Ambas Google Fonts gratis.</span>
+        </div>
+        <div class="brand-note reveal">El sello actual (S itálica + sello circular) es <strong>provisorio</strong> — se define versión final antes de prensa, papelería y dominio comercial.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">03 · 17</div>
+</section>
+
+<!-- ============ SLIDE 4: CAJONES ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">03 <span class="sep">·</span> Los cajones</span>
+      <h2 class="reveal">Tres tamaños, <em>una sola promesa.</em></h2>
+    </div>
+    <div class="cajones-grid">
+      <div class="cajon-card reveal">
+        <span class="cajon-eyebrow">Esencial</span>
+        <div class="cajon-name">Piccolo</div>
+        <div class="cajon-personas">1 a 2 personas · 18 productos</div>
+        <ul class="cajon-items">
+          <li>4 verduras de hoja <strong>(lechuga, espinaca, acelga, rúcula)</strong></li>
+          <li>9 verduras para cocinar <strong>(papa, batata, zanahoria, zapallo, zapallito, berenjena, cebolla, verdeo, sopa)</strong></li>
+          <li>3 frescas <strong>(cherry, morrón, limón)</strong></li>
+          <li>2 frutas <strong>(mandarina, banana)</strong></li>
+          <li>Cajón sorpresa premium cada 3 meses</li>
+        </ul>
+      </div>
+      <div class="cajon-card featured reveal">
+        <span class="featured-badge">Más elegido</span>
+        <span class="cajon-eyebrow">Familiar</span>
+        <div class="cajon-name">Abbondanza</div>
+        <div class="cajon-personas">3 a 4 personas · 18 productos en cantidades familiares</div>
+        <ul class="cajon-items">
+          <li>Misma variedad de Piccolo</li>
+          <li>Verduras de hoja <strong>×2 unidades</strong></li>
+          <li>Papa <strong>1 kg</strong>, zanahoria 600g, zapallito 600g</li>
+          <li>Cherry 350g, mandarina 1 kg, banana ×4</li>
+          <li>Entrega prioritaria + cajón sorpresa cada 3 meses</li>
+        </ul>
+      </div>
+      <div class="cajon-card reveal">
+        <span class="cajon-eyebrow">Completo</span>
+        <div class="cajon-name">Famiglia</div>
+        <div class="cajon-personas">5+ personas · 23 productos</div>
+        <ul class="cajon-items">
+          <li>Toda la variedad de Abbondanza</li>
+          <li><strong>+ 5 frutas extra:</strong> kiwi ×5, uva 350g, manzana roja ×4, naranja 2 kg, pomelo 1 kg</li>
+          <li>Entrega prioritaria</li>
+          <li>Cajón sorpresa premium cada 3 meses</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">04 · 17</div>
+</section>
+
+<!-- ============ SLIDE 5: OFICINAS ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">03 <span class="sep">·</span> Spiga para oficinas</span>
+      <h2 class="reveal">Cajones de fruta <em>a medida.</em></h2>
+    </div>
+    <div class="ofic-grid">
+      <div class="ofic-quote reveal">
+        Para equipos que quieren <em>desayunos y breaks naturales</em>, armás un cajón solo de frutas adaptado a cuánta gente sos y cuántas veces a la semana lo querés recibir.
+      </div>
+      <ul class="ofic-features reveal">
+        <li>Cajón solo de frutas — mix estacional + atemporales (banana, manzana, naranja)</li>
+        <li>Cantidad y frecuencia ajustadas al equipo</li>
+        <li>Entrega coordinada según zona de la oficina</li>
+        <li>Factura como servicio para la empresa (CUIT personal al arranque, después corporativa)</li>
+        <li>Pedido por WhatsApp — propuesta personalizada en 24 hs</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-num">05 · 17</div>
+</section>
+
+<!-- ============ SLIDE 6: SEMANA OPERATIVA ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">04 <span class="sep">·</span> Tu semana operativa</span>
+      <h2 class="reveal">Cuatro días, <em>ritmo claro.</em></h2>
+      <p class="lead reveal">Pedidos cierran lunes y miércoles a las 16h. Compra el mismo día a la tarde. Armado y entrega al día siguiente, siempre antes del mediodía.</p>
+    </div>
+    <div class="week-grid reveal">
+      <div class="day-col">
+        <div class="day-name">Lunes</div>
+        <div class="day-marker">·</div>
+        <div class="day-event cierre">
+          <div class="event-time">16:00</div>
+          <div class="event-label">Cierre pedidos</div>
+          <div class="event-detail">Entrega martes</div>
+        </div>
+        <div class="day-event">
+          <div class="event-time">18:00</div>
+          <div class="event-label">Compra mercadería</div>
+          <div class="event-detail">Mercado Escobar + distribuidores</div>
+        </div>
+      </div>
+      <div class="day-col is-active">
+        <div class="day-name">Martes</div>
+        <div class="day-marker">Entrega</div>
+        <div class="day-event">
+          <div class="event-time">08:00</div>
+          <div class="event-label">Armado cajones</div>
+          <div class="event-detail">Con Paola</div>
+        </div>
+        <div class="day-event entrega">
+          <div class="event-time">11:00</div>
+          <div class="event-label">Reparto puerta a puerta</div>
+          <div class="event-detail">Nordelta · Villanueva · Tigre</div>
+        </div>
+      </div>
+      <div class="day-col">
+        <div class="day-name">Miércoles</div>
+        <div class="day-marker">·</div>
+        <div class="day-event cierre">
+          <div class="event-time">16:00</div>
+          <div class="event-label">Cierre pedidos</div>
+          <div class="event-detail">Entrega jueves</div>
+        </div>
+        <div class="day-event">
+          <div class="event-time">18:00</div>
+          <div class="event-label">Compra mercadería</div>
+          <div class="event-detail">Mercado Escobar + distribuidores</div>
+        </div>
+      </div>
+      <div class="day-col is-active">
+        <div class="day-name">Jueves</div>
+        <div class="day-marker">Entrega</div>
+        <div class="day-event">
+          <div class="event-time">08:00</div>
+          <div class="event-label">Armado cajones</div>
+          <div class="event-detail">Con Paola</div>
+        </div>
+        <div class="day-event entrega">
+          <div class="event-time">11:00</div>
+          <div class="event-label">Reparto puerta a puerta</div>
+          <div class="event-detail">Maschwitz · Escobar · Pilar</div>
+        </div>
+      </div>
+      <div class="day-col">
+        <div class="day-name">Viernes</div>
+        <div class="day-marker">Análisis</div>
+        <div class="day-event">
+          <div class="event-time">—</div>
+          <div class="event-label">Cobros + nuevos clientes</div>
+          <div class="event-detail">Revisar suscriptores + IG</div>
+        </div>
+      </div>
+      <div class="day-col">
+        <div class="day-name">Sábado</div>
+        <div class="day-marker">Off</div>
+        <div class="day-event" style="opacity: 0.4">
+          <div class="event-label">Descanso</div>
+        </div>
+      </div>
+      <div class="day-col">
+        <div class="day-name">Domingo</div>
+        <div class="day-marker">Off</div>
+        <div class="day-event" style="opacity: 0.4">
+          <div class="event-label">Descanso</div>
+        </div>
+      </div>
+    </div>
+    <div class="week-legend reveal">
+      <div class="legend-item"><span class="legend-dot cierre"></span>Cierre de pedidos</div>
+      <div class="legend-item"><span class="legend-dot compra"></span>Compra / armado</div>
+      <div class="legend-item"><span class="legend-dot entrega"></span>Reparto</div>
+    </div>
+  </div>
+  <div class="slide-num">06 · 17</div>
+</section>
+
+<!-- ============ SLIDE 7: EQUIPO ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">05 <span class="sep">·</span> Tu equipo</span>
+      <h2 class="reveal">Dos personas, <em>responsabilidades claras.</em></h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-portrait">A</div>
+        <div class="team-name">Aldana</div>
+        <div class="team-role">Fundadora · operación · finanzas</div>
+        <ul class="team-tasks">
+          <li>Atención a clientes (WhatsApp, mail, casos especiales)</li>
+          <li>Curaduría y compra de mercadería</li>
+          <li>Reparto en vehículo propio (vos manejás)</li>
+          <li>Edita contenido del sitio (precios, cajón semanal) en el Sheet</li>
+          <li>Cobros mensuales y administración</li>
+          <li>Marketing: IG, contacto con influencers, expansión a oficinas</li>
+        </ul>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-portrait">P</div>
+        <div class="team-name">Paola</div>
+        <div class="team-role">Operativa · armado · reparto físico</div>
+        <ul class="team-tasks">
+          <li>Movilizar mercadería: cargar bolsas y cajones</li>
+          <li>Colaborar en selección de frutas y verduras</li>
+          <li>Embolsar y pesar cada producto</li>
+          <li>Armar el cajón de cada cliente</li>
+          <li>Subir cajones a la camioneta</li>
+          <li>Bajar cajones en cada domicilio durante el reparto</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">07 · 17</div>
+</section>
+
+<!-- ============ SLIDE 8: CANAL DE VENTA ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">06 <span class="sep">·</span> Cómo te encuentran</span>
+      <h2 class="reveal">Tres canales, <em>un solo destino.</em></h2>
+      <p class="lead reveal">Todos terminan en tu Google Sheet con los datos del suscriptor. Vos respondés y coordinás.</p>
+    </div>
+    <div class="cols-3">
+      <div class="col-card reveal">
+        <span class="col-eyebrow">Sitio web</span>
+        <div class="col-title">spiga.com.ar</div>
+        <div class="col-text">Donde el cliente lee qué es Spiga, ve los cajones y completa el form de suscripción. La data llega automática al Sheet y a tu mail.</div>
+        <span class="col-badge">Conversión principal</span>
+      </div>
+      <div class="col-card reveal">
+        <span class="col-eyebrow">Instagram</span>
+        <div class="col-title">@spiga.ar</div>
+        <div class="col-text">Vidriera viva. Mostrás cajón de la semana, cocina con productos, productores, behind-the-scenes. Influencers reciben cajón gratis a cambio de stories.</div>
+        <span class="col-badge">Adquisición</span>
+      </div>
+      <div class="col-card reveal">
+        <span class="col-eyebrow">WhatsApp</span>
+        <div class="col-title">+54 9 11 5056-2645</div>
+        <div class="col-text">Atención personal. El botón "Hablar con el equipo" del sitio abre WhatsApp directo. Acá resolvés dudas previas + atención post-venta.</div>
+        <span class="col-badge">Conversión + atención</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">08 · 17</div>
+</section>
+
+<!-- ============ SLIDE 9: SISTEMA / DIAGRAMA ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">07 <span class="sep">·</span> Cómo se conecta todo</span>
+      <h2 class="reveal">Del clic del cliente <em>a tu casilla de mail.</em></h2>
+      <p class="lead reveal">Cinco pasos automáticos. Vos solo aparecés al final, cuando suena la notificación.</p>
+    </div>
+    <div class="flow-diagram reveal">
+      <div class="flow-step">
+        <span class="flow-num">01</span>
+        <div class="flow-title">Cliente llega al sitio</div>
+        <div class="flow-desc">Desde IG, recomendación o Google</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-num">02</span>
+        <div class="flow-title">Click "Empezar"</div>
+        <div class="flow-desc">Se abre el form modal con el plan elegido</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step is-trigger">
+        <span class="flow-num">03</span>
+        <div class="flow-title">Completa y envía</div>
+        <div class="flow-desc">Datos personales, zona, alergias, opt-in</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-num">04</span>
+        <div class="flow-title">Cae al Sheet</div>
+        <div class="flow-desc">Tab "Suscriptores" — fila nueva con fecha</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step is-final">
+        <span class="flow-num">05</span>
+        <div class="flow-title">Te llega mail</div>
+        <div class="flow-desc">Apps Script te avisa — coordinás por WhatsApp</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">09 · 17</div>
+</section>
+
+<!-- ============ SLIDE 10: HERRAMIENTAS ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">08 <span class="sep">·</span> Tus herramientas</span>
+      <h2 class="reveal">Todo gratis, <em>todo en tu Google.</em></h2>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card reveal">
+        <div class="tool-icon">S</div>
+        <div class="tool-name">Google Sheet</div>
+        <div class="tool-desc">Tu base de datos. Editás precios, cajón semanal y ves suscriptores. Una sola planilla con 8 tabs.</div>
+      </div>
+      <div class="tool-card reveal">
+        <div class="tool-icon">{ }</div>
+        <div class="tool-name">Apps Script</div>
+        <div class="tool-desc">Ya configurado. Conecta el form del sitio con tu Sheet y te avisa por mail. No tocás nunca.</div>
+      </div>
+      <div class="tool-card reveal">
+        <div class="tool-icon">📅</div>
+        <div class="tool-name">Google Calendar</div>
+        <div class="tool-desc">Recordatorios mensuales: "cobrar a [cliente]". Marcás como hecho cuando recibís el pago.</div>
+      </div>
+      <div class="tool-card reveal">
+        <div class="tool-icon">▽</div>
+        <div class="tool-name">Google Drive</div>
+        <div class="tool-desc">Carpeta "Spiga" con todo: facturas, fotos productores, listas de compra, comprobantes.</div>
+      </div>
+      <div class="tool-card reveal">
+        <div class="tool-icon">✦</div>
+        <div class="tool-name">Canva</div>
+        <div class="tool-desc">Posteos IG, etiquetas para cajones, flyers para influencers, propuestas para oficinas.</div>
+      </div>
+      <div class="tool-card reveal">
+        <div class="tool-icon">@</div>
+        <div class="tool-name">Instagram</div>
+        <div class="tool-desc">@spiga.ar — vidriera. Mostrás cajón de la semana, productos, equipo, clientes felices.</div>
+      </div>
+      <div class="tool-card reveal">
+        <div class="tool-icon">✉</div>
+        <div class="tool-name">WhatsApp</div>
+        <div class="tool-desc">Negocio: atención, coordinación de primer cajón, propuestas a oficinas, post-venta.</div>
+      </div>
+      <div class="tool-card reveal">
+        <div class="tool-icon">↗</div>
+        <div class="tool-name">Sitio web</div>
+        <div class="tool-desc">spiga.com.ar — vidriera comercial + form de conversión. Editás contenido vía Sheet.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">10 · 17</div>
+</section>
+
+<!-- ============ SLIDE 11: RUTINA SEMANAL ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">09 <span class="sep">·</span> Tu rutina semanal</span>
+      <h2 class="reveal">Día por día, <em>qué hacés vos.</em></h2>
+    </div>
+    <div class="routine-table reveal">
+      <div class="routine-day">
+        <div class="routine-day-name">Lunes</div>
+        <div class="routine-day-zones">Cierre · compra</div>
+      </div>
+      <div class="routine-tasks">
+        <strong>9 a 16h:</strong> respondés WhatsApp, cargás el cajón de la semana al Sheet. <strong>16h:</strong> cierre automático del form. Revisás tab "Suscriptores" y armás lista de compra agregada. <strong>18h en adelante:</strong> compra en Mercado de Escobar y distribuidores.
+      </div>
+
+      <div class="routine-day">
+        <div class="routine-day-name">Martes</div>
+        <div class="routine-day-zones">Entrega 1</div>
+      </div>
+      <div class="routine-tasks">
+        <strong>8h:</strong> armado de cajones con Paola en casa. <strong>10:30h:</strong> carga vehículo. <strong>11h:</strong> salida a reparto Nordelta / Villanueva / Tigre. <strong>Tarde:</strong> avisás por WhatsApp a cada cliente "tu cajón ya llegó".
+      </div>
+
+      <div class="routine-day">
+        <div class="routine-day-name">Miércoles</div>
+        <div class="routine-day-zones">Cierre · compra</div>
+      </div>
+      <div class="routine-tasks">
+        Idéntico al lunes. <strong>16h</strong> cierre form, <strong>18h</strong> compra. Si tenés nuevos suscriptores, los recibís por mail durante el día y los coordinás.
+      </div>
+
+      <div class="routine-day">
+        <div class="routine-day-name">Jueves</div>
+        <div class="routine-day-zones">Entrega 2</div>
+      </div>
+      <div class="routine-tasks">
+        Idéntico al martes pero con la otra zona: <strong>11h</strong> salida a Maschwitz / Escobar / Pilar.
+      </div>
+
+      <div class="routine-day">
+        <div class="routine-day-name">Viernes</div>
+        <div class="routine-day-zones">Análisis</div>
+      </div>
+      <div class="routine-tasks">
+        Cobros mensuales (revisás Calendar). Posteos IG. Atención a nuevos prospectos. Contacto con productores y futuros clientes mayoristas. Revisión semanal de números.
+      </div>
+
+      <div class="routine-day">
+        <div class="routine-day-name">Sáb · Dom</div>
+        <div class="routine-day-zones">Descanso</div>
+      </div>
+      <div class="routine-tasks">
+        Descansás. Si entran suscripciones nuevas, las coordinás el lunes.
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">11 · 17</div>
+</section>
+
+<!-- ============ SLIDE 12: PRECIO ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">10 <span class="sep">·</span> Cómo definir tu precio</span>
+      <h2 class="reveal">No inventes precio: <em>calculalo.</em></h2>
+      <p class="lead reveal">Esta fórmula te da el piso. El precio final lo determinás vos según margen deseado.</p>
+    </div>
+    <div class="pricing-block reveal">
+      <div class="pricing-line">
+        <span>Costo mercadería del cajón (compra al productor)</span>
+        <span class="op">$</span>
+      </div>
+      <div class="pricing-line">
+        <span>+ Embalaje (bolsas, etiquetas, cajón retornable amortizado)</span>
+        <span class="op">$</span>
+      </div>
+      <div class="pricing-line">
+        <span>+ Logística por entrega (combustible + amortización vehículo / cajones por viaje)</span>
+        <span class="op">$</span>
+      </div>
+      <div class="pricing-line">
+        <span>+ Paola por hora × horas de armado y reparto / cajones del día</span>
+        <span class="op">$</span>
+      </div>
+      <div class="pricing-line">
+        <span>+ Costos fijos mensuales (dominio, hosting, mail, MP fees) prorrateado / suscriptores activos</span>
+        <span class="op">$</span>
+      </div>
+      <div class="pricing-line subtotal">
+        <span>= Costo mensual real por suscriptor</span>
+        <span class="op">$</span>
+      </div>
+      <div class="pricing-line result">
+        <span>× margen 40–60% (premium delivery)</span>
+        <span>= PRECIO</span>
+      </div>
+      <p class="pricing-note">Margen 40% es punto de equilibrio sano. 60% es agresivo pero defensible si la calidad lo justifica. Empezá en 50% y ajustá según volumen.</p>
+    </div>
+  </div>
+  <div class="slide-num">12 · 17</div>
+</section>
+
+<!-- ============ SLIDE 13: LEGAL (RED) ============ -->
+<section class="slide legal-slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">11 <span class="sep">·</span> Importante antes de lanzar</span>
+      <h2 class="reveal">Habilitaciones legales <em>— no opcional.</em></h2>
+      <p class="lead reveal">En Argentina, vender alimentos sin habilitación es ilegal. Multas, clausura y responsabilidad civil son riesgos reales. Resolvelo antes del 1 de julio.</p>
+    </div>
+    <div class="legal-list">
+      <div class="legal-item reveal">
+        <h4>Bromatología municipal</h4>
+        <p>Inscripción en el municipio donde funciona el lugar (Escobar o Tigre según corresponda). Trámite presencial, ~30-60 días.</p>
+      </div>
+      <div class="legal-item reveal">
+        <h4>Habilitación del lugar</h4>
+        <p>Tu casa puede servir si pasa inspección. Requisitos típicos: heladera dedicada, mesada de acero, lavadero, ventilación.</p>
+      </div>
+      <div class="legal-item reveal">
+        <h4>RNE / RNPA</h4>
+        <p>Para venta de productos alimenticios envasados. Si el cajón es solo fruta y verdura fresca sin procesar, no aplica; consultá con bromatología.</p>
+      </div>
+      <div class="legal-item reveal">
+        <h4>Seguro de responsabilidad civil</h4>
+        <p>Cubre si un cliente se intoxica o resulta dañado por un producto entregado. Imprescindible. Aprox $5000-15000 ARS/mes según cobertura.</p>
+      </div>
+    </div>
+    <div class="legal-warning reveal">Sin estos 4 pasos no salimos al aire. Es el blocker #1.</div>
+  </div>
+  <div class="slide-num">13 · 17</div>
+</section>
+
+<!-- ============ SLIDE 14: PENDIENTES ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">12 <span class="sep">·</span> Para llegar al 1 de julio</span>
+      <h2 class="reveal">Checklist <em>de lanzamiento.</em></h2>
+    </div>
+    <div class="checklist-grid">
+      <div class="check-col reveal">
+        <h4>Crítico · bloqueante</h4>
+        <ul class="check-list">
+          <li>Habilitación bromatológica + inspección del lugar</li>
+          <li>Seguro de responsabilidad civil contratado</li>
+          <li>Calcular costo real por cajón con la fórmula</li>
+          <li>Definir precio final de cada plan</li>
+          <li>Comprar dominio spiga.com.ar (NIC.ar, ~$3000/año)</li>
+          <li>Crear cuenta Instagram @spiga.ar</li>
+          <li>Confirmar 2 productores fijos del Mercado de Escobar</li>
+        </ul>
+      </div>
+      <div class="check-col reveal">
+        <h4>Importante · semanas previas</h4>
+        <ul class="check-list">
+          <li>Definir logo final (reemplazar el sello provisorio)</li>
+          <li>Sesión de fotos del cajón real para sitio + IG</li>
+          <li>Alias Mercado Pago para cobros</li>
+          <li>Lista de 5 influencers para regalar cajón de prueba</li>
+          <li>Posteos IG pre-launch (mostrar el proyecto antes de abrir)</li>
+          <li>Primeros 10 clientes confirmados (red personal, grupos)</li>
+          <li>Plantilla WhatsApp para coordinar primer cajón</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">14 · 17</div>
+</section>
+
+<!-- ============ SLIDE 15: CRECIMIENTO ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">13 <span class="sep">·</span> Tu plan de crecimiento</span>
+      <h2 class="reveal">Tres fases <em>hacia el galpón propio.</em></h2>
+    </div>
+    <div class="phases-row">
+      <div class="phase-card reveal">
+        <div class="phase-num">01</div>
+        <span class="phase-when">Mes 1 al 3</span>
+        <div class="phase-title">Validación en casa</div>
+        <ul class="phase-list">
+          <li>10 a 30 suscriptores</li>
+          <li>Armado y reparto desde tu casa</li>
+          <li>Vos + Paola</li>
+          <li>Foco: encontrar el ritmo, ajustar precios</li>
+        </ul>
+      </div>
+      <div class="phase-card reveal">
+        <div class="phase-num">02</div>
+        <span class="phase-when">Mes 4 al 12</span>
+        <div class="phase-title">Escala chica</div>
+        <ul class="phase-list">
+          <li>30 a 80 suscriptores</li>
+          <li>Galpón pequeño alquilado en zona</li>
+          <li>+1 ayudante para armado</li>
+          <li>Primeras oficinas como clientes B2B</li>
+        </ul>
+      </div>
+      <div class="phase-card reveal">
+        <div class="phase-num">03</div>
+        <span class="phase-when">Año 2 en adelante</span>
+        <div class="phase-title">Galpón Tigre / Benavidez</div>
+        <ul class="phase-list">
+          <li>100+ suscriptores</li>
+          <li>Galpón de distribución propio</li>
+          <li>Productores directos (saltar el mercado)</li>
+          <li>Equipo operativo a cargo</li>
+          <li>Vos: analítica, mayoristas, expansión</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">15 · 17</div>
+</section>
+
+<!-- ============ SLIDE 16: QUIÉN HACE QUÉ ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">14 <span class="sep">·</span> Quién hace qué</span>
+      <h2 class="reveal">Matriz <em>de responsabilidades.</em></h2>
+    </div>
+    <table class="matrix reveal">
+      <thead>
+        <tr>
+          <th>Tarea</th>
+          <th>Aldana</th>
+          <th>Paola</th>
+          <th>Sistema</th>
+          <th>Dev futuro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Atención a clientes (WhatsApp, mail)</td>
+          <td class="dot full"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Editar precios y cajón semanal en Sheet</td>
+          <td class="dot full"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Compra de mercadería</td>
+          <td class="dot full"></td>
+          <td class="dot half"></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Armado de cajones</td>
+          <td class="dot half"></td>
+          <td class="dot full"></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Reparto puerta a puerta</td>
+          <td class="dot full"></td>
+          <td class="dot full"></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Notificación de nueva suscripción</td>
+          <td></td>
+          <td></td>
+          <td class="dot full"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Cierre automático de pedidos 16h L/Mié</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="dot full"></td>
+        </tr>
+        <tr>
+          <td>Cobro mensual recurrente automático</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="dot full"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-num">16 · 17</div>
+</section>
+
+<!-- ============ SLIDE 17: CIERRE ============ -->
+<section class="slide close-slide">
+  <div class="slide-content">
+    <svg class="close-seal reveal" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="100" cy="100" r="95" fill="none" stroke="#F2EBDD" stroke-width="1.4" />
+      <circle cx="100" cy="100" r="86" fill="none" stroke="#F2EBDD" stroke-width="0.5" />
+      <g fill="#F2EBDD">
+        <g transform="translate(100,46) scale(0.55)"><polygon points="0,-10 3,-3 10,-3 4,2 6,10 0,5 -6,10 -4,2 -10,-3 -3,-3"/></g>
+        <g transform="translate(100,144) scale(0.55)"><polygon points="0,-10 3,-3 10,-3 4,2 6,10 0,5 -6,10 -4,2 -10,-3 -3,-3"/></g>
+      </g>
+      <text x="100" y="125" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="78" font-style="italic" font-weight="500" fill="#F2EBDD">S</text>
+    </svg>
+    <h2 class="reveal">Cualquier duda, <em>estás cubierta.</em></h2>
+    <p class="lead reveal">Este deck más el sitio más tu Google Sheet te dan autonomía completa para operar Spiga. Si algo se rompe o querés cambiar algo más complejo, hay caminos claros.</p>
+    <div class="close-contacts">
+      <div class="close-contact reveal">
+        <span class="label">Setup inicial</span>
+        <span class="value">Santiago Mathé</span>
+        <span class="label" style="margin-top: 2px; letter-spacing: 0.06em">hasta julio 2026</span>
+      </div>
+      <div class="close-contact reveal">
+        <span class="label">Mantenimiento futuro</span>
+        <span class="value">Dev freelance</span>
+        <span class="label" style="margin-top: 2px; letter-spacing: 0.06em">~$15-25 USD/hora</span>
+      </div>
+      <div class="close-contact reveal">
+        <span class="label">Repositorio del sitio</span>
+        <span class="value">github.com/RampedSaint/spiga</span>
+        <span class="label" style="margin-top: 2px; letter-spacing: 0.06em">cualquier dev lo puede continuar</span>
+      </div>
+    </div>
+    <div class="close-tag reveal">La cosecha de la semana — desde julio 2026.</div>
+  </div>
+  <div class="slide-num">17 · 17</div>
+</section>
+
+<script>
+  /* ===========================================
+     SLIDE PRESENTATION CONTROLLER
+     =========================================== */
+  class SpigaDeck {
+    constructor() {
+      this.slides = Array.from(document.querySelectorAll('.slide'));
+      this.currentIndex = 0;
+      this.progressBar = document.getElementById('progressBar');
+      this.navDotsContainer = document.getElementById('navDots');
+
+      this.setupIntersectionObserver();
+      this.setupKeyboardNav();
+      this.setupTouchNav();
+      this.setupNavDots();
+      this.updateProgress();
+    }
+
+    setupIntersectionObserver() {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            this.currentIndex = this.slides.indexOf(entry.target);
+            this.updateProgress();
+            this.updateNavDots();
+          }
+        });
+      }, { threshold: 0.5 });
+      this.slides.forEach(slide => obs.observe(slide));
+    }
+
+    setupKeyboardNav() {
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          this.goTo(this.currentIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          this.goTo(this.currentIndex - 1);
+        } else if (e.key === 'Home') {
+          this.goTo(0);
+        } else if (e.key === 'End') {
+          this.goTo(this.slides.length - 1);
+        }
+      });
+    }
+
+    setupTouchNav() {
+      let touchStartY = 0;
+      document.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      document.addEventListener('touchend', (e) => {
+        const diff = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) this.goTo(this.currentIndex + 1);
+          else this.goTo(this.currentIndex - 1);
+        }
+      }, { passive: true });
+    }
+
+    setupNavDots() {
+      this.navDotsContainer.innerHTML = '';
+      this.slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.setAttribute('aria-label', `Ir al slide ${i + 1}`);
+        dot.addEventListener('click', () => this.goTo(i));
+        this.navDotsContainer.appendChild(dot);
+      });
+      this.updateNavDots();
+    }
+
+    updateNavDots() {
+      const dots = this.navDotsContainer.children;
+      Array.from(dots).forEach((d, i) => {
+        d.classList.toggle('is-active', i === this.currentIndex);
+      });
+    }
+
+    updateProgress() {
+      const pct = ((this.currentIndex + 1) / this.slides.length) * 100;
+      this.progressBar.style.width = pct + '%';
+    }
+
+    goTo(index) {
+      const clamped = Math.max(0, Math.min(index, this.slides.length - 1));
+      this.slides[clamped].scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => new SpigaDeck());
+</script>
+
+</body>
+</html>
