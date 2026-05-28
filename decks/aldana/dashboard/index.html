@@ -1149,24 +1149,24 @@ footer {
 <section class="block section-id" id="breakeven">
   <span class="block-label">06 · Calculadora Spiga</span>
   <h2>Cuántos clientes <em>para empatar tu sueldo.</em></h2>
-  <p class="block-desc">Mové los controles para probar precios, costos y mix. Como aún no cargaste precios en el form, dejé valores tentativos basados en el mercado argentino de cajones premium (Sabe la Tierra, La Pampa, etc.). Ajustalos.</p>
+  <p class="block-desc">El número grande es el <strong>mix recomendado 30/50/20</strong>: 30% de tus clientes con Picolo, 50% con Abbondanza, 20% con Famiglia. Los sliders abajo arrancan con los valores reales del cajón Abbondanza (calculados en la sección 05 con tus distribuidores). Ajustá el markup en la sección 05 y los sliders acá se autosincronizan. Los KPIs de abajo te muestran cuántos clientes harían falta si todo fuera de un único cajón — para ver por qué el mix es mejor.</p>
 
   <div class="calc">
     <div class="calc-grid">
       <div class="calc-inputs">
-        <label>Precio promedio del plan Abbondanza (por mes, 4 entregas)</label>
+        <label>Precio Abbondanza / mes (50% del mix)</label>
         <div class="slider-row">
           <input type="range" id="precio" min="60000" max="600000" step="5000" value="180000" />
           <span class="value" id="precio-v">$ 180.000</span>
         </div>
-        <p class="hint">Sabe la Tierra: $90–140K. Markets premium: $160–220K. Vos buscás premium.</p>
+        <p class="hint">Autosincronizado con la sección 05 cuando cambiás el markup. Movelo manualmente si querés sobreescribir.</p>
 
-        <label>Costo del cajón al productor (por entrega)</label>
+        <label>Costo Abbondanza / entrega</label>
         <div class="slider-row">
           <input type="range" id="costo" min="10000" max="150000" step="2500" value="40000" />
           <span class="value" id="costo-v">$ 40.000</span>
         </div>
-        <p class="hint">≈ 4 entregas × $40K = $160K de costo mensual por cliente. Por debajo del 60% del precio es saludable.</p>
+        <p class="hint">El costo real surge de la composición editable arriba. 4 entregas/mes × este costo = tu costo mensual por cliente Abbondanza.</p>
 
         <label>Gastos fijos operativos del negocio (por mes)</label>
         <div class="slider-row">
@@ -1193,7 +1193,7 @@ footer {
       <div class="calc-output">
         <div class="out-label">Para tu sueldo objetivo</div>
         <div class="out-big" id="out-clientes">28</div>
-        <div class="out-sub">clientes Abbondanza activos</div>
+        <div class="out-sub">clientes para empatar tu sueldo · mix recomendado 30/50/20</div>
 
         <div class="out-row">
           <span>Margen bruto por cliente / mes</span>
@@ -1216,14 +1216,14 @@ footer {
   </div>
 
   <div class="kpi-row">
-    <div class="kpi"><div class="kpi-num" id="kpi-piccolo">21</div><div class="kpi-lbl">si fueran Piccolo</div></div>
-    <div class="kpi"><div class="kpi-num" id="kpi-famiglia">38</div><div class="kpi-lbl">si fueran Famiglia</div></div>
-    <div class="kpi"><div class="kpi-num" id="kpi-mix">28</div><div class="kpi-lbl">mix 30/50/20</div></div>
-    <div class="kpi"><div class="kpi-num" id="kpi-deficit">42</div><div class="kpi-lbl">para cubrir $5.91M</div></div>
+    <div class="kpi"><div class="kpi-num" id="kpi-piccolo">—</div><div class="kpi-lbl">100% Picolo</div></div>
+    <div class="kpi"><div class="kpi-num" id="kpi-famiglia">—</div><div class="kpi-lbl">100% Famiglia</div></div>
+    <div class="kpi"><div class="kpi-num" id="kpi-mix">—</div><div class="kpi-lbl">100% Abbondanza</div></div>
+    <div class="kpi"><div class="kpi-num" id="kpi-deficit">—</div><div class="kpi-lbl">mix · cubrir déficit $5.91M</div></div>
   </div>
 
   <div class="note">
-    <strong>Plan operativo realista:</strong> con 10 clientes confirmados al mes 1, +5 nuevos por mes vía red personal e IG, llegás a 30 clientes al mes 5. Si el deck operativo estimó ~50 clientes para "fase 1", esta calculadora dice que con 28 ya empatás tu sueldo — más holgado que el plan original.
+    <strong>El recomendado es el mix 30/50/20:</strong> es la mezcla típica de clientes reales — 30% Picolo (parejas, vivienda chica), 50% Abbondanza (familias grandes, oficinas, cocineros intensivos) y 20% Famiglia. Con ese mix necesitás muchos menos clientes que apostando todo a un solo cajón. <strong>Plan operativo:</strong> 10 clientes confirmados al mes 1, +5 nuevos por mes vía red personal e IG. Llegás al número objetivo entre el mes 7-12 dependiendo del markup que elijas arriba.
   </div>
 </section>
 
@@ -1565,42 +1565,55 @@ footer {
     document.getElementById('kx-pct').textContent = pct + ' % margen';
   }
 
+  function syncSlidersToAbbondanza() {
+    const v = cajonValues.abbondanza;
+    if (!v) return;
+    const precioEl = document.getElementById('precio');
+    const costoEl = document.getElementById('costo');
+    const round = (x, step) => Math.round(x / step) * step;
+    precioEl.value = Math.min(Math.max(round(v.precioMes, 5000), +precioEl.min), +precioEl.max);
+    costoEl.value = Math.min(Math.max(round(v.costo, 2500), +costoEl.min), +costoEl.max);
+  }
+
   function calc() {
-    const precio = +document.getElementById('precio').value;
-    const costo = +document.getElementById('costo').value;
+    const precioAbb = +document.getElementById('precio').value;
+    const costoAbb = +document.getElementById('costo').value;
     const opex = +document.getElementById('opex').value;
     const paola = +document.getElementById('paola').value;
     const objetivo = +document.getElementById('objetivo').value;
 
-    document.getElementById('precio-v').textContent = fmt(precio);
-    document.getElementById('costo-v').textContent = fmt(costo);
+    document.getElementById('precio-v').textContent = fmt(precioAbb);
+    document.getElementById('costo-v').textContent = fmt(costoAbb);
     document.getElementById('opex-v').textContent = fmt(opex);
     document.getElementById('paola-v').textContent = fmt(paola);
     document.getElementById('objetivo-v').textContent = fmt(objetivo);
 
-    const costoMensual = costo * 4;
-    const margen = precio - costoMensual;
     const brutoNeed = objetivo + opex + paola;
-    const clientes = margen > 0 ? Math.ceil(brutoNeed / margen) : Infinity;
-    const facturacion = clientes * precio;
-
-    document.getElementById('out-clientes').textContent = isFinite(clientes) ? clientes : '∞';
-    document.getElementById('out-margen').textContent = fmt(margen);
-    document.getElementById('out-brutoneed').textContent = fmt(brutoNeed);
-    document.getElementById('out-facturacion').textContent = isFinite(facturacion) ? fmt(facturacion) : '—';
-
-    const meses = isFinite(clientes) && clientes > 10 ? Math.ceil((clientes - 10) / 5) : 0;
-    document.getElementById('out-meses').textContent = meses > 0 ? (meses + 1) + ' meses para llegar' : 'desde el mes 1';
 
     const margenP = cajonValues.picolo ? cajonValues.picolo.margenMes : 0;
     const margenF = cajonValues.famiglia ? cajonValues.famiglia.margenMes : 0;
-    const margenA = cajonValues.abbondanza ? cajonValues.abbondanza.margenMes : margen;
+    const margenA = precioAbb - (costoAbb * 4);
+
+    const precioP = cajonValues.picolo ? cajonValues.picolo.precioMes : 0;
+    const precioF = cajonValues.famiglia ? cajonValues.famiglia.precioMes : 0;
+
+    const margenMix = 0.30 * margenP + 0.50 * margenA + 0.20 * margenF;
+    const precioMix = 0.30 * precioP + 0.50 * precioAbb + 0.20 * precioF;
+
+    const clientesMix = margenMix > 0 ? Math.ceil(brutoNeed / margenMix) : Infinity;
+    const facturacionMix = isFinite(clientesMix) ? clientesMix * precioMix : 0;
+
+    document.getElementById('out-clientes').textContent = isFinite(clientesMix) ? clientesMix : '∞';
+    document.getElementById('out-margen').textContent = fmt(margenMix);
+    document.getElementById('out-brutoneed').textContent = fmt(brutoNeed);
+    document.getElementById('out-facturacion').textContent = isFinite(facturacionMix) ? fmt(facturacionMix) : '—';
+
+    const meses = isFinite(clientesMix) && clientesMix > 10 ? Math.ceil((clientesMix - 10) / 5) : 0;
+    document.getElementById('out-meses').textContent = meses > 0 ? (meses + 1) + ' meses para llegar' : 'desde el mes 1';
 
     document.getElementById('kpi-piccolo').textContent = margenP > 0 ? Math.ceil(brutoNeed / margenP) : '∞';
     document.getElementById('kpi-famiglia').textContent = margenF > 0 ? Math.ceil(brutoNeed / margenF) : '∞';
-
-    const margenMix = 0.30 * margenP + 0.50 * margenA + 0.20 * margenF;
-    document.getElementById('kpi-mix').textContent = margenMix > 0 ? Math.ceil(brutoNeed / margenMix) : '∞';
+    document.getElementById('kpi-mix').textContent = margenA > 0 ? Math.ceil(brutoNeed / margenA) : '∞';
 
     const brutoNeedDef = GASTOS_REALES + opex + paola;
     document.getElementById('kpi-deficit').textContent = margenMix > 0 ? Math.ceil(brutoNeedDef / margenMix) : '∞';
@@ -1608,6 +1621,7 @@ footer {
 
   function refreshAll() {
     recomputeCajones();
+    syncSlidersToAbbondanza();
     renderCajon();
     calc();
   }
