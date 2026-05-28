@@ -626,6 +626,184 @@ footer {
   main { max-width: none; }
   section.block { padding: 24px 0; page-break-inside: avoid; }
 }
+
+/* Cajón builder */
+.cajon-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.cajon-tab {
+  background: var(--crema-soft);
+  border: 1px solid var(--oliva-soft);
+  color: var(--oliva-profundo);
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+.cajon-tab:hover { border-color: var(--oliva); background: #fff; }
+.cajon-tab.active {
+  background: var(--oliva-profundo);
+  color: var(--crema);
+  border-color: var(--oliva-profundo);
+}
+.cajon-panel {
+  background: #fff;
+  border: 1px solid var(--oliva-soft);
+  border-radius: 8px;
+  padding: 24px;
+}
+.cajon-meta { margin-bottom: 18px; }
+.cajon-meta h3 {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 26px;
+  color: var(--oliva-profundo);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.cajon-meta p {
+  font-family: "Fraunces", serif;
+  font-size: 14px;
+  color: var(--oliva-texto);
+}
+.cajon-table th, .cajon-table td { padding: 9px 10px; font-size: 13px; }
+.cajon-table .qty-input {
+  width: 70px;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  padding: 4px 8px;
+  border: 1px solid var(--oliva-soft);
+  border-radius: 4px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  background: #fff;
+}
+.cajon-table .qty-input:focus {
+  outline: 2px solid var(--oliva-profundo);
+  border-color: var(--oliva-profundo);
+}
+.cajon-table tfoot td {
+  background: var(--crema-soft);
+  color: var(--oliva-profundo);
+  border-top: 2px solid var(--madera);
+}
+.cajon-control {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+  margin-top: 24px;
+}
+@media (max-width: 720px) {
+  .cajon-control { grid-template-columns: 1fr; }
+}
+.cajon-output {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.ko {
+  background: var(--crema-soft);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.ko-label {
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--madera);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.ko-amount {
+  font-family: "Fraunces", serif;
+  font-variation-settings: "SOFT" 40, "opsz" 144;
+  font-size: 22px;
+  color: var(--oliva-profundo);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.ko.highlight { background: #f5f9f3; border: 1px solid var(--oliva-soft); }
+.ko.highlight .ko-amount { color: var(--verde-ok); }
+.ko-sub {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--oliva-texto);
+  margin-top: 4px;
+}
+.cajon-markup {
+  background: var(--crema);
+  border: 1px solid var(--oliva-soft);
+  border-radius: 6px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+}
+.cajon-markup label {
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--oliva-profundo);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.cajon-markup .slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.cajon-markup input[type="range"] {
+  flex: 1;
+  accent-color: var(--oliva-profundo);
+  height: 4px;
+}
+.cajon-markup .value {
+  min-width: 60px;
+  text-align: right;
+  font-family: "Fraunces", serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--oliva-profundo);
+  font-variant-numeric: tabular-nums;
+}
+.cajon-markup .hint {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--oliva-texto);
+  margin-bottom: 14px;
+  line-height: 1.4;
+  flex: 1;
+}
+.btn-primary {
+  width: 100%;
+  background: var(--oliva-profundo);
+  color: var(--crema);
+  border: none;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 12px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 180ms ease;
+}
+.btn-primary:hover { background: var(--oliva-mas-oscuro); }
 </style>
 </head>
 <body>
@@ -651,6 +829,7 @@ footer {
     <a href="#gap">Lo que tu nota olvidó</a>
     <a href="#detalle">Gasto real por categoría</a>
     <a href="#runway">Cuánto bancás</a>
+    <a href="#cajones">Catálogo y cajones</a>
     <a href="#breakeven">Calculadora Spiga</a>
     <a href="#preguntas">Lo que falta saber</a>
     <a href="#recomendaciones">Próximos pasos</a>
@@ -673,23 +852,23 @@ footer {
 
     <div class="card bad">
       <div class="card-label">Gasto mensual real estimado</div>
-      <div class="card-amount">$ 5.987.000</div>
+      <div class="card-amount">$ 5.907.000</div>
       <div class="card-sub">Tus categorías declaradas + lo que apareció solo en las tarjetas</div>
-      <div class="card-context">Tu suma manual daba $4.55M. Las tarjetas agregaron $1.44M de gastos reales que no estaban anotados (gas, agua, peajes, nafta, seguro auto, Cabify, farmacia, restaurants).</div>
+      <div class="card-context">Tu suma manual daba $4.55M. Las tarjetas agregaron $1.36M de gastos reales que no estaban anotados (gas, agua, peajes, nafta, seguro auto, Cabify, farmacia, restaurants). Ajustado: internet no lo pagás vos, celular Personal son $70K (no $100K).</div>
     </div>
 
     <div class="card bad">
       <div class="card-label">Déficit mensual</div>
-      <div class="card-amount">− $ 1.869.000</div>
+      <div class="card-amount">− $ 1.789.485</div>
       <div class="card-sub">Lo que cada mes sale de los ahorros</div>
-      <div class="card-context">Esto explica tu sensación: estás cubriendo casi 2 millones de pesos al mes con ahorros. Tu cuenta lo intuía, los números lo confirman.</div>
+      <div class="card-context">Estás cubriendo casi $1.8M al mes con ahorros. Pero ojo: a partir del <strong>mes 9</strong>, cuando termina la cuota del auto ($1.6M), el déficit cae a ~$190K. Casi breakeven sin tocar nada más.</div>
     </div>
 
-    <div class="card warn">
+    <div class="card good">
       <div class="card-label">Ahorros disponibles</div>
       <div class="card-amount">USD 20.000</div>
       <div class="card-sub">≈ $ 28.000.000 al MEP (≈ $1.400/USD)</div>
-      <div class="card-context">Al ritmo actual de quemado ($1.87M/mes), te quedan aproximadamente <strong>15 meses</strong> de cobertura. <em>Con</em> tu sueldo. Sin él, menos.</div>
+      <div class="card-context">Al ritmo actual ($1.79M/mes) bancan ~15 meses, <strong>pero la cuota del auto cae en el mes 9</strong> ($1.6M/mes menos). Después del mes 9, el déficit es de $190K — los ahorros bancan otros 60+ meses. El verdadero reloj es ese.</div>
     </div>
   </div>
 
@@ -718,7 +897,7 @@ footer {
     <div class="gap-row">
       <div class="cat">Internet / cable</div>
       <div class="said">$ 0</div>
-      <div class="real">a confirmar — Personal $70K puede ser celular o internet</div>
+      <div class="real">$ 0 — confirmado: lo paga otro. Personal $70K es celular.</div>
     </div>
     <div class="gap-row">
       <div class="cat">Transporte / nafta</div>
@@ -788,8 +967,8 @@ footer {
         <tr><td class="cat">Alquiler / expensas</td><td class="num">$ 550.000</td><td>Manual</td><td>—</td></tr>
         <tr><td class="cat">Gas (Naturgy)</td><td class="num">$ 91.000</td><td>Mastercard</td><td class="tag-new">no estaba en tu lista</td></tr>
         <tr><td class="cat">Agua / Modoqri</td><td class="num">$ 92.000</td><td>Mastercard</td><td class="tag-new">no estaba en tu lista</td></tr>
-        <tr><td class="cat">Internet / cable</td><td class="num">$ 50.000</td><td>Estimado</td><td>verificar</td></tr>
-        <tr><td class="cat">Celular (Personal)</td><td class="num">$ 100.000</td><td>Manual + VISA</td><td>—</td></tr>
+        <tr><td class="cat">Internet / cable</td><td class="num">$ 0</td><td>Confirmado</td><td>no lo pagás vos</td></tr>
+        <tr><td class="cat">Celular Personal</td><td class="num">$ 70.000</td><td>VISA</td><td>confirmado</td></tr>
 
         <tr class="row-section"><td colspan="4">Auto y transporte</td></tr>
         <tr><td class="cat">Cuota del auto</td><td class="num">$ 1.600.000</td><td>Manual</td><td><strong>verificar cuántas cuotas faltan</strong></td></tr>
@@ -821,8 +1000,8 @@ footer {
 
         <tr class="total">
           <td class="cat">TOTAL MENSUAL</td>
-          <td class="num">$ 5.987.000</td>
-          <td colspan="2">vs ingreso $ 4.117.515 = déficit mensual $ 1.869.000</td>
+          <td class="num">$ 5.907.000</td>
+          <td colspan="2">vs ingreso $ 4.117.515 = déficit mensual $ 1.789.485</td>
         </tr>
       </tbody>
     </table>
@@ -836,58 +1015,139 @@ footer {
 <!-- 4 — RUNWAY -->
 <section class="block section-id" id="runway">
   <span class="block-label">04 · Cuánto te bancan los ahorros</span>
-  <h2>Tres escenarios <em>de qué pasa si.</em></h2>
-  <p class="block-desc">Asumimos USD 20.000 al MEP ≈ $28.000.000 ARS. Estos números son si <em>nada cambia</em> — ni reducción de gastos, ni un peso de Spiga. Son tu piso. Cualquier cosa que hagas a partir de acá, lo mejora.</p>
+  <h2>Todo gira alrededor <em>del mes 9.</em></h2>
+  <p class="block-desc">USD 20.000 al MEP ≈ $28M ARS. Las 8 cuotas restantes del auto convierten el problema en un cronograma claro: aguantar 8 meses con la estructura actual, y al mes 9 cae solo el gasto más grande del presupuesto. Cualquier plan razonable está ordenado alrededor de esa fecha.</p>
 
   <div class="scen-grid">
-    <div class="scen bad">
-      <div class="scen-name">A · Seguís igual</div>
-      <div class="scen-amount">15 meses</div>
-      <div class="scen-sub">Con sueldo, sin cambios</div>
+    <div class="scen mid">
+      <div class="scen-name">A · Seguís igual 8 meses, luego respira</div>
+      <div class="scen-amount">~50+ meses</div>
+      <div class="scen-sub">Mantenés trabajo · esperás que caiga la cuota del auto</div>
       <ul>
-        <li>Mantenés el trabajo</li>
-        <li>Gastos siguen en $5.99M</li>
-        <li>Déficit mensual $1.87M sale de ahorros</li>
-        <li>En 15 meses se acaban los USD 20.000</li>
-        <li><strong>El problema empeora, no se resuelve</strong></li>
+        <li>Meses 1-8: déficit $1.79M/mes — quemás ~$14.3M de ahorros</li>
+        <li>Mes 9: cae la cuota del auto ($1.6M)</li>
+        <li>Mes 9 en adelante: déficit cae a $190K/mes</li>
+        <li>Quedan $13.7M para bancar ~70 meses más</li>
+        <li><strong>El monstruo se resuelve solo en 8 meses</strong></li>
       </ul>
     </div>
 
-    <div class="scen mid">
-      <div class="scen-name">B · Salto sin red</div>
+    <div class="scen bad">
+      <div class="scen-name">B · Renuncia ya, sin Spiga</div>
       <div class="scen-amount">5 meses</div>
-      <div class="scen-sub">Dejás trabajo · sin Spiga · sin recortes</div>
+      <div class="scen-sub">Salís del trabajo · sin ingresos del negocio</div>
       <ul>
         <li>Renunciás al sueldo $4.12M</li>
-        <li>Gastos siguen igual $5.99M</li>
-        <li>Ahorros bancan ~5 meses puro</li>
-        <li>Plus $2.8M de gastos de programador en 12 meses</li>
-        <li><strong>Inviable</strong> sin reducir o sin ingresos del negocio</li>
+        <li>+ prepaga nueva $240K (obra social trabajo se va)</li>
+        <li>- MeryGo $220K, - Cabify $40K, - peajes parciales</li>
+        <li>Gastos netos ~$5.75M, quema completa</li>
+        <li>Ahorros bancan ~5 meses — la cuota del auto no llega a caer</li>
+        <li><strong>Inviable salir antes del mes 8</strong></li>
       </ul>
     </div>
 
     <div class="scen good">
-      <div class="scen-name">C · Salto preparado</div>
-      <div class="scen-amount">9–12 meses</div>
-      <div class="scen-sub">Dejás trabajo · recortes razonables · Spiga arranca</div>
+      <div class="scen-name">C · Trabajo + Spiga 8 meses, salto al mes 9</div>
+      <div class="scen-amount">indefinido</div>
+      <div class="scen-sub">Aprovechás los 8 meses para arrancar Spiga en paralelo</div>
       <ul>
-        <li>Recortás ≈ $1.2M/mes (auto, Cabify, comedor del trabajo, restaurants)</li>
-        <li>Gasto baja a ~$4.8M/mes</li>
-        <li>Si Spiga genera $1-2M netos al mes 3, runway sube a 9-12 meses</li>
-        <li>Si llegás a breakeven a los 12 meses, salís adelante</li>
-        <li><strong>Es el escenario que hay que armar</strong></li>
+        <li>Meses 1-8: trabajo + Spiga part-time = 10-20 clientes piloto</li>
+        <li>Pausás padel (-$200K/mes) y bajás gastos opcionales</li>
+        <li>Aprendés costos reales, refinás precios, validás operativa</li>
+        <li>Mes 9: cae cuota del auto + renunciás → gastos $4.15M</li>
+        <li>Si Spiga ya da $2-3M netos, déficit es cero o positivo</li>
+        <li><strong>Es el plan que la matemática pide</strong></li>
       </ul>
     </div>
   </div>
 
   <div class="note">
-    El escenario C no es un sueño — es lo que pasa si: <strong>(1)</strong> dejás el auto financiado o pagás la cuota antes (la cuota de $1.6M es el monstruo del presupuesto), <strong>(2)</strong> los gastos "trabajando" caen solos al no ir a la oficina (Cabify, MaryGo si es del trabajo, peajes diarios), <strong>(3)</strong> Spiga arranca con los 10 clientes iniciales pensados.
+    La revelación es <strong>el mes 9</strong>. Las 8 cuotas restantes del auto son el reloj que organiza todo el plan. No tiene sentido renunciar antes — pero tampoco tiene sentido esperar a renunciar para arrancar Spiga. <em>Los 8 meses son para construir el negocio en paralelo</em>: red de clientes piloto, validar precios reales (sección 05 arriba), ajustar operativa con Paola, y llegar al mes 9 con el negocio andando y la cuota del auto fuera de la ecuación.
+  </div>
+</section>
+
+<!-- 4.5 — CATÁLOGO Y CAJONES -->
+<section class="block section-id" id="cajones">
+  <span class="block-label">05 · Catálogo y armado de cajones</span>
+  <h2>Tus dos distribuidores, <em>traducidos a margen real.</em></h2>
+  <p class="block-desc">La lista 2705 PDF (mayorista por bulto) es tu costo más bajo. La lista pública por kg/unidad es lo que el cliente pagaría suelto en una verdulería — es tu referencia de valor. Para cada cajón usamos el más barato de los dos como costo, y la pública como benchmark. Editá las cantidades, jugá con el markup, mirá el margen. Después volcás esos números a la calculadora de abajo con un click.</p>
+
+  <div class="cajon-tabs">
+    <button data-cajon="picolo" class="cajon-tab active" type="button">Picolo</button>
+    <button data-cajon="famiglia" class="cajon-tab" type="button">Famiglia</button>
+    <button data-cajon="abbondanza" class="cajon-tab" type="button">Abbondanza</button>
+    <button data-cajon="frutta_fam" class="cajon-tab" type="button">Frutta Famiglia</button>
+    <button data-cajon="frutta_abb" class="cajon-tab" type="button">Frutta Abbondanza</button>
+  </div>
+
+  <div class="cajon-panel">
+    <div class="cajon-meta">
+      <h3 id="cajon-nombre">Picolo</h3>
+      <p id="cajon-desc"></p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data cajon-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Unidad</th>
+            <th class="num">Cantidad</th>
+            <th class="num">D1 mayorista</th>
+            <th class="num">D2 público</th>
+            <th class="num">Costo (más bajo)</th>
+            <th class="num">Valor retail</th>
+          </tr>
+        </thead>
+        <tbody id="cajon-tbody"></tbody>
+        <tfoot id="cajon-tfoot"></tfoot>
+      </table>
+    </div>
+
+    <div class="cajon-control">
+      <div class="cajon-output">
+        <div class="ko">
+          <div class="ko-label">Costo / entrega</div>
+          <div class="ko-amount" id="kx-costo">$ 0</div>
+          <div class="ko-sub" id="kx-costo-mes">$ 0 / mes (4 entregas)</div>
+        </div>
+        <div class="ko">
+          <div class="ko-label">Valor retail / entrega</div>
+          <div class="ko-amount" id="kx-retail">$ 0</div>
+          <div class="ko-sub">lo que pagaría suelto</div>
+        </div>
+        <div class="ko highlight">
+          <div class="ko-label">Precio sugerido / mes</div>
+          <div class="ko-amount" id="kx-precio">$ 0</div>
+          <div class="ko-sub" id="kx-precio-entrega">$ 0 por entrega</div>
+        </div>
+        <div class="ko highlight">
+          <div class="ko-label">Margen / cliente / mes</div>
+          <div class="ko-amount" id="kx-margen">$ 0</div>
+          <div class="ko-sub" id="kx-pct">0 % margen</div>
+        </div>
+      </div>
+
+      <div class="cajon-markup">
+        <label>Markup sobre costo</label>
+        <div class="slider-row">
+          <input type="range" id="markup" min="1.2" max="3.0" step="0.05" value="1.8" />
+          <span class="value" id="markup-v">1.80×</span>
+        </div>
+        <p class="hint">1.5× = mínimo viable. 1.8× = margen sano (sugerido). 2.0×+ = positioning premium real. El markup se aplica a los 5 cajones por igual.</p>
+        <button id="usar-calc" type="button" class="btn-primary">Usar este cajón en la calculadora ↓</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Cómo leerlo:</strong> el costo asume que comprás cada item al distribuidor más barato (el sistema elige el menor entre D1 y D2). El "valor retail" es lo que pagaría un cliente comprando los mismos items sueltos en cualquier verdulería de la zona — es tu piso de valor. La diferencia entre el precio sugerido y el valor retail es tu premium de positioning (curaduría, entrega, marca).
   </div>
 </section>
 
 <!-- 5 — BREAKEVEN -->
 <section class="block section-id" id="breakeven">
-  <span class="block-label">05 · Calculadora Spiga</span>
+  <span class="block-label">06 · Calculadora Spiga</span>
   <h2>Cuántos clientes <em>para empatar tu sueldo.</em></h2>
   <p class="block-desc">Mové los controles para probar precios, costos y mix. Como aún no cargaste precios en el form, dejé valores tentativos basados en el mercado argentino de cajones premium (Sabe la Tierra, La Pampa, etc.). Ajustalos.</p>
 
@@ -896,14 +1156,14 @@ footer {
       <div class="calc-inputs">
         <label>Precio promedio del plan Abbondanza (por mes, 4 entregas)</label>
         <div class="slider-row">
-          <input type="range" id="precio" min="60000" max="350000" step="5000" value="180000" />
+          <input type="range" id="precio" min="60000" max="600000" step="5000" value="180000" />
           <span class="value" id="precio-v">$ 180.000</span>
         </div>
         <p class="hint">Sabe la Tierra: $90–140K. Markets premium: $160–220K. Vos buscás premium.</p>
 
         <label>Costo del cajón al productor (por entrega)</label>
         <div class="slider-row">
-          <input type="range" id="costo" min="15000" max="90000" step="2500" value="40000" />
+          <input type="range" id="costo" min="10000" max="150000" step="2500" value="40000" />
           <span class="value" id="costo-v">$ 40.000</span>
         </div>
         <p class="hint">≈ 4 entregas × $40K = $160K de costo mensual por cliente. Por debajo del 60% del precio es saludable.</p>
@@ -927,7 +1187,7 @@ footer {
           <input type="range" id="objetivo" min="2000000" max="8000000" step="100000" value="4117515" />
           <span class="value" id="objetivo-v">$ 4.117.515</span>
         </div>
-        <p class="hint">Tu sueldo actual neto. Subilo si querés cubrir el déficit completo ($5.99M).</p>
+        <p class="hint">Tu sueldo actual neto. Subilo si querés cubrir el déficit completo ($5.91M).</p>
       </div>
 
       <div class="calc-output">
@@ -959,7 +1219,7 @@ footer {
     <div class="kpi"><div class="kpi-num" id="kpi-piccolo">21</div><div class="kpi-lbl">si fueran Piccolo</div></div>
     <div class="kpi"><div class="kpi-num" id="kpi-famiglia">38</div><div class="kpi-lbl">si fueran Famiglia</div></div>
     <div class="kpi"><div class="kpi-num" id="kpi-mix">28</div><div class="kpi-lbl">mix 30/50/20</div></div>
-    <div class="kpi"><div class="kpi-num" id="kpi-deficit">42</div><div class="kpi-lbl">para cubrir $5.99M</div></div>
+    <div class="kpi"><div class="kpi-num" id="kpi-deficit">42</div><div class="kpi-lbl">para cubrir $5.91M</div></div>
   </div>
 
   <div class="note">
@@ -969,58 +1229,58 @@ footer {
 
 <!-- 6 — PREGUNTAS ABIERTAS -->
 <section class="block section-id" id="preguntas">
-  <span class="block-label">06 · Lo que falta saber</span>
-  <h2>Antes de seguir, <em>hay que aclarar esto.</em></h2>
-  <p class="block-desc">Estas son las preguntas concretas que el análisis dejó abiertas. Cada una cambia un número importante. Cuando las respondas, refinamos el modelo.</p>
+  <span class="block-label">07 · Las 7 respondidas — y lo que implican</span>
+  <h2>Esto es lo que cambia <em>con tus respuestas.</em></h2>
+  <p class="block-desc">Cada una de estas preguntas movía un número importante. Ya las respondiste. Acá está el impacto concreto sobre el plan.</p>
 
   <div class="q-list">
     <div class="q">
       <span class="q-num">01</span>
       <div class="q-text">
-        <strong>¿Cuántas cuotas más del auto quedan?</strong>
-        Esa cuota de $1.600.000 es el monstruo del presupuesto. Si quedan 6 cuotas, en medio año cae casi 2M de gasto fijo. Si quedan 36, hay que pensar refinanciar o vender. <em>Si la cancelás con los ahorros, ¿cuánto recuperás?</em>
+        <strong>Cuotas del auto: 8 que quedan.</strong>
+        <em>Implicación enorme.</em> A partir del <strong>mes 9</strong>, caen $1.600.000/mes de gasto fijo. Tu déficit pasa de $1.79M a ~$190K — casi breakeven sin tocar nada más. Si Spiga arranca con 3-5 clientes en ese momento, ya estás en positivo. <strong>El plan se acomoda alrededor de esos 8 meses.</strong>
       </div>
     </div>
     <div class="q">
       <span class="q-num">02</span>
       <div class="q-text">
-        <strong>¿Qué es "MaryGo"?</strong>
-        Aparecen consumos de $7.590 casi todos los días en la Santander VISA, ~$220K/mes. Si es la cantina del trabajo, se elimina cuando renuncias. Si es algo de Nacho (guardería, transporte), sigue. <em>Esto cambia el escenario C por $200K.</em>
+        <strong>MeryGo: combi al trabajo.</strong>
+        $220.000/mes que desaparecen el día que renunciás. Sumado a Cabify ($40K) y peajes ($134K) que también caen o bajan fuerte, son ~$400K/mes que se autocorrigen al salir del trabajo. <em>Sin recortar nada propio.</em>
       </div>
     </div>
     <div class="q">
       <span class="q-num">03</span>
       <div class="q-text">
-        <strong>¿La obra social la cubre el trabajo o la pagás por afuera?</strong>
-        En el recibo veo "O.S. de Capataces Estibadores Portuarios" como deducción. Si renunciás, perdés esa cobertura para vos y Nacho. <em>Prepaga similar costaría $180–280K/mes</em> (Swiss/Galeno/OSDE plan medio).
+        <strong>Obra social: la cubre el trabajo.</strong>
+        Al renunciar, perdés esa cobertura para vos y Nacho. Una prepaga similar (Swiss/Galeno/OSDE plan medio) cuesta <strong>$200–280K/mes</strong>. Es un costo nuevo que el escenario C tiene que absorber. <em>Sumalo al opex del negocio o tratalo como gasto personal post-renuncia.</em>
       </div>
     </div>
     <div class="q">
       <span class="q-num">04</span>
       <div class="q-text">
-        <strong>¿Cuánto pagás de internet/cable?</strong>
-        No apareció claramente en tarjetas. ¿Telecentro, Fibertel, Movistar Home? El gasto típico es $40–80K/mes. <em>Lo dejé estimado.</em>
+        <strong>Personal $70K = celular. Internet no lo pagás vos.</strong>
+        Sacamos $50K de internet del cuadro y bajamos celular de $100K a $70K. <em>Ya aplicado:</em> gastos mensuales bajan a $5.907M, déficit a $1.79M.
       </div>
     </div>
     <div class="q">
       <span class="q-num">05</span>
       <div class="q-text">
-        <strong>¿El "Padel" es club mensual o canchas sueltas?</strong>
-        $200K/mes es alto para canchas sueltas. Si es una membresía de club, hay manera de bajarlo o pausarlo durante el arranque.
+        <strong>Padel: mensual $200K confirmado.</strong>
+        Es membresía. Si pausás durante los primeros 6 meses del arranque de Spiga, sumás <strong>+$1.2M de runway</strong> sin afectar nada estructural. Cuando estabilices, lo retomás.
       </div>
     </div>
     <div class="q">
       <span class="q-num">06</span>
       <div class="q-text">
-        <strong>¿Tenés ingreso pasivo o aporte de pareja que no anotaste?</strong>
-        Pregunto porque el déficit de $1.87M/mes lleva meses ocurriendo y los ahorros no se ven afectados al ritmo que correspondería. <em>O hay otro ingreso, o los ahorros bajan más rápido de lo que percibís</em>. Una de las dos.
+        <strong>No hay otro ingreso ni aporte de pareja.</strong>
+        Confirmado. Los ahorros bajan al ritmo del déficit ($1.79M/mes). <em>Acción urgente:</em> verificá el saldo real de los USD 20.000 contra lo que esperabas — si no cuadra, los ahorros están bajando más rápido de lo que percibís y el runway de 15 meses se acorta.
       </div>
     </div>
     <div class="q">
       <span class="q-num">07</span>
       <div class="q-text">
-        <strong>¿Los precios y costos de Spiga que pensás?</strong>
-        El form llegó vacío en esos campos. Decidir esto es la próxima conversación — pero la calculadora de arriba ya te deja jugar con escenarios para tomar la decisión informada.
+        <strong>Precios Spiga: subiste los dos distribuidores.</strong>
+        <em>Procesados.</em> Mirá la sección <a href="#cajones" style="color: var(--oliva-profundo); text-decoration: underline;">05 · Catálogo y armado de cajones</a> arriba — los 5 cajones (Picolo, Famiglia, Abbondanza y los dos Frutta) están dimensionados con costos reales del PDF mayorista y benchmark de retail público. Ya podés jugar con cantidades y markup, y volcarlo a la calculadora.
       </div>
     </div>
   </div>
@@ -1028,7 +1288,7 @@ footer {
 
 <!-- 7 — RECOMENDACIONES -->
 <section class="block section-id" id="recomendaciones">
-  <span class="block-label">07 · Próximos pasos</span>
+  <span class="block-label">08 · Próximos pasos</span>
   <h2>Qué haría yo <em>en tu lugar, esta semana.</em></h2>
   <p class="block-desc">No es un plan de "achicate y sufrí" — es un plan para llegar al día del salto con margen, no al borde.</p>
 
@@ -1084,8 +1344,226 @@ footer {
     return '$ ' + Math.round(n).toLocaleString('es-AR');
   }
 
-  const SUELDO = 4117515;
-  const GASTOS_REALES = 5987000;
+  const GASTOS_REALES = 5907000;
+
+  const productos = {
+    lechuga_manteca: { nombre: 'Lechuga manteca', unidad: 'kg', d1: 2500, d2: 2500 },
+    lechuga_criolla: { nombre: 'Lechuga criolla', unidad: 'kg', d1: 2667, d2: 3000 },
+    tomate_perita:   { nombre: 'Tomate perita',   unidad: 'kg', d1: 1833, d2: 2500 },
+    tomate_cherry:   { nombre: 'Tomate cherry',   unidad: 'kg', d1: 2900, d2: 3000 },
+    cebolla:         { nombre: 'Cebolla',         unidad: 'kg', d1: 882,  d2: 1500 },
+    cebolla_morada:  { nombre: 'Cebolla morada',  unidad: 'kg', d1: 1176, d2: 1800 },
+    papa_negra:      { nombre: 'Papa negra',      unidad: 'kg', d1: 778,  d2: 1350 },
+    papin:           { nombre: 'Papín andino',    unidad: 'kg', d1: 3000, d2: 2500 },
+    zanahoria:       { nombre: 'Zanahoria',       unidad: 'kg', d1: 1000, d2: 1000 },
+    anco:            { nombre: 'Anco / calabaza', unidad: 'kg', d1: 833,  d2: 1000 },
+    batata:          { nombre: 'Batata',          unidad: 'kg', d1: 1000, d2: 1500 },
+    brocoli:         { nombre: 'Brócoli',         unidad: 'un', d1: 3000, d2: 4200 },
+    coliflor:        { nombre: 'Coliflor',        unidad: 'un', d1: 2000, d2: 4500 },
+    zapallito:       { nombre: 'Zapallito',       unidad: 'kg', d1: 2222, d2: 3500 },
+    berenjena:       { nombre: 'Berenjena',       unidad: 'kg', d1: 2300, d2: 2500 },
+    pepino:          { nombre: 'Pepino',          unidad: 'kg', d1: 2222, d2: 3000 },
+    morron_rojo:     { nombre: 'Morrón rojo',     unidad: 'kg', d1: 3750, d2: 4500 },
+    espinaca:        { nombre: 'Espinaca',        unidad: 'atado', d1: 1250, d2: 1300 },
+    acelga:          { nombre: 'Acelga',          unidad: 'atado', d1: 1000, d2: 1500 },
+    rucula:          { nombre: 'Rúcula',          unidad: 'atado', d1: 208,  d2: 200 },
+    apio:            { nombre: 'Apio',            unidad: 'un',    d1: 1500, d2: 2000 },
+    perejil:         { nombre: 'Perejil',         unidad: 'atado', d1: 1500, d2: 2500 },
+    albahaca:        { nombre: 'Albahaca',        unidad: 'un',    d1: 900,  d2: 1500 },
+    banana:          { nombre: 'Banana',          unidad: 'kg',    d1: 1778, d2: 2500 },
+    manzana_roja:    { nombre: 'Manzana roja',    unidad: 'kg',    d1: 2000, d2: 2000 },
+    pera:            { nombre: 'Pera',            unidad: 'kg',    d1: 1500, d2: 2000 },
+    naranja_jugo:    { nombre: 'Naranja jugo',    unidad: 'kg',    d1: 722,  d2: 1000 },
+    mandarina:       { nombre: 'Mandarina',       unidad: 'kg',    d1: 667,  d2: 1300 },
+    palta:           { nombre: 'Palta',           unidad: 'kg',    d1: 5500, d2: 2800 },
+    kiwi:            { nombre: 'Kiwi',            unidad: 'kg',    d1: 7500, d2: 4000 },
+    huevos_n3:       { nombre: 'Maple huevos N3', unidad: 'maple', d1: 4167, d2: 3500 },
+  };
+
+  const cajones = {
+    picolo: {
+      nombre: 'Picolo',
+      descripcion: '1-2 personas · 5-7 variedades por semana · esencial',
+      items: [
+        { id: 'lechuga_manteca', qty: 0.4 },
+        { id: 'tomate_perita', qty: 1 },
+        { id: 'cebolla', qty: 1 },
+        { id: 'papa_negra', qty: 1.5 },
+        { id: 'zanahoria', qty: 0.5 },
+        { id: 'anco', qty: 1 },
+        { id: 'banana', qty: 1 },
+        { id: 'manzana_roja', qty: 0.8 },
+      ],
+    },
+    famiglia: {
+      nombre: 'Famiglia',
+      descripcion: '3-4 personas · 9-12 variedades · familiar · incluye maple huevos N3',
+      items: [
+        { id: 'lechuga_manteca', qty: 0.4 },
+        { id: 'lechuga_criolla', qty: 0.4 },
+        { id: 'tomate_perita', qty: 2 },
+        { id: 'cebolla', qty: 2 },
+        { id: 'papa_negra', qty: 2.5 },
+        { id: 'zanahoria', qty: 1.5 },
+        { id: 'anco', qty: 1.5 },
+        { id: 'brocoli', qty: 1 },
+        { id: 'zapallito', qty: 1 },
+        { id: 'rucula', qty: 2 },
+        { id: 'espinaca', qty: 1 },
+        { id: 'banana', qty: 2 },
+        { id: 'manzana_roja', qty: 1.5 },
+        { id: 'naranja_jugo', qty: 2 },
+        { id: 'pera', qty: 1 },
+        { id: 'huevos_n3', qty: 1 },
+      ],
+    },
+    abbondanza: {
+      nombre: 'Abbondanza',
+      descripcion: '5+ personas o cocina intensa · 14-18 variedades · maple huevos + hierbas',
+      items: [
+        { id: 'lechuga_manteca', qty: 0.4 },
+        { id: 'lechuga_criolla', qty: 0.4 },
+        { id: 'tomate_perita', qty: 2 },
+        { id: 'tomate_cherry', qty: 0.5 },
+        { id: 'cebolla', qty: 2 },
+        { id: 'cebolla_morada', qty: 0.5 },
+        { id: 'papa_negra', qty: 3 },
+        { id: 'papin', qty: 0.5 },
+        { id: 'zanahoria', qty: 1.5 },
+        { id: 'anco', qty: 1.5 },
+        { id: 'batata', qty: 1 },
+        { id: 'brocoli', qty: 1 },
+        { id: 'coliflor', qty: 1 },
+        { id: 'zapallito', qty: 1 },
+        { id: 'berenjena', qty: 1 },
+        { id: 'morron_rojo', qty: 0.5 },
+        { id: 'pepino', qty: 0.5 },
+        { id: 'rucula', qty: 2 },
+        { id: 'espinaca', qty: 1 },
+        { id: 'apio', qty: 1 },
+        { id: 'banana', qty: 2.5 },
+        { id: 'manzana_roja', qty: 2 },
+        { id: 'naranja_jugo', qty: 2 },
+        { id: 'pera', qty: 1.5 },
+        { id: 'mandarina', qty: 1 },
+        { id: 'palta', qty: 0.5 },
+        { id: 'kiwi', qty: 0.5 },
+        { id: 'perejil', qty: 1 },
+        { id: 'albahaca', qty: 1 },
+        { id: 'huevos_n3', qty: 1 },
+      ],
+    },
+    frutta_fam: {
+      nombre: 'Frutta Famiglia',
+      descripcion: '3-4 personas u oficina chica · 6 variedades de fruta',
+      items: [
+        { id: 'banana', qty: 2 },
+        { id: 'manzana_roja', qty: 1.5 },
+        { id: 'naranja_jugo', qty: 2 },
+        { id: 'pera', qty: 1.5 },
+        { id: 'mandarina', qty: 1.5 },
+        { id: 'kiwi', qty: 0.5 },
+      ],
+    },
+    frutta_abb: {
+      nombre: 'Frutta Abbondanza',
+      descripcion: '5+ personas u oficina · 6 variedades en cantidades generosas',
+      items: [
+        { id: 'banana', qty: 3 },
+        { id: 'manzana_roja', qty: 2.5 },
+        { id: 'naranja_jugo', qty: 3 },
+        { id: 'pera', qty: 2 },
+        { id: 'mandarina', qty: 2 },
+        { id: 'palta', qty: 0.8 },
+      ],
+    },
+  };
+
+  let cajonActivo = 'picolo';
+  let markup = 1.8;
+  const cajonValues = {};
+
+  function costoUnitario(p) {
+    const c1 = p.d1 && p.d1 > 0 ? p.d1 : Infinity;
+    const c2 = p.d2 && p.d2 > 0 ? p.d2 : Infinity;
+    const min = Math.min(c1, c2);
+    return isFinite(min) ? min : 0;
+  }
+
+  function computeCajon(c) {
+    let costo = 0, retail = 0;
+    c.items.forEach(item => {
+      const p = productos[item.id];
+      costo += item.qty * costoUnitario(p);
+      retail += item.qty * (p.d2 || p.d1 || 0);
+    });
+    const precio = costo * markup;
+    return {
+      costo, retail, precio,
+      costoMes: costo * 4,
+      precioMes: precio * 4,
+      margenMes: (precio - costo) * 4,
+    };
+  }
+
+  function recomputeCajones() {
+    Object.keys(cajones).forEach(k => { cajonValues[k] = computeCajon(cajones[k]); });
+  }
+
+  function renderCajon() {
+    const c = cajones[cajonActivo];
+    document.getElementById('cajon-nombre').textContent = c.nombre;
+    document.getElementById('cajon-desc').textContent = c.descripcion;
+
+    const tbody = document.getElementById('cajon-tbody');
+    tbody.innerHTML = '';
+    let totalCost = 0, totalRetail = 0;
+
+    c.items.forEach((item, idx) => {
+      const p = productos[item.id];
+      const tr = document.createElement('tr');
+      const d1 = p.d1 || 0;
+      const d2 = p.d2 || 0;
+      const cu = costoUnitario(p);
+      const subCost = item.qty * cu;
+      const subRetail = item.qty * (d2 || d1);
+      totalCost += subCost;
+      totalRetail += subRetail;
+
+      tr.innerHTML =
+        '<td>' + p.nombre + '</td>' +
+        '<td>' + p.unidad + '</td>' +
+        '<td class="num"><input type="number" class="qty-input" data-idx="' + idx + '" value="' + item.qty + '" step="0.1" min="0" /></td>' +
+        '<td class="num">' + fmt(d1) + '</td>' +
+        '<td class="num">' + fmt(d2) + '</td>' +
+        '<td class="num">' + fmt(subCost) + '</td>' +
+        '<td class="num">' + fmt(subRetail) + '</td>';
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('cajon-tfoot').innerHTML =
+      '<tr><td colspan="5"><strong>Totales por entrega</strong></td>' +
+      '<td class="num"><strong>' + fmt(totalCost) + '</strong></td>' +
+      '<td class="num"><strong>' + fmt(totalRetail) + '</strong></td></tr>';
+
+    tbody.querySelectorAll('.qty-input').forEach(inp => {
+      inp.addEventListener('input', e => {
+        const idx = +e.target.dataset.idx;
+        c.items[idx].qty = Math.max(0, +e.target.value || 0);
+        refreshAll();
+      });
+    });
+
+    const v = cajonValues[cajonActivo];
+    document.getElementById('kx-costo').textContent = fmt(v.costo);
+    document.getElementById('kx-costo-mes').textContent = fmt(v.costoMes) + ' / mes (4 entregas)';
+    document.getElementById('kx-retail').textContent = fmt(v.retail);
+    document.getElementById('kx-precio').textContent = fmt(v.precioMes);
+    document.getElementById('kx-precio-entrega').textContent = fmt(v.precio) + ' por entrega';
+    document.getElementById('kx-margen').textContent = fmt(v.margenMes);
+    const pct = v.precioMes > 0 ? (v.margenMes / v.precioMes * 100).toFixed(0) : 0;
+    document.getElementById('kx-pct').textContent = pct + ' % margen';
+  }
 
   function calc() {
     const precio = +document.getElementById('precio').value;
@@ -1100,15 +1578,10 @@ footer {
     document.getElementById('paola-v').textContent = fmt(paola);
     document.getElementById('objetivo-v').textContent = fmt(objetivo);
 
-    // Margen por cliente mensual (4 entregas)
     const costoMensual = costo * 4;
     const margen = precio - costoMensual;
-
-    // Bruto necesario / mes = objetivo + opex + paola
     const brutoNeed = objetivo + opex + paola;
-
-    // Clientes necesarios
-    let clientes = margen > 0 ? Math.ceil(brutoNeed / margen) : Infinity;
+    const clientes = margen > 0 ? Math.ceil(brutoNeed / margen) : Infinity;
     const facturacion = clientes * precio;
 
     document.getElementById('out-clientes').textContent = isFinite(clientes) ? clientes : '∞';
@@ -1116,37 +1589,60 @@ footer {
     document.getElementById('out-brutoneed').textContent = fmt(brutoNeed);
     document.getElementById('out-facturacion').textContent = isFinite(facturacion) ? fmt(facturacion) : '—';
 
-    // Crecimiento (suponiendo +5 clientes/mes desde 10)
     const meses = isFinite(clientes) && clientes > 10 ? Math.ceil((clientes - 10) / 5) : 0;
-    document.getElementById('out-meses').textContent = meses > 0 ? `${meses + 1} meses para llegar` : 'desde el mes 1';
+    document.getElementById('out-meses').textContent = meses > 0 ? (meses + 1) + ' meses para llegar' : 'desde el mes 1';
 
-    // KPIs alternativos
-    // Piccolo: precio 0.75 del Abbondanza, costo 0.75
-    const precioPiccolo = precio * 0.72;
-    const costoPiccolo = costoMensual * 0.78;
-    const margenPiccolo = precioPiccolo - costoPiccolo;
-    document.getElementById('kpi-piccolo').textContent = margenPiccolo > 0 ? Math.ceil(brutoNeed / margenPiccolo) : '∞';
+    const margenP = cajonValues.picolo ? cajonValues.picolo.margenMes : 0;
+    const margenF = cajonValues.famiglia ? cajonValues.famiglia.margenMes : 0;
+    const margenA = cajonValues.abbondanza ? cajonValues.abbondanza.margenMes : margen;
 
-    // Famiglia: precio 1.35x, costo 1.30x
-    const precioFamiglia = precio * 1.35;
-    const costoFamiglia = costoMensual * 1.30;
-    const margenFamiglia = precioFamiglia - costoFamiglia;
-    document.getElementById('kpi-famiglia').textContent = margenFamiglia > 0 ? Math.ceil(brutoNeed / margenFamiglia) : '∞';
+    document.getElementById('kpi-piccolo').textContent = margenP > 0 ? Math.ceil(brutoNeed / margenP) : '∞';
+    document.getElementById('kpi-famiglia').textContent = margenF > 0 ? Math.ceil(brutoNeed / margenF) : '∞';
 
-    // Mix 30% Piccolo / 50% Abbondanza / 20% Famiglia
-    const margenMix = 0.30 * margenPiccolo + 0.50 * margen + 0.20 * margenFamiglia;
+    const margenMix = 0.30 * margenP + 0.50 * margenA + 0.20 * margenF;
     document.getElementById('kpi-mix').textContent = margenMix > 0 ? Math.ceil(brutoNeed / margenMix) : '∞';
 
-    // Para cubrir gastos reales completos
     const brutoNeedDef = GASTOS_REALES + opex + paola;
     document.getElementById('kpi-deficit').textContent = margenMix > 0 ? Math.ceil(brutoNeedDef / margenMix) : '∞';
   }
+
+  function refreshAll() {
+    recomputeCajones();
+    renderCajon();
+    calc();
+  }
+
+  document.querySelectorAll('.cajon-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cajon-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      cajonActivo = btn.dataset.cajon;
+      renderCajon();
+    });
+  });
+
+  document.getElementById('markup').addEventListener('input', e => {
+    markup = +e.target.value;
+    document.getElementById('markup-v').textContent = markup.toFixed(2) + '×';
+    refreshAll();
+  });
+
+  document.getElementById('usar-calc').addEventListener('click', () => {
+    const v = cajonValues[cajonActivo];
+    const precioEl = document.getElementById('precio');
+    const costoEl = document.getElementById('costo');
+    const round = (x, step) => Math.round(x / step) * step;
+    precioEl.value = Math.min(Math.max(round(v.precioMes, 5000), +precioEl.min), +precioEl.max);
+    costoEl.value = Math.min(Math.max(round(v.costo, 2500), +costoEl.min), +costoEl.max);
+    calc();
+    document.getElementById('breakeven').scrollIntoView({ behavior: 'smooth' });
+  });
 
   document.querySelectorAll('#precio, #costo, #opex, #paola, #objetivo').forEach(el => {
     el.addEventListener('input', calc);
   });
 
-  calc();
+  refreshAll();
 })();
 </script>
 
