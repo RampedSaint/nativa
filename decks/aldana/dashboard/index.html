@@ -674,8 +674,8 @@ footer {
   color: var(--oliva-texto);
 }
 .cajon-table th, .cajon-table td { padding: 9px 10px; font-size: 13px; }
-.cajon-table .qty-input {
-  width: 70px;
+.cajon-table .qty-input,
+.cajon-table .price-input {
   font-family: "Inter", sans-serif;
   font-size: 13px;
   padding: 4px 8px;
@@ -685,7 +685,10 @@ footer {
   font-variant-numeric: tabular-nums;
   background: #fff;
 }
-.cajon-table .qty-input:focus {
+.cajon-table .qty-input { width: 70px; }
+.cajon-table .price-input { width: 92px; }
+.cajon-table .qty-input:focus,
+.cajon-table .price-input:focus {
   outline: 2px solid var(--oliva-profundo);
   border-color: var(--oliva-profundo);
 }
@@ -1070,7 +1073,7 @@ footer {
 <section class="block section-id" id="cajones">
   <span class="block-label">05 · Catálogo y armado de cajones</span>
   <h2>Tus dos distribuidores, <em>traducidos a margen real.</em></h2>
-  <p class="block-desc">La lista 2705 PDF (mayorista por bulto) es tu costo más bajo. La lista pública por kg/unidad es lo que el cliente pagaría suelto en una verdulería — es tu referencia de valor. Para cada cajón usamos el más barato de los dos como costo, y la pública como benchmark. Editá las cantidades, jugá con el markup, mirá el margen. Después volcás esos números a la calculadora de abajo con un click.</p>
+  <p class="block-desc">La lista 2705 PDF (mayorista por bulto) es tu costo más bajo. La lista pública por kg/unidad es lo que el cliente pagaría suelto en una verdulería — es tu referencia de valor. <strong>Cantidades, precios D1 y precios D2 son todos editables</strong>: ajustá cualquiera y se recalcula el costo del cajón, el valor retail, el precio sugerido, el margen y el simulador de abajo en vivo. Para cada cajón usamos el más barato de los dos como costo.</p>
 
   <div class="cajon-tabs">
     <button data-cajon="picolo" class="cajon-tab active" type="button">Picolo</button>
@@ -1510,50 +1513,28 @@ footer {
     Object.keys(cajones).forEach(k => { cajonValues[k] = computeCajon(cajones[k]); });
   }
 
-  function renderCajon() {
+  function updateSubtotals() {
     const c = cajones[cajonActivo];
-    document.getElementById('cajon-nombre').textContent = c.nombre;
-    document.getElementById('cajon-desc').textContent = c.descripcion;
-
-    const tbody = document.getElementById('cajon-tbody');
-    tbody.innerHTML = '';
     let totalCost = 0, totalRetail = 0;
-
     c.items.forEach((item, idx) => {
       const p = productos[item.id];
-      const tr = document.createElement('tr');
-      const d1 = p.d1 || 0;
-      const d2 = p.d2 || 0;
-      const cu = costoUnitario(p);
-      const subCost = item.qty * cu;
-      const subRetail = item.qty * (d2 || d1);
+      const subCost = item.qty * costoUnitario(p);
+      const subRetail = item.qty * (p.d2 || p.d1 || 0);
       totalCost += subCost;
       totalRetail += subRetail;
-
-      tr.innerHTML =
-        '<td>' + p.nombre + '</td>' +
-        '<td>' + p.unidad + '</td>' +
-        '<td class="num"><input type="number" class="qty-input" data-idx="' + idx + '" value="' + item.qty + '" step="0.1" min="0" /></td>' +
-        '<td class="num">' + fmt(d1) + '</td>' +
-        '<td class="num">' + fmt(d2) + '</td>' +
-        '<td class="num">' + fmt(subCost) + '</td>' +
-        '<td class="num">' + fmt(subRetail) + '</td>';
-      tbody.appendChild(tr);
+      const scEl = document.getElementById('sc-' + idx);
+      const srEl = document.getElementById('sr-' + idx);
+      if (scEl) scEl.textContent = fmt(subCost);
+      if (srEl) srEl.textContent = fmt(subRetail);
     });
-
     document.getElementById('cajon-tfoot').innerHTML =
       '<tr><td colspan="5"><strong>Totales por entrega</strong></td>' +
       '<td class="num"><strong>' + fmt(totalCost) + '</strong></td>' +
       '<td class="num"><strong>' + fmt(totalRetail) + '</strong></td></tr>';
+  }
 
-    tbody.querySelectorAll('.qty-input').forEach(inp => {
-      inp.addEventListener('input', e => {
-        const idx = +e.target.dataset.idx;
-        c.items[idx].qty = Math.max(0, +e.target.value || 0);
-        refreshAll();
-      });
-    });
-
+  function updateCajonOutputs() {
+    recomputeCajones();
     const v = cajonValues[cajonActivo];
     document.getElementById('kx-costo').textContent = fmt(v.costo);
     document.getElementById('kx-costo-mes').textContent = fmt(v.costoMes) + ' / mes (4 entregas)';
@@ -1563,6 +1544,56 @@ footer {
     document.getElementById('kx-margen').textContent = fmt(v.margenMes);
     const pct = v.precioMes > 0 ? (v.margenMes / v.precioMes * 100).toFixed(0) : 0;
     document.getElementById('kx-pct').textContent = pct + ' % margen';
+    syncSlidersToAbbondanza();
+    calc();
+  }
+
+  function renderCajon() {
+    const c = cajones[cajonActivo];
+    document.getElementById('cajon-nombre').textContent = c.nombre;
+    document.getElementById('cajon-desc').textContent = c.descripcion;
+
+    const tbody = document.getElementById('cajon-tbody');
+    tbody.innerHTML = '';
+
+    c.items.forEach((item, idx) => {
+      const p = productos[item.id];
+      const tr = document.createElement('tr');
+      const d1 = p.d1 || 0;
+      const d2 = p.d2 || 0;
+
+      tr.innerHTML =
+        '<td>' + p.nombre + '</td>' +
+        '<td>' + p.unidad + '</td>' +
+        '<td class="num"><input type="number" class="qty-input" data-idx="' + idx + '" value="' + item.qty + '" step="0.1" min="0" /></td>' +
+        '<td class="num"><input type="number" class="price-input" data-pid="' + item.id + '" data-field="d1" value="' + d1 + '" step="50" min="0" /></td>' +
+        '<td class="num"><input type="number" class="price-input" data-pid="' + item.id + '" data-field="d2" value="' + d2 + '" step="50" min="0" /></td>' +
+        '<td class="num" id="sc-' + idx + '">$ 0</td>' +
+        '<td class="num" id="sr-' + idx + '">$ 0</td>';
+      tbody.appendChild(tr);
+    });
+
+    tbody.querySelectorAll('.qty-input').forEach(inp => {
+      inp.addEventListener('input', e => {
+        const idx = +e.target.dataset.idx;
+        cajones[cajonActivo].items[idx].qty = Math.max(0, +e.target.value || 0);
+        updateSubtotals();
+        updateCajonOutputs();
+      });
+    });
+
+    tbody.querySelectorAll('.price-input').forEach(inp => {
+      inp.addEventListener('input', e => {
+        const pid = e.target.dataset.pid;
+        const field = e.target.dataset.field;
+        productos[pid][field] = Math.max(0, +e.target.value || 0);
+        updateSubtotals();
+        updateCajonOutputs();
+      });
+    });
+
+    updateSubtotals();
+    updateCajonOutputs();
   }
 
   function syncSlidersToAbbondanza() {
@@ -1620,10 +1651,7 @@ footer {
   }
 
   function refreshAll() {
-    recomputeCajones();
-    syncSlidersToAbbondanza();
     renderCajon();
-    calc();
   }
 
   document.querySelectorAll('.cajon-tab').forEach(btn => {
@@ -1638,7 +1666,7 @@ footer {
   document.getElementById('markup').addEventListener('input', e => {
     markup = +e.target.value;
     document.getElementById('markup-v').textContent = markup.toFixed(2) + '×';
-    refreshAll();
+    updateCajonOutputs();
   });
 
   document.getElementById('usar-calc').addEventListener('click', () => {
