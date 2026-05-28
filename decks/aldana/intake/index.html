@@ -1,0 +1,1110 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Intake — Aldana × Spiga</title>
+<meta name="description" content="Formulario interno: datos financieros y operativos para planear el lanzamiento de Spiga." />
+<meta name="robots" content="noindex,nofollow" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="none" stroke="%2354613F" stroke-width="6"/><text x="100" y="148" text-anchor="middle" font-family="Georgia,serif" font-size="140" font-style="italic" fill="%2354613F">S</text></svg>' />
+
+<style>
+:root {
+  --oliva-profundo: #54613F;
+  --oliva-mas-oscuro: #3F4A30;
+  --oliva-texto: #6F7A5C;
+  --oliva: #8A9476;
+  --oliva-soft: #B8BFA8;
+  --crema: #F2EBDD;
+  --crema-soft: #E6DCC4;
+  --tinta: #1A1A18;
+  --madera: #A07545;
+  --madera-suave: #C9A581;
+  --acento: #C9573A;
+  --pad-x: clamp(20px, 5vw, 56px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible { outline: 2px solid var(--oliva-profundo); outline-offset: 3px; border-radius: 2px; }
+
+header.top {
+  background: var(--crema);
+  border-bottom: 1px solid var(--madera-suave);
+  padding: 22px var(--pad-x);
+}
+.top-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.top-inner .word {
+  font-family: "Fraunces", serif;
+  font-variation-settings: "SOFT" 50, "opsz" 144;
+  font-size: 26px;
+  color: var(--oliva-profundo);
+  letter-spacing: -0.015em;
+}
+.top-inner .sep {
+  color: var(--madera-suave);
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 22px;
+}
+.top-inner .ctx {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  color: var(--oliva-texto);
+  letter-spacing: 0.04em;
+}
+
+.intro {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 56px var(--pad-x) 28px;
+}
+.intro .label {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--madera);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+.intro h1 {
+  font-family: "Fraunces", serif;
+  font-variation-settings: "SOFT" 50, "opsz" 144;
+  font-weight: 400;
+  font-size: clamp(36px, 5vw, 52px);
+  line-height: 1.05;
+  color: var(--oliva-profundo);
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+.intro h1 em {
+  font-style: italic;
+  color: var(--oliva-texto);
+  font-weight: 300;
+}
+.intro p.lead {
+  font-family: "Fraunces", serif;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--tinta);
+  max-width: 56ch;
+}
+.intro .note {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color: var(--oliva-texto);
+  margin-top: 18px;
+  background: var(--crema-soft);
+  border-left: 3px solid var(--madera);
+  padding: 10px 14px;
+  border-radius: 0 4px 4px 0;
+  max-width: 60ch;
+  letter-spacing: 0.02em;
+}
+
+main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px var(--pad-x) 140px;
+}
+
+section.block {
+  background: #fff;
+  border: 1px solid var(--oliva-soft);
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 24px;
+  position: relative;
+}
+@media (max-width: 600px) {
+  section.block { padding: 24px 20px; }
+}
+
+section.block .block-label {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--madera);
+  font-weight: 500;
+  margin-bottom: 10px;
+  display: block;
+}
+section.block h2 {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: clamp(24px, 3vw, 30px);
+  color: var(--oliva-profundo);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+}
+section.block .block-desc {
+  font-family: "Fraunces", serif;
+  font-size: 15px;
+  color: var(--oliva-texto);
+  margin-bottom: 28px;
+  max-width: 60ch;
+  line-height: 1.5;
+}
+
+.row { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px; }
+.row-2 { grid-template-columns: 1fr 1fr; }
+.row-3 { grid-template-columns: 1fr 1fr 1fr; }
+@media (max-width: 640px) {
+  .row-2, .row-3 { grid-template-columns: 1fr; }
+}
+
+label {
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--oliva-profundo);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.field-hint {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--oliva-texto);
+  margin-top: 4px;
+}
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  color: var(--tinta);
+  background: #fff;
+  border: 1px solid var(--oliva-soft);
+  border-radius: 4px;
+  padding: 11px 13px;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--oliva-profundo);
+  box-shadow: 0 0 0 3px rgba(84, 97, 63, 0.15);
+}
+textarea {
+  resize: vertical;
+  min-height: 70px;
+  font-family: "Fraunces", serif;
+  font-size: 15px;
+}
+
+.list-rows { display: flex; flex-direction: column; gap: 10px; }
+.list-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr auto;
+  gap: 10px;
+  align-items: stretch;
+}
+.list-row .remove {
+  background: transparent;
+  border: 1px solid var(--oliva-soft);
+  color: var(--oliva-texto);
+  padding: 0 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 180ms ease;
+  min-height: 44px;
+}
+.list-row .remove:hover {
+  background: var(--acento);
+  border-color: var(--acento);
+  color: var(--crema);
+}
+@media (max-width: 640px) {
+  .list-row { grid-template-columns: 1fr 1fr; }
+  .list-row .remove { grid-column: span 2; min-height: 36px; }
+}
+
+.add-row {
+  background: transparent;
+  border: 1px dashed var(--madera-suave);
+  color: var(--madera);
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  margin-top: 14px;
+  transition: all 180ms ease;
+  width: 100%;
+}
+.add-row:hover {
+  background: var(--crema-soft);
+  border-color: var(--madera);
+  border-style: solid;
+}
+
+.subtotal {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--oliva-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  color: var(--oliva-texto);
+  letter-spacing: 0.04em;
+}
+.subtotal .amount {
+  font-family: "Fraunces", serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--oliva-profundo);
+  letter-spacing: -0.01em;
+}
+
+.sub-section {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px dashed var(--madera-suave);
+}
+.sub-section h3 {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--madera);
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+.sub-section .sub-desc {
+  font-family: "Fraunces", serif;
+  font-size: 14px;
+  color: var(--oliva-texto);
+  margin-bottom: 20px;
+  max-width: 60ch;
+}
+
+.inline-h3 {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--oliva-profundo);
+  margin-bottom: 14px;
+  font-weight: 400;
+}
+.inline-h3.spaced { margin-top: 28px; }
+
+.drop {
+  display: block;
+  border: 2px dashed var(--madera-suave);
+  background: var(--crema-soft);
+  border-radius: 6px;
+  padding: 28px 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+.drop:hover, .drop.dragover {
+  border-color: var(--madera);
+  border-style: solid;
+  background: var(--crema);
+}
+.drop-icon {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 36px;
+  color: var(--madera);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.drop-text {
+  font-family: "Fraunces", serif;
+  font-size: 16px;
+  color: var(--oliva-profundo);
+  margin-bottom: 4px;
+}
+.drop-hint {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  color: var(--oliva-texto);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.drop input[type="file"] { display: none; }
+
+.file-list {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.file-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid var(--oliva-soft);
+  border-radius: 4px;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+}
+.file-row .name { flex: 1; color: var(--tinta); word-break: break-all; }
+.file-row .size { color: var(--oliva-texto); font-size: 12px; white-space: nowrap; }
+.file-row .remove-file {
+  background: transparent;
+  border: none;
+  color: var(--acento);
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+.file-row .remove-file:hover { text-decoration: underline; }
+
+.export-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(242, 235, 221, 0.96);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--madera-suave);
+  padding: 16px var(--pad-x);
+  z-index: 50;
+}
+.export-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.export-status {
+  flex: 1;
+  min-width: 220px;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color: var(--oliva-texto);
+  letter-spacing: 0.04em;
+}
+.btn {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--oliva-profundo);
+  background: var(--oliva-profundo);
+  color: var(--crema);
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: all 180ms ease;
+}
+.btn:hover { background: var(--oliva-mas-oscuro); transform: translateY(-1px); }
+.btn.ghost {
+  background: transparent;
+  color: var(--oliva-texto);
+  border-color: var(--oliva-soft);
+}
+.btn.ghost:hover { background: var(--crema-soft); color: var(--oliva-profundo); transform: none; }
+.btn:disabled { opacity: 0.6; cursor: wait; }
+
+.toggle-pills {
+  display: inline-flex;
+  border: 1px solid var(--oliva-soft);
+  border-radius: 999px;
+  padding: 3px;
+  background: var(--crema-soft);
+}
+.toggle-pills button {
+  background: transparent;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--oliva-texto);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+.toggle-pills button.active {
+  background: var(--oliva-profundo);
+  color: var(--crema);
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <span class="word">Spiga</span>
+    <span class="sep">×</span>
+    <span class="ctx">Intake interno — Aldana</span>
+  </div>
+</header>
+
+<div class="intro">
+  <span class="label">Confidencial · solo Aldana y Santi</span>
+  <h1>Datos para <em>planear el salto.</em></h1>
+  <p class="lead">Completá lo que sepas — los huecos los completamos después. Todo se guarda en tu navegador a medida que escribís. Nada sale de tu computadora hasta que apretás "Exportar bundle".</p>
+  <div class="note">
+    💡 Los montos van en <strong>ARS</strong>, salvo los ahorros que pueden estar en USD. Si tenés algún gasto u otro ingreso en USD, anotalo en las notas libres del final.
+  </div>
+</div>
+
+<main>
+<form id="intake-form" autocomplete="off">
+
+  <!-- 01 — VOS HOY -->
+  <section class="block">
+    <span class="block-label">01 · Vos hoy</span>
+    <h2>Tu situación actual.</h2>
+    <p class="block-desc">Sueldo, ahorros y cualquier otro ingreso recurrente. Esto define cuánto tiempo podés vivir sin sueldo fijo.</p>
+
+    <div class="row row-2">
+      <div>
+        <label for="sueldo">Sueldo neto mensual (ARS)</label>
+        <input type="number" id="sueldo" placeholder="ej: 1500000" inputmode="decimal" step="any" />
+        <p class="field-hint">Lo que cobrás en mano, después de impuestos.</p>
+      </div>
+      <div>
+        <label for="ahorros">Ahorros disponibles</label>
+        <input type="number" id="ahorros" placeholder="ej: 8000000" inputmode="decimal" step="any" />
+        <p class="field-hint">Lo que podrías usar para bancar la transición.</p>
+      </div>
+    </div>
+
+    <div class="row row-2">
+      <div>
+        <label>Moneda de los ahorros</label>
+        <div class="toggle-pills" role="radiogroup" data-toggle="ahorros_moneda">
+          <button type="button" class="active" data-value="ARS">ARS</button>
+          <button type="button" data-value="USD">USD</button>
+        </div>
+      </div>
+      <div>
+        <label for="fecha_arranque">Fecha tentativa de arranque</label>
+        <input type="date" id="fecha_arranque" />
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Otros ingresos recurrentes</h3>
+      <p class="sub-desc">Pareja que aporta a los gastos comunes, alquileres, freelance, etc. Solo si son razonablemente estables.</p>
+      <div class="list-rows" data-list="otros_ingresos"></div>
+      <button type="button" class="add-row" data-add="otros_ingresos">+ agregar ingreso</button>
+    </div>
+  </section>
+
+  <!-- 02 — GASTOS FIJOS PERSONALES -->
+  <section class="block">
+    <span class="block-label">02 · Gastos fijos personales</span>
+    <h2>Lo que sí o sí sale cada mes.</h2>
+    <p class="block-desc">Listá todo, aunque sean montos chicos. Lo que olvidás ahora aparece como sorpresa después. Si no sabés el monto exacto, poné el promedio de los últimos 3 meses.</p>
+
+    <div class="list-rows" data-list="gastos_fijos"></div>
+    <button type="button" class="add-row" data-add="gastos_fijos">+ agregar gasto</button>
+
+    <div class="subtotal">
+      <span>TOTAL MENSUAL</span>
+      <span class="amount" data-total="gastos_fijos">$ 0</span>
+    </div>
+  </section>
+
+  <!-- 03 — GASTOS IRREGULARES -->
+  <section class="block">
+    <span class="block-label">03 · Gastos grandes irregulares</span>
+    <h2>Lo que viene en los próximos 12 meses.</h2>
+    <p class="block-desc">Vacaciones, viajes, mantenimiento del auto, monotributo / IIBB anuales, cuotas grandes que vencen. Eventos puntuales, no mensuales.</p>
+
+    <div class="list-rows" data-list="gastos_irregulares"></div>
+    <button type="button" class="add-row" data-add="gastos_irregulares">+ agregar evento</button>
+
+    <div class="subtotal">
+      <span>TOTAL PROYECTADO 12 MESES</span>
+      <span class="amount" data-total="gastos_irregulares">$ 0</span>
+    </div>
+  </section>
+
+  <!-- 04 — NEGOCIO -->
+  <section class="block">
+    <span class="block-label">04 · Spiga · economía del negocio</span>
+    <h2>Precios, costos, inversión.</h2>
+    <p class="block-desc">Si todavía no tenés precio cerrado, poné lo que pensás cobrar y vemos si cierra. Los costos son lo que te sale armar el cajón para entregar.</p>
+
+    <h3 class="inline-h3">Precios de venta (suscripción mensual · 4 entregas)</h3>
+    <div class="row row-3">
+      <div>
+        <label for="precio_piccolo">Piccolo</label>
+        <input type="number" id="precio_piccolo" inputmode="decimal" step="any" placeholder="0" />
+      </div>
+      <div>
+        <label for="precio_abbondanza">Abbondanza</label>
+        <input type="number" id="precio_abbondanza" inputmode="decimal" step="any" placeholder="0" />
+      </div>
+      <div>
+        <label for="precio_famiglia">Famiglia</label>
+        <input type="number" id="precio_famiglia" inputmode="decimal" step="any" placeholder="0" />
+      </div>
+    </div>
+
+    <h3 class="inline-h3 spaced">Costo del cajón al productor (por entrega)</h3>
+    <p class="field-hint" style="margin-bottom: 14px;">Lo que te sale comprar la mercadería para armar un cajón. Por entrega individual — multiplicamos por 4 después para sacar el costo mensual.</p>
+    <div class="row row-3">
+      <div>
+        <label for="costo_piccolo">Piccolo</label>
+        <input type="number" id="costo_piccolo" inputmode="decimal" step="any" placeholder="0" />
+      </div>
+      <div>
+        <label for="costo_abbondanza">Abbondanza</label>
+        <input type="number" id="costo_abbondanza" inputmode="decimal" step="any" placeholder="0" />
+      </div>
+      <div>
+        <label for="costo_famiglia">Famiglia</label>
+        <input type="number" id="costo_famiglia" inputmode="decimal" step="any" placeholder="0" />
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Gastos fijos operativos</h3>
+      <p class="sub-desc">Nafta, packaging, seguro, alquiler galpón si aplica, servicios, marketing. Lo que pagás cada mes haya o no clientes.</p>
+      <div class="list-rows" data-list="gastos_negocio"></div>
+      <button type="button" class="add-row" data-add="gastos_negocio">+ agregar gasto</button>
+      <div class="subtotal">
+        <span>TOTAL OPERATIVO MENSUAL</span>
+        <span class="amount" data-total="gastos_negocio">$ 0</span>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Paola</h3>
+      <p class="sub-desc">¿Cómo cobra? Define mucho el margen del negocio.</p>
+      <div class="row row-2">
+        <div>
+          <label for="paola_tipo">Tipo de vínculo</label>
+          <select id="paola_tipo">
+            <option value="socia">Socia (se reparten ganancias)</option>
+            <option value="empleada_fija">Empleada con sueldo fijo</option>
+            <option value="por_cajon">Cobra por cajón armado</option>
+            <option value="aun_no_definido">Aún no definido</option>
+          </select>
+        </div>
+        <div>
+          <label for="paola_monto">Monto mensual (si aplica)</label>
+          <input type="number" id="paola_monto" inputmode="decimal" step="any" placeholder="ej: 800000" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="paola_notas">Notas</label>
+          <textarea id="paola_notas" placeholder="% de sociedad, plus por entrega, condiciones puntuales..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Inversión inicial</h3>
+      <p class="sub-desc">Lo que necesitás pagar antes de tener el primer cliente: vehículo, equipamiento, habilitaciones, primer stock, web/marca.</p>
+      <div class="list-rows" data-list="inversion_inicial"></div>
+      <button type="button" class="add-row" data-add="inversion_inicial">+ agregar item</button>
+      <div class="subtotal">
+        <span>TOTAL INVERSIÓN INICIAL</span>
+        <span class="amount" data-total="inversion_inicial">$ 0</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 — CONTEXTO -->
+  <section class="block">
+    <span class="block-label">05 · Punto de partida</span>
+    <h2>Con qué empezás.</h2>
+    <p class="block-desc">Clientes ya confirmados o muy probables. Esto baja el riesgo del primer mes y acorta el tiempo a breakeven.</p>
+    <div class="row row-2">
+      <div>
+        <label for="clientes_confirmados">Clientes confirmados</label>
+        <input type="number" id="clientes_confirmados" inputmode="numeric" step="1" placeholder="ej: 10" />
+      </div>
+      <div>
+        <label for="clientes_probables">Clientes muy probables</label>
+        <input type="number" id="clientes_probables" inputmode="numeric" step="1" placeholder="ej: 15" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="clientes_notas">Detalles</label>
+        <textarea id="clientes_notas" placeholder="Quiénes son, en qué plan vendrían, de dónde salieron (red personal, IG, recomendaciones...)"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 — ARCHIVOS -->
+  <section class="block">
+    <span class="block-label">06 · Archivos</span>
+    <h2>Adjuntá lo que tengas.</h2>
+    <p class="block-desc">No es obligatorio, pero cuanto más concreto, mejor el análisis. PDFs, fotos de pantalla, exports de Excel — todo sirve. Los archivos viajan dentro del ZIP final, no se suben a internet.</p>
+
+    <h3 class="inline-h3">Resúmenes de tarjeta</h3>
+    <p class="field-hint" style="margin-bottom: 12px;">Visa, Master, Amex — los últimos 3 meses si podés.</p>
+    <label class="drop">
+      <input type="file" multiple data-files="tarjeta" accept=".pdf,.jpg,.jpeg,.png,.webp,.csv,.xlsx,.xls" />
+      <div class="drop-icon">+</div>
+      <div class="drop-text">Arrastrá los resúmenes acá o hacé clic</div>
+      <div class="drop-hint">PDF · Imagen · Excel · CSV</div>
+    </label>
+    <div class="file-list" data-list-files="tarjeta"></div>
+
+    <div class="sub-section">
+      <h3>Banco / Mercado Pago</h3>
+      <p class="sub-desc">Resumen o export del homebanking / MP. Lo que mejor refleje los movimientos de los últimos meses.</p>
+      <label class="drop">
+        <input type="file" multiple data-files="banco" accept=".pdf,.jpg,.jpeg,.png,.webp,.csv,.xlsx,.xls" />
+        <div class="drop-icon">+</div>
+        <div class="drop-text">Movimientos del banco o MP</div>
+        <div class="drop-hint">PDF · Imagen · Excel · CSV</div>
+      </label>
+      <div class="file-list" data-list-files="banco"></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Recibos de sueldo</h3>
+      <p class="sub-desc">Para tener una referencia exacta del neto.</p>
+      <label class="drop">
+        <input type="file" multiple data-files="sueldo" accept=".pdf,.jpg,.jpeg,.png,.webp" />
+        <div class="drop-icon">+</div>
+        <div class="drop-text">Último o últimos recibos</div>
+        <div class="drop-hint">PDF · Imagen</div>
+      </label>
+      <div class="file-list" data-list-files="sueldo"></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>Otros</h3>
+      <p class="sub-desc">Cotizaciones de seguro, presupuestos de vehículo, propuestas de productores, cualquier cosa que ayude.</p>
+      <label class="drop">
+        <input type="file" multiple data-files="otros" />
+        <div class="drop-icon">+</div>
+        <div class="drop-text">Cualquier otro documento</div>
+        <div class="drop-hint">Todos los formatos</div>
+      </label>
+      <div class="file-list" data-list-files="otros"></div>
+    </div>
+  </section>
+
+  <!-- 07 — NOTAS -->
+  <section class="block">
+    <span class="block-label">07 · Notas libres</span>
+    <h2>Algo que no preguntamos.</h2>
+    <p class="block-desc">Cualquier cosa que sumes acá nos ayuda — dudas, miedos, condiciones especiales, gastos en USD, restricciones, lo que sea.</p>
+    <textarea id="notas_libres" placeholder="Escribí libremente..." style="min-height: 140px;"></textarea>
+  </section>
+
+</form>
+</main>
+
+<div class="export-bar">
+  <div class="export-inner">
+    <span class="export-status" id="status">guardado en tu navegador</span>
+    <button type="button" class="btn ghost" id="btn-clear">Limpiar todo</button>
+    <button type="button" class="btn" id="btn-export">Exportar bundle</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+(() => {
+  'use strict';
+
+  const STORAGE_KEY = 'aldana-spiga-intake-v1';
+  const fileStore = { tarjeta: [], banco: [], sueldo: [], otros: [] };
+
+  const defaults = {
+    gastos_fijos: [
+      { concepto: 'Alquiler / expensas', monto: '' },
+      { concepto: 'Luz / gas / agua', monto: '' },
+      { concepto: 'Internet / cable', monto: '' },
+      { concepto: 'Celular', monto: '' },
+      { concepto: 'Supermercado', monto: '' },
+      { concepto: 'Transporte / nafta', monto: '' },
+      { concepto: 'Prepaga / salud', monto: '' },
+      { concepto: 'Suscripciones (Netflix, Spotify, etc.)', monto: '' },
+    ],
+    gastos_irregulares: [
+      { concepto: '', monto: '' },
+    ],
+    otros_ingresos: [],
+    gastos_negocio: [
+      { concepto: 'Nafta / mantenimiento vehículo', monto: '' },
+      { concepto: 'Packaging (cajones, bolsas, etiquetas)', monto: '' },
+      { concepto: 'Seguro RC profesional', monto: '' },
+      { concepto: 'Marketing / IG ads', monto: '' },
+      { concepto: 'Servicios (galpón si aplica)', monto: '' },
+      { concepto: 'Habilitaciones y trámites recurrentes', monto: '' },
+    ],
+    inversion_inicial: [
+      { concepto: 'Vehículo (si hace falta)', monto: '' },
+      { concepto: 'Cajones / cooler / balanza', monto: '' },
+      { concepto: 'Bromatología + habilitaciones iniciales', monto: '' },
+      { concepto: 'Stock primer mes', monto: '' },
+    ],
+  };
+
+  document.querySelectorAll('.toggle-pills').forEach(pills => {
+    pills.querySelectorAll('button').forEach(b => {
+      b.addEventListener('click', () => {
+        pills.querySelectorAll('button').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        pills.dataset.value = b.dataset.value;
+        save();
+      });
+    });
+    const active = pills.querySelector('button.active');
+    pills.dataset.value = active ? active.dataset.value : '';
+  });
+
+  function rowTemplate(value) {
+    const row = document.createElement('div');
+    row.className = 'list-row';
+    row.innerHTML = `
+      <input type="text" class="concepto" placeholder="Concepto" />
+      <input type="number" class="monto" placeholder="Monto" inputmode="decimal" step="any" />
+      <button type="button" class="remove" aria-label="Eliminar fila">−</button>
+    `;
+    if (value) {
+      row.querySelector('.concepto').value = value.concepto || '';
+      row.querySelector('.monto').value = value.monto || '';
+    }
+    row.querySelector('.remove').addEventListener('click', () => {
+      row.remove();
+      updateTotals();
+      save();
+    });
+    row.querySelectorAll('input').forEach(i => {
+      i.addEventListener('input', () => { updateTotals(); save(); });
+    });
+    return row;
+  }
+
+  function renderList(listName, items) {
+    const container = document.querySelector(`[data-list="${listName}"]`);
+    if (!container) return;
+    container.innerHTML = '';
+    items.forEach(it => container.appendChild(rowTemplate(it)));
+  }
+
+  document.querySelectorAll('.add-row').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const listName = btn.dataset.add;
+      const container = document.querySelector(`[data-list="${listName}"]`);
+      container.appendChild(rowTemplate());
+      const last = container.lastElementChild.querySelector('.concepto');
+      if (last) last.focus();
+    });
+  });
+
+  function readList(listName) {
+    const container = document.querySelector(`[data-list="${listName}"]`);
+    if (!container) return [];
+    return Array.from(container.querySelectorAll('.list-row')).map(row => ({
+      concepto: row.querySelector('.concepto').value.trim(),
+      monto: parseFloat(row.querySelector('.monto').value) || 0,
+    })).filter(r => r.concepto || r.monto);
+  }
+
+  function formatMoney(n) {
+    if (!n) return '$ 0';
+    return '$ ' + n.toLocaleString('es-AR', { maximumFractionDigits: 0 });
+  }
+
+  function updateTotals() {
+    document.querySelectorAll('[data-total]').forEach(el => {
+      const list = el.dataset.total;
+      const total = readList(list).reduce((sum, r) => sum + r.monto, 0);
+      el.textContent = formatMoney(total);
+    });
+  }
+
+  function formatBytes(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1024 * 1024) return (b / 1024).toFixed(0) + ' KB';
+    return (b / 1024 / 1024).toFixed(1) + ' MB';
+  }
+
+  function setupFileZone(zoneName) {
+    const input = document.querySelector(`[data-files="${zoneName}"]`);
+    const drop = input.closest('.drop');
+
+    input.addEventListener('change', e => {
+      handleFiles(zoneName, e.target.files);
+      input.value = '';
+    });
+    ['dragenter', 'dragover'].forEach(ev => {
+      drop.addEventListener(ev, e => {
+        e.preventDefault();
+        e.stopPropagation();
+        drop.classList.add('dragover');
+      });
+    });
+    ['dragleave', 'drop'].forEach(ev => {
+      drop.addEventListener(ev, e => {
+        e.preventDefault();
+        e.stopPropagation();
+        drop.classList.remove('dragover');
+      });
+    });
+    drop.addEventListener('drop', e => {
+      handleFiles(zoneName, e.dataTransfer.files);
+    });
+  }
+
+  function handleFiles(zone, files) {
+    Array.from(files).forEach(f => {
+      if (fileStore[zone].some(x => x.name === f.name && x.size === f.size)) return;
+      fileStore[zone].push(f);
+    });
+    renderFileList(zone);
+    updateStatus();
+  }
+
+  function renderFileList(zone) {
+    const list = document.querySelector(`[data-list-files="${zone}"]`);
+    list.innerHTML = '';
+    fileStore[zone].forEach((f, i) => {
+      const row = document.createElement('div');
+      row.className = 'file-row';
+      const name = document.createElement('span');
+      name.className = 'name';
+      name.textContent = f.name;
+      const size = document.createElement('span');
+      size.className = 'size';
+      size.textContent = formatBytes(f.size);
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.className = 'remove-file';
+      rm.textContent = 'quitar';
+      rm.addEventListener('click', () => {
+        fileStore[zone].splice(i, 1);
+        renderFileList(zone);
+        updateStatus();
+      });
+      row.append(name, size, rm);
+      list.appendChild(row);
+    });
+  }
+
+  ['tarjeta', 'banco', 'sueldo', 'otros'].forEach(setupFileZone);
+
+  function gather() {
+    return {
+      version: '1.0',
+      exported_at: new Date().toISOString(),
+      personal: {
+        sueldo_neto_mensual: parseFloat(document.getElementById('sueldo').value) || 0,
+        ahorros_disponibles: parseFloat(document.getElementById('ahorros').value) || 0,
+        ahorros_moneda: document.querySelector('[data-toggle="ahorros_moneda"]').dataset.value || 'ARS',
+        otros_ingresos: readList('otros_ingresos'),
+      },
+      gastos_fijos: readList('gastos_fijos'),
+      gastos_irregulares_12m: readList('gastos_irregulares'),
+      negocio: {
+        precios_venta: {
+          piccolo: parseFloat(document.getElementById('precio_piccolo').value) || 0,
+          abbondanza: parseFloat(document.getElementById('precio_abbondanza').value) || 0,
+          famiglia: parseFloat(document.getElementById('precio_famiglia').value) || 0,
+        },
+        costos_cajon_por_entrega: {
+          piccolo: parseFloat(document.getElementById('costo_piccolo').value) || 0,
+          abbondanza: parseFloat(document.getElementById('costo_abbondanza').value) || 0,
+          famiglia: parseFloat(document.getElementById('costo_famiglia').value) || 0,
+        },
+        gastos_fijos_operativos: readList('gastos_negocio'),
+        inversion_inicial: readList('inversion_inicial'),
+        paola: {
+          tipo: document.getElementById('paola_tipo').value,
+          monto_mensual: parseFloat(document.getElementById('paola_monto').value) || 0,
+          notas: document.getElementById('paola_notas').value.trim(),
+        },
+      },
+      contexto: {
+        fecha_arranque_tentativa: document.getElementById('fecha_arranque').value,
+        clientes_confirmados: parseInt(document.getElementById('clientes_confirmados').value) || 0,
+        clientes_probables: parseInt(document.getElementById('clientes_probables').value) || 0,
+        clientes_notas: document.getElementById('clientes_notas').value.trim(),
+      },
+      archivos_meta: Object.fromEntries(
+        Object.entries(fileStore).map(([k, arr]) =>
+          [k, arr.map(f => ({ nombre: f.name, tamanio_bytes: f.size, tipo: f.type }))])
+      ),
+      notas_libres: document.getElementById('notas_libres').value.trim(),
+    };
+  }
+
+  function save() {
+    try {
+      const data = gather();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      updateStatus();
+    } catch (e) {
+      console.warn('save failed', e);
+    }
+  }
+
+  function load() {
+    Object.entries(defaults).forEach(([k, v]) => renderList(k, v));
+
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) { updateTotals(); return; }
+      const data = JSON.parse(raw);
+
+      document.getElementById('sueldo').value = data.personal?.sueldo_neto_mensual || '';
+      document.getElementById('ahorros').value = data.personal?.ahorros_disponibles || '';
+
+      const monedaPills = document.querySelector('[data-toggle="ahorros_moneda"]');
+      const moneda = data.personal?.ahorros_moneda || 'ARS';
+      monedaPills.querySelectorAll('button').forEach(b => {
+        b.classList.toggle('active', b.dataset.value === moneda);
+      });
+      monedaPills.dataset.value = moneda;
+
+      if (data.personal?.otros_ingresos?.length) renderList('otros_ingresos', data.personal.otros_ingresos);
+      if (data.gastos_fijos?.length) renderList('gastos_fijos', data.gastos_fijos);
+      if (data.gastos_irregulares_12m?.length) renderList('gastos_irregulares', data.gastos_irregulares_12m);
+
+      document.getElementById('precio_piccolo').value = data.negocio?.precios_venta?.piccolo || '';
+      document.getElementById('precio_abbondanza').value = data.negocio?.precios_venta?.abbondanza || '';
+      document.getElementById('precio_famiglia').value = data.negocio?.precios_venta?.famiglia || '';
+      document.getElementById('costo_piccolo').value = data.negocio?.costos_cajon_por_entrega?.piccolo || '';
+      document.getElementById('costo_abbondanza').value = data.negocio?.costos_cajon_por_entrega?.abbondanza || '';
+      document.getElementById('costo_famiglia').value = data.negocio?.costos_cajon_por_entrega?.famiglia || '';
+
+      if (data.negocio?.gastos_fijos_operativos?.length) renderList('gastos_negocio', data.negocio.gastos_fijos_operativos);
+      if (data.negocio?.inversion_inicial?.length) renderList('inversion_inicial', data.negocio.inversion_inicial);
+
+      document.getElementById('paola_tipo').value = data.negocio?.paola?.tipo || 'socia';
+      document.getElementById('paola_monto').value = data.negocio?.paola?.monto_mensual || '';
+      document.getElementById('paola_notas').value = data.negocio?.paola?.notas || '';
+
+      document.getElementById('fecha_arranque').value = data.contexto?.fecha_arranque_tentativa || '';
+      document.getElementById('clientes_confirmados').value = data.contexto?.clientes_confirmados || '';
+      document.getElementById('clientes_probables').value = data.contexto?.clientes_probables || '';
+      document.getElementById('clientes_notas').value = data.contexto?.clientes_notas || '';
+      document.getElementById('notas_libres').value = data.notas_libres || '';
+
+      updateTotals();
+    } catch (e) {
+      console.warn('load failed', e);
+    }
+  }
+
+  document.addEventListener('input', save);
+  document.addEventListener('change', save);
+
+  function updateStatus() {
+    const totalFiles = Object.values(fileStore).reduce((s, arr) => s + arr.length, 0);
+    const totalBytes = Object.values(fileStore).flat().reduce((s, f) => s + f.size, 0);
+    const el = document.getElementById('status');
+    if (totalFiles > 0) {
+      el.textContent = `${totalFiles} archivo${totalFiles !== 1 ? 's' : ''} · ${formatBytes(totalBytes)} · guardado en tu navegador`;
+    } else {
+      el.textContent = 'guardado en tu navegador';
+    }
+  }
+
+  document.getElementById('btn-clear').addEventListener('click', () => {
+    if (!confirm('¿Borrar todo lo cargado? No se puede deshacer.')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    Object.keys(fileStore).forEach(k => { fileStore[k] = []; renderFileList(k); });
+    location.reload();
+  });
+
+  document.getElementById('btn-export').addEventListener('click', async () => {
+    const btn = document.getElementById('btn-export');
+    btn.disabled = true;
+    btn.textContent = 'Empaquetando...';
+    try {
+      const data = gather();
+      const zip = new JSZip();
+      zip.file('respuestas.json', JSON.stringify(data, null, 2));
+      zip.file('LEEME.txt',
+`Bundle Spiga × Aldana — Intake
+
+Generado: ${new Date().toLocaleString('es-AR')}
+
+Contenido:
+- respuestas.json     todas las respuestas del formulario
+- archivos/           documentos adjuntados, organizados por categoría
+    tarjeta/          resúmenes de tarjeta de crédito
+    banco/            movimientos del banco / Mercado Pago
+    sueldo/           recibos de sueldo
+    otros/            documentos varios
+
+Pasale este ZIP a Claude Code y va a leer todo automáticamente
+para armar el análisis (runway, breakeven, escenarios).
+`);
+      for (const [zone, files] of Object.entries(fileStore)) {
+        for (const f of files) {
+          zip.file(`archivos/${zone}/${f.name}`, f);
+        }
+      }
+      const blob = await zip.generateAsync({ type: 'blob' });
+      const fecha = new Date().toISOString().slice(0, 10);
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `aldana-spiga-intake-${fecha}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+
+      btn.textContent = '✓ Descargado';
+      setTimeout(() => {
+        btn.textContent = 'Exportar bundle';
+        btn.disabled = false;
+      }, 2400);
+    } catch (e) {
+      console.error(e);
+      alert('Algo falló al exportar. Mirá la consola del navegador.');
+      btn.textContent = 'Exportar bundle';
+      btn.disabled = false;
+    }
+  });
+
+  load();
+  updateTotals();
+  updateStatus();
+})();
+</script>
+</body>
+</html>
