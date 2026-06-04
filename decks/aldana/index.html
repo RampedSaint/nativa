@@ -354,6 +354,22 @@
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(0.8rem, 1.8vw, 1.5rem);
   }
+  .frutta-line {
+    display: flex; align-items: center; gap: clamp(0.8rem, 1.6vw, 1.3rem);
+    margin-top: clamp(0.8rem, 1.6vw, 1.3rem);
+    padding: clamp(0.7rem, 1.4vw, 1.1rem) clamp(1rem, 2vw, 1.5rem);
+    background: var(--crema-soft); border: 1px solid var(--madera-suave);
+    border-left: 4px solid var(--acento-2); border-radius: 8px;
+  }
+  .frutta-tag {
+    font-family: var(--font-display); font-style: italic;
+    font-size: clamp(1.2rem, 1.8vw, 1.6rem); color: var(--madera); flex-shrink: 0;
+  }
+  .frutta-text {
+    font-family: var(--font-ui); font-size: clamp(0.78rem, 0.95vw, 0.9rem);
+    color: var(--oliva-texto); line-height: 1.4;
+  }
+  .frutta-text strong { color: var(--oliva-profundo); }
   .cajon-card {
     border: 1px solid var(--madera-suave);
     border-radius: 6px;
@@ -639,20 +655,23 @@
     display: flex;
     align-items: stretch;
     justify-content: center;
-    gap: clamp(0.4rem, 1vw, 0.8rem);
+    gap: clamp(0.5rem, 1.1vw, 1rem);
     flex-wrap: wrap;
+    margin-top: clamp(1rem, 3vh, 2.5rem);
   }
   .flow-step {
     background: var(--crema-soft);
     border: 1px solid var(--madera-suave);
-    border-radius: 6px;
-    padding: clamp(0.8rem, 1.5vw, 1.2rem);
+    border-radius: 8px;
+    padding: clamp(1.1rem, 2vw, 1.8rem);
     flex: 1;
-    min-width: 130px;
-    max-width: 180px;
+    min-width: 150px;
+    max-width: 210px;
+    min-height: clamp(190px, 26vh, 270px);
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    justify-content: center;
+    gap: 10px;
     text-align: center;
   }
   .flow-step.is-trigger { background: var(--oliva-profundo); border-color: var(--oliva-profundo); }
@@ -670,15 +689,15 @@
   .flow-title {
     font-family: var(--font-display);
     font-style: italic;
-    font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
     color: var(--oliva-profundo);
-    line-height: 1.1;
+    line-height: 1.12;
   }
   .flow-desc {
     font-family: var(--font-ui);
-    font-size: clamp(0.7rem, 0.85vw, 0.8rem);
+    font-size: clamp(0.78rem, 0.95vw, 0.9rem);
     color: var(--oliva-texto);
-    line-height: 1.35;
+    line-height: 1.4;
   }
   .flow-arrow {
     display: flex;
@@ -1068,10 +1087,12 @@
     .legal-list, .checklist-grid, .team-grid { grid-template-columns: 1fr; }
     .flow-diagram { flex-direction: column; }
     .flow-arrow { transform: rotate(90deg); }
+    .flow-step { min-height: auto; max-width: none; }
   }
   @media (max-height: 700px) {
     .cajon-items li { padding: 2px 0 2px 14px; }
     .team-portrait { width: 70px; height: 70px; font-size: 2rem; }
+    .flow-step { min-height: clamp(120px, 20vh, 160px); padding: clamp(0.7rem, 1.5vw, 1rem); }
   }
 
   ::selection { background: var(--oliva-profundo); color: var(--crema); }
@@ -1299,6 +1320,10 @@
           <li class="cajon-extra"><strong>Extras a pedido</strong> · palta, berenjena, maple de huevos N3</li>
         </ul>
       </div>
+    </div>
+    <div class="frutta-line reveal">
+      <span class="frutta-tag">Frutta</span>
+      <span class="frutta-text">La versión <strong>solo fruta</strong> — <strong>Frutta Famiglia</strong> (6 variedades) y <strong>Frutta Abbondanza</strong> (cantidades generosas). Ideal para oficinas y para quienes solo quieren fruta.</span>
     </div>
     <p class="cajones-note reveal">Cantidades semanales fijas — el mix de productos está siempre presente y rota con la estación. <em>Cajón sorpresa premium cada 3 meses</em> y entrega coordinada en todos los tamaños.</p>
     <div class="cajones-cta reveal">
