@@ -87,6 +87,21 @@
   .flow-slide .slide-content { justify-content: space-between; gap: clamp(1rem, 3vh, 2.2rem); }
   .flow-slide .head-block { margin-bottom: 0; }
 
+  /* Sello de cierre Spiga, centrado al pie de cada slide */
+  .slide-seal {
+    position: absolute; bottom: clamp(0.9rem, 2.2vh, 1.6rem); left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; justify-content: center; gap: clamp(0.7rem, 1.5vw, 1.2rem);
+    opacity: .5; pointer-events: none;
+  }
+  .seal-rule { height: 1px; width: clamp(34px, 7vw, 80px); background: var(--madera-suave); }
+  .seal-monogram {
+    width: clamp(24px, 2.8vw, 30px); height: clamp(24px, 2.8vw, 30px);
+    border: 1px solid var(--madera-suave); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-style: italic; font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+    color: var(--oliva-profundo); line-height: 1;
+  }
+
   /* ============ SHARED COMPONENTS ============ */
   .eyebrow {
     font-family: var(--font-ui);
@@ -1784,7 +1799,17 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => new SpigaDeck());
+  document.addEventListener('DOMContentLoaded', () => {
+    new SpigaDeck();
+    // Sello de cierre Spiga centrado al pie de cada slide (salvo portada y cierre, que ya tienen su sello)
+    document.querySelectorAll('.slide:not(.title-slide):not(.close-slide)').forEach(s => {
+      const d = document.createElement('div');
+      d.className = 'slide-seal';
+      d.setAttribute('aria-hidden', 'true');
+      d.innerHTML = '<span class="seal-rule"></span><span class="seal-monogram">S</span><span class="seal-rule"></span>';
+      s.appendChild(d);
+    });
+  });
 </script>
 
 <script>
