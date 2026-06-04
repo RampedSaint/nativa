@@ -1541,7 +1541,6 @@
           <li data-todo="wpp">Configurar el bot de WhatsApp</li>
           <li data-todo="fotos">Fotos reales de cajones y productos</li>
           <li data-todo="ig">Abrir y armar el Instagram</li>
-          <li data-todo="zonas">Confirmar zonas y días de entrega</li>
         </ul>
       </div>
       <div class="todo-col reveal">
@@ -1549,7 +1548,6 @@
         <ul class="todo-list" id="todo-preguntas">
           <li data-todo="q-pago">¿Cómo paga el usuario? (mensual · MercadoPago · transferencia)</li>
           <li data-todo="q-recargo">¿El cajón a medida lleva 15% extra, u otro número?</li>
-          <li data-todo="q-dias">¿Qué días se entrega?</li>
           <li data-todo="q-coliflor">¿Cuántas coliflores trae el cajón del mayorista?</li>
           <li data-todo="q-verduleria">¿Confirmamos los precios de verdulería estimados?</li>
           <li data-todo="q-minimo">¿Hay un mínimo para el cajón a medida?</li>
@@ -1631,12 +1629,12 @@
       </div>
 
       <div class="editor-section-title">Calculadora — ¿cuántos clientes para tu sueldo?</div>
-      <p class="editor-hint" style="margin-bottom:1rem;">El precio y costo de Abbondanza se autocompletan desde lo que editás arriba. Mix recomendado: 30% Piccolo · 50% Abbondanza · 20% Famiglia.</p>
+      <p class="editor-hint" style="margin-bottom:1rem;">El precio y costo de Famiglia se autocompletan desde lo que editás arriba. Mix recomendado: 30% Piccolo · 50% Famiglia · 20% Abbondanza.</p>
       <div class="editor-calc-grid">
         <div class="editor-calc-inputs">
-          <label>Precio Abbondanza / mes (50% del mix)</label>
+          <label>Precio Famiglia / mes (50% del mix)</label>
           <div class="slider-row"><input type="range" id="ed-precio-r" min="60000" max="600000" step="5000" value="180000" /><span class="sv" id="ed-precio-rv">$ 180.000</span></div>
-          <label>Costo Abbondanza / entrega</label>
+          <label>Costo Famiglia / entrega</label>
           <div class="slider-row"><input type="range" id="ed-costo-r" min="10000" max="150000" step="2500" value="40000" /><span class="sv" id="ed-costo-rv">$ 40.000</span></div>
           <label>Gastos fijos operativos / mes</label>
           <div class="slider-row"><input type="range" id="ed-opex" min="0" max="3000000" step="50000" value="1200000" /><span class="sv" id="ed-opex-v">$ 1.200.000</span></div>
@@ -2091,12 +2089,12 @@
     $('ed-precio-entrega').textContent = fmt(v.precio) + ' por entrega';
     $('ed-margen').textContent = fmt(v.margenMes);
     $('ed-pct').textContent = (v.precioMes > 0 ? (v.margenMes / v.precioMes * 100).toFixed(0) : 0) + ' % margen';
-    syncCalcToAbb();
+    syncCalcToFam();
     calc();
   }
 
-  function syncCalcToAbb() {
-    const v = values.abbondanza; if (!v) return;
+  function syncCalcToFam() {
+    const v = values.famiglia; if (!v) return;
     const pr = $('ed-precio-r'), co = $('ed-costo-r');
     const round = (x, s) => Math.round(x / s) * s;
     pr.value = Math.min(Math.max(round(v.precioMes, 5000), +pr.min), +pr.max);
@@ -2104,21 +2102,21 @@
   }
 
   function calc() {
-    const precioAbb = +$('ed-precio-r').value, costoAbb = +$('ed-costo-r').value;
+    const precioFam = +$('ed-precio-r').value, costoFam = +$('ed-costo-r').value;
     const opex = +$('ed-opex').value, paola = +$('ed-paola').value, objetivo = +$('ed-objetivo').value;
-    $('ed-precio-rv').textContent = fmt(precioAbb);
-    $('ed-costo-rv').textContent = fmt(costoAbb);
+    $('ed-precio-rv').textContent = fmt(precioFam);
+    $('ed-costo-rv').textContent = fmt(costoFam);
     $('ed-opex-v').textContent = fmt(opex);
     $('ed-paola-v').textContent = fmt(paola);
     $('ed-objetivo-v').textContent = fmt(objetivo);
     const brutoNeed = objetivo + opex + paola;
     const margenP = values.picolo ? values.picolo.margenMes : 0;
-    const margenF = values.famiglia ? values.famiglia.margenMes : 0;
-    const margenA = precioAbb - (costoAbb * 4);
+    const margenA = values.abbondanza ? values.abbondanza.margenMes : 0;
+    const margenF = precioFam - (costoFam * 4);
     const precioP = values.picolo ? values.picolo.precioMes : 0;
-    const precioF = values.famiglia ? values.famiglia.precioMes : 0;
-    const margenMix = 0.30 * margenP + 0.50 * margenA + 0.20 * margenF;
-    const precioMix = 0.30 * precioP + 0.50 * precioAbb + 0.20 * precioF;
+    const precioA = values.abbondanza ? values.abbondanza.precioMes : 0;
+    const margenMix = 0.30 * margenP + 0.50 * margenF + 0.20 * margenA;
+    const precioMix = 0.30 * precioP + 0.50 * precioFam + 0.20 * precioA;
     const clientes = margenMix > 0 ? Math.ceil(brutoNeed / margenMix) : Infinity;
     const fact = isFinite(clientes) ? clientes * precioMix : 0;
     $('ed-out-clientes').textContent = isFinite(clientes) ? clientes : '∞';
