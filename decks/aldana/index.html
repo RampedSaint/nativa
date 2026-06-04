@@ -397,6 +397,22 @@
   .bld-row { display: flex; justify-content: space-between; gap: 1rem; font-family: var(--font-ui); font-size: .85rem; color: var(--oliva-texto); }
   .bld-row span:last-child { font-variant-numeric: tabular-nums; }
   .bld-row.bld-total { font-size: 1.15rem; font-weight: 600; color: var(--oliva-profundo); border-top: 1px solid var(--crema-soft); padding-top: .55rem; margin-top: .2rem; }
+  .todo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); margin-top: clamp(1rem, 3vh, 2.5rem); }
+  .todo-col-title { font-family: var(--font-ui); font-size: var(--eyebrow-size); letter-spacing: .18em; text-transform: uppercase; color: var(--madera); font-weight: 500; margin-bottom: clamp(.6rem, 1.5vw, 1rem); }
+  .todo-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .todo-list li {
+    display: flex; align-items: flex-start; gap: .7rem; cursor: pointer; user-select: none;
+    font-family: var(--font-ui); font-size: clamp(.82rem, 1.05vw, .95rem); color: var(--oliva-texto); line-height: 1.4; padding: .15rem 0;
+  }
+  .todo-list li::before {
+    content: ''; flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px;
+    border: 1.5px solid var(--madera-suave); border-radius: 5px; background: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--crema); font-size: 12px; line-height: 1;
+  }
+  .todo-list li:hover::before { border-color: var(--oliva); }
+  .todo-list li.done { color: var(--madera-suave); text-decoration: line-through; }
+  .todo-list li.done::before { content: '✓'; background: var(--oliva-profundo); border-color: var(--oliva-profundo); }
   .cajon-card {
     border: 1px solid var(--madera-suave);
     border-radius: 6px;
@@ -1108,7 +1124,7 @@
     .title-slide .slide-content { grid-template-columns: 1fr; }
     .title-seal { display: none; }
     .brand-grid, .ofic-grid { grid-template-columns: 1fr; }
-    .cols-3, .cajones-grid, .phases-row, .special-grid { grid-template-columns: 1fr; }
+    .cols-3, .cajones-grid, .phases-row, .special-grid, .todo-grid { grid-template-columns: 1fr; }
     .week-grid { grid-template-columns: repeat(4, 1fr); }
     .tools-grid { grid-template-columns: repeat(2, 1fr); }
     .legal-list, .checklist-grid, .team-grid { grid-template-columns: 1fr; }
@@ -1303,7 +1319,7 @@
       </div>
     </div>
   </div>
-  <div class="slide-num">01 · 06</div>
+  <div class="slide-num">01 · 07</div>
 </section>
 
 <!-- ============ SLIDE 4: CAJONES ============ -->
@@ -1355,7 +1371,7 @@
       </div>
       <div class="special-card custom reveal">
         <span class="special-tag">Armá tu propio cajón</span>
-        <span class="special-text">Elegís los productos de la lista y nosotros lo armamos. <strong>+15%</strong> por la personalización.</span>
+        <span class="special-text">Elegís los productos que quieras de la lista y nosotros lo armamos a tu medida.</span>
         <button type="button" class="bld-cta" id="openBuilder">Probalo →</button>
       </div>
     </div>
@@ -1364,7 +1380,7 @@
       <button type="button" class="btn-spiga" id="openEditor">✎ Editar productos, cantidades y precios</button>
     </div>
   </div>
-  <div class="slide-num">02 · 06</div>
+  <div class="slide-num">02 · 07</div>
 </section>
 
 <!-- ============ SLIDE 3: FLUJO CLIENTE ============ -->
@@ -1408,7 +1424,7 @@
     </div>
     <p class="cajones-note reveal" style="text-align:center;">Es una suscripción: <strong>llega cada semana</strong> y <strong>se cobra una vez por mes</strong>. Entregamos en Nordelta, Villanueva, Tigre, Maschwitz, Escobar y Pilar.</p>
   </div>
-  <div class="slide-num">03 · 06</div>
+  <div class="slide-num">03 · 07</div>
 </section>
 
 <!-- ============ SLIDE 4: FLUJO ALDANA ============ -->
@@ -1452,7 +1468,7 @@
     </div>
     <p class="cajones-note reveal" style="text-align:center;">Lo manejás desde el celu o la compu, cuando quieras — sin planillas ni programadores.</p>
   </div>
-  <div class="slide-num">04 · 06</div>
+  <div class="slide-num">04 · 07</div>
 </section>
 
 <!-- ============ SLIDE 5: AUTOMATIZACIONES ============ -->
@@ -1472,7 +1488,7 @@
       <div class="tool-card reveal"><div class="tool-icon">◔</div><div class="tool-name">Aviso de pedido</div><div class="tool-desc">Cada suscripción nueva te llega al panel y al teléfono.</div></div>
     </div>
   </div>
-  <div class="slide-num">05 · 06</div>
+  <div class="slide-num">05 · 07</div>
 </section>
 
 <!-- ============ SLIDE 17: CIERRE ============ -->
@@ -1503,7 +1519,45 @@
     </div>
     <div class="close-tag reveal">La cosecha de la semana — desde julio 2026.</div>
   </div>
-  <div class="slide-num">06 · 06</div>
+  <div class="slide-num">06 · 07</div>
+</section>
+
+<!-- ============ SLIDE 7: PENDIENTES Y PREGUNTAS ============ -->
+<section class="slide">
+  <div class="slide-content">
+    <div class="head-block">
+      <span class="eyebrow reveal">05 <span class="sep">·</span> Antes de lanzar</span>
+      <h2 class="reveal">Pendientes y <em>preguntas abiertas.</em></h2>
+      <p class="lead reveal">Tildá lo que ya esté resuelto — se guarda solo en este navegador.</p>
+    </div>
+    <div class="todo-grid">
+      <div class="todo-col reveal">
+        <div class="todo-col-title">Pendientes</div>
+        <ul class="todo-list" id="todo-tareas">
+          <li data-todo="dominio">Comprar el dominio (spiga.com.ar)</li>
+          <li data-todo="pago">Definir el medio de pago / pasarela</li>
+          <li data-todo="legal">Habilitaciones legales y bromatología</li>
+          <li data-todo="mail">Configurar el mail de bienvenida</li>
+          <li data-todo="wpp">Configurar el bot de WhatsApp</li>
+          <li data-todo="fotos">Fotos reales de cajones y productos</li>
+          <li data-todo="ig">Abrir y armar el Instagram</li>
+          <li data-todo="zonas">Confirmar zonas y días de entrega</li>
+        </ul>
+      </div>
+      <div class="todo-col reveal">
+        <div class="todo-col-title">Preguntas abiertas</div>
+        <ul class="todo-list" id="todo-preguntas">
+          <li data-todo="q-pago">¿Cómo paga el usuario? (mensual · MercadoPago · transferencia)</li>
+          <li data-todo="q-recargo">¿El cajón a medida lleva 15% extra, u otro número?</li>
+          <li data-todo="q-dias">¿Qué días se entrega?</li>
+          <li data-todo="q-coliflor">¿Cuántas coliflores trae el cajón del mayorista?</li>
+          <li data-todo="q-verduleria">¿Confirmamos los precios de verdulería estimados?</li>
+          <li data-todo="q-minimo">¿Hay un mínimo para el cajón a medida?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">07 · 07</div>
 </section>
 
 <!-- ============ FLOATING EDITOR BUTTON ============ -->
@@ -1628,11 +1682,9 @@
       </div>
     </div>
     <div class="editor-body">
-      <p class="editor-hint">Sumá los productos que quieras con + y −. El cajón a medida tiene un <strong>15% extra</strong> sobre el precio de lista, por armarlo a tu gusto.</p>
+      <p class="editor-hint">Sumá los productos que quieras con + y −. El precio se arma solo a medida que elegís.</p>
       <div class="bld-list" id="bld-list"></div>
       <div class="bld-totals">
-        <div class="bld-row"><span>Precio de lista</span><span id="bld-subtotal">$ 0</span></div>
-        <div class="bld-row"><span>Personalización (+15%)</span><span id="bld-recargo">$ 0</span></div>
         <div class="bld-row bld-total"><span>Tu cajón a medida</span><span id="bld-total">$ 0</span></div>
       </div>
     </div>
@@ -2145,9 +2197,9 @@
 
   /* ----- Builder cliente: armá tu propio cajón (+15%) ----- */
   const builderOverlay = $('builderOverlay');
-  const RECARGO_CUSTOM = 0.15;
+  const RECARGO_CUSTOM = 0.15; // recargo por armar a medida, horneado en cada precio (no se muestra)
   const builderQty = {};
-  const precioLista = p => Math.round(costoUnit(p) * markup / 50) * 50;
+  const precioCajon = p => Math.round(costoUnit(p) * markup * (1 + RECARGO_CUSTOM) / 50) * 50;
   function renderBuilder() {
     const wrap = $('bld-list'); if (!wrap) return;
     wrap.innerHTML = '';
@@ -2157,7 +2209,7 @@
       div.className = 'bld-item';
       div.innerHTML =
         '<div class="bld-item-info"><span class="bld-item-name">' + p.nombre + '</span>' +
-        '<span class="bld-item-price">' + fmt(precioLista(p)) + ' / ' + p.unidad + '</span></div>' +
+        '<span class="bld-item-price">' + fmt(precioCajon(p)) + ' / ' + p.unidad + '</span></div>' +
         '<div class="bld-stepper">' +
         '<button type="button" data-bm="' + id + '" aria-label="Quitar">−</button>' +
         '<span class="bld-qty" id="bld-q-' + id + '">' + (builderQty[id] || 0) + '</span>' +
@@ -2175,12 +2227,9 @@
     refreshBuilder();
   }
   function refreshBuilder() {
-    let sub = 0;
-    Object.keys(builderQty).forEach(id => { const p = productos[id]; if (p) sub += (builderQty[id] || 0) * precioLista(p); });
-    const rec = sub * RECARGO_CUSTOM;
-    $('bld-subtotal').textContent = fmt(sub);
-    $('bld-recargo').textContent = fmt(rec);
-    $('bld-total').textContent = fmt(sub + rec);
+    let total = 0;
+    Object.keys(builderQty).forEach(id => { const p = productos[id]; if (p) total += (builderQty[id] || 0) * precioCajon(p); });
+    $('bld-total').textContent = fmt(total);
   }
   function openBuilder() {
     document.documentElement.classList.add('editor-open'); document.body.classList.add('editor-open');
@@ -2197,6 +2246,20 @@
     builderOverlay.addEventListener('click', e => { if (e.target === builderOverlay) closeBuilder(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && builderOverlay.classList.contains('open')) closeBuilder(); });
   }
+
+  /* ----- Checklist de pendientes y preguntas (persistente) ----- */
+  const TODO_KEY = 'spiga_aldana_todo_v1';
+  let todoState = {};
+  try { todoState = JSON.parse(localStorage.getItem(TODO_KEY) || '{}'); } catch (e) { todoState = {}; }
+  document.querySelectorAll('.todo-list li[data-todo]').forEach(li => {
+    const k = li.getAttribute('data-todo');
+    if (todoState[k]) li.classList.add('done');
+    li.addEventListener('click', () => {
+      const done = li.classList.toggle('done');
+      todoState[k] = done;
+      try { localStorage.setItem(TODO_KEY, JSON.stringify(todoState)); } catch (e) {}
+    });
+  });
 
   loadSaved();
 })();
