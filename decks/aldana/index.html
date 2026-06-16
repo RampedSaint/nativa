@@ -1354,6 +1354,7 @@
           <li><strong>Hoja</strong> · lechuga manteca 400 g</li>
           <li><strong>Para cocinar</strong> · tomate 1 kg, cebolla 1 kg, papa 1,5 kg, zanahoria 500 g, anco 1 kg</li>
           <li><strong>Frutas</strong> · banana 1 kg, manzana 800 g</li>
+          <li class="cajon-extra"><strong>Extras a pedido (+10%)</strong> · palta, huevos, frutas extra, berenjena</li>
         </ul>
       </div>
       <div class="cajon-card featured reveal">
@@ -1362,9 +1363,10 @@
         <div class="cajon-name">Famiglia</div>
         <div class="cajon-personas">3 a 4 personas · 15 variedades</div>
         <ul class="cajon-items">
-          <li><strong>Hoja</strong> · lechuga manteca 400 g, lechuga criolla 400 g, rúcula ×2 at., espinaca ×1 at.</li>
+          <li><strong>Hoja</strong> · lechuga manteca 400 g, lechuga capuchina 400 g, rúcula ×2 at., espinaca ×1 at.</li>
           <li><strong>Para cocinar</strong> · tomate 2 kg, cebolla 2 kg, papa 2,5 kg, zanahoria 1,5 kg, anco 1,5 kg, zapallito 1 kg, brócoli 500 g</li>
           <li><strong>Frutas</strong> · banana 2 kg, manzana 1,5 kg, naranja 2 kg, pera 1 kg</li>
+          <li class="cajon-extra"><strong>Extras a pedido (+10%)</strong> · palta, huevos, frutas extra, berenjena, champiñones</li>
         </ul>
       </div>
       <div class="cajon-card reveal">
@@ -1372,11 +1374,11 @@
         <div class="cajon-name">Abbondanza</div>
         <div class="cajon-personas">5+ personas o cocina intensa · 27 variedades · hierbas frescas</div>
         <ul class="cajon-items">
-          <li><strong>Hoja y verdes</strong> · lechuga manteca 400 g, lechuga criolla 400 g, rúcula ×2 at., espinaca ×1 at., apio ×1</li>
+          <li><strong>Hoja y verdes</strong> · lechuga manteca 400 g, lechuga capuchina 400 g, rúcula ×2 at., espinaca ×1 at., apio ×1</li>
           <li><strong>Para cocinar</strong> · tomate perita 2 kg, cherry 500 g, cebolla 2 kg, cebolla morada 500 g, papa 3 kg, papín 500 g, zanahoria 1,5 kg, anco 1,5 kg, batata 1 kg, brócoli 500 g, coliflor ×1, zapallito 1 kg, morrón 500 g, pepino 500 g</li>
           <li><strong>Frutas</strong> · banana 2,5 kg, manzana 2 kg, naranja 2 kg, pera 1,5 kg, mandarina 1 kg, kiwi 500 g</li>
           <li><strong>Hierbas</strong> · perejil ×1 at., albahaca ×1</li>
-          <li class="cajon-extra"><strong>Extras a pedido</strong> · palta, berenjena, maple de huevos N3</li>
+          <li class="cajon-extra"><strong>Extras a pedido (+10%)</strong> · palta, huevos, frutas extra, berenjena, champiñones</li>
         </ul>
       </div>
     </div>
@@ -1391,7 +1393,7 @@
         <button type="button" class="bld-cta" id="openBuilder">Probalo →</button>
       </div>
     </div>
-    <p class="cajones-note reveal">Cantidades semanales fijas — el mix de productos está siempre presente y rota con la estación. <em>Cajón sorpresa premium cada 3 meses</em> y entrega coordinada en todos los tamaños.</p>
+    <p class="cajones-note reveal">Con la suscripción mensual el mix de productos siempre está presente y rota con la estación. Cada cliente recibe un <em>cajón sorpresa premium cada 3 meses</em> y entrega coordinada en todos los tamaños.</p>
     <div class="cajones-cta reveal">
       <button type="button" class="btn-spiga" id="openEditor">✎ Editar productos, cantidades y precios</button>
     </div>
@@ -1557,16 +1559,18 @@
           <li data-todo="wpp">Configurar el bot de WhatsApp</li>
           <li data-todo="fotos">Fotos reales de cajones y productos</li>
           <li data-todo="ig">Abrir y armar el Instagram</li>
+          <li data-todo="responsive">Web apta para celular y compu</li>
+          <li data-todo="popup">Pop-up "Suscribite" con ofertas y descuentos</li>
         </ul>
       </div>
       <div class="todo-col reveal">
         <div class="todo-col-title">Preguntas abiertas</div>
         <ul class="todo-list" id="todo-preguntas">
-          <li data-todo="q-pago">¿Cómo paga el usuario? (mensual · MercadoPago · transferencia)</li>
-          <li data-todo="q-recargo">¿El cajón a medida lleva 15% extra, u otro número?</li>
+          <li data-todo="q-pago">Pago: descuento por transferencia/efectivo · tarjeta y MercadoPago más caro</li>
+          <li data-todo="q-paylink">Al elegir el medio de pago, ¿mandamos el link (ML o CBU) automático?</li>
+          <li data-todo="q-descuento">¿Códigos de descuento por influencer (ej. Aldi10) con análisis de rentabilidad?</li>
+          <li data-todo="q-precios">¿Linkeamos los precios de verdulería con COTO / JUMBO?</li>
           <li data-todo="q-coliflor">¿Cuántas coliflores trae el cajón del mayorista?</li>
-          <li data-todo="q-verduleria">¿Confirmamos los precios de verdulería estimados?</li>
-          <li data-todo="q-minimo">¿Hay un mínimo para el cajón a medida?</li>
         </ul>
       </div>
     </div>
@@ -1832,7 +1836,7 @@
   // d2 = valor verdulería (retail jun-2026, ref. La Barata + INDEC). Siempre d2 ≥ d1.
   const DEFAULT_PRODUCTOS = {
     lechuga_manteca: { nombre: 'Lechuga manteca', unidad: 'kg', d1: 2500, d2: 4000 },
-    lechuga_criolla: { nombre: 'Lechuga criolla', unidad: 'kg', d1: 2500, d2: 4000, bulto: 'cajón', rinde: 6,  pb: 15000 },
+    lechuga_capuchina: { nombre: 'Lechuga capuchina', unidad: 'kg', d1: 2500, d2: 4000, bulto: 'cajón', rinde: 6,  pb: 15000 },
     lechuga_francesa:{ nombre: 'Lechuga francesa',unidad: 'kg', d1: 3000, d2: 4500, bulto: 'cajón', rinde: 4,  pb: 12000 },
     tomate_perita:   { nombre: 'Tomate perita',   unidad: 'kg', d1: 1833, d2: 3000 },
     tomate_redondo:  { nombre: 'Tomate redondo',  unidad: 'kg', d1: 1667, d2: 3000, bulto: 'cajón', rinde: 18, pb: 30000 },
@@ -1888,7 +1892,7 @@
       nombre: 'Famiglia',
       descripcion: '3-4 personas · familiar · mix de hoja, cocina y fruta',
       items: [
-        { id: 'lechuga_manteca', qty: 0.4 }, { id: 'lechuga_criolla', qty: 0.4 }, { id: 'tomate_perita', qty: 2 },
+        { id: 'lechuga_manteca', qty: 0.4 }, { id: 'lechuga_capuchina', qty: 0.4 }, { id: 'tomate_perita', qty: 2 },
         { id: 'cebolla', qty: 2 }, { id: 'papa_negra', qty: 2.5 }, { id: 'zanahoria', qty: 1.5 }, { id: 'anco', qty: 1.5 },
         { id: 'brocoli', qty: 0.5 }, { id: 'zapallito', qty: 1 }, { id: 'rucula', qty: 2 }, { id: 'espinaca', qty: 1 },
         { id: 'banana', qty: 2 }, { id: 'manzana_roja', qty: 1.5 }, { id: 'naranja_jugo', qty: 2 }, { id: 'pera', qty: 1 },
@@ -1898,7 +1902,7 @@
       nombre: 'Abbondanza',
       descripcion: '5+ personas o cocina intensa · incluye hierbas frescas',
       items: [
-        { id: 'lechuga_manteca', qty: 0.4 }, { id: 'lechuga_criolla', qty: 0.4 }, { id: 'tomate_perita', qty: 2 },
+        { id: 'lechuga_manteca', qty: 0.4 }, { id: 'lechuga_capuchina', qty: 0.4 }, { id: 'tomate_perita', qty: 2 },
         { id: 'tomate_cherry', qty: 0.5 }, { id: 'cebolla', qty: 2 }, { id: 'cebolla_morada', qty: 0.5 },
         { id: 'papa_negra', qty: 3 }, { id: 'papin', qty: 0.5 }, { id: 'zanahoria', qty: 1.5 }, { id: 'anco', qty: 1.5 },
         { id: 'batata', qty: 1 }, { id: 'brocoli', qty: 0.5 }, { id: 'coliflor', qty: 1 }, { id: 'zapallito', qty: 1 },
