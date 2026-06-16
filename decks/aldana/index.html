@@ -1130,21 +1130,22 @@
     font-size: clamp(0.95rem, 1.3vw, 1.1rem);
     color: var(--madera-suave);
   }
-  .close-links {
+  .deck-links {
     display: flex; flex-wrap: wrap; gap: clamp(0.5rem, 1.4vw, 1rem);
     justify-content: center; align-items: center;
-    margin-top: clamp(1.4rem, 2.5vw, 2rem);
+    margin-top: clamp(1.4rem, 3vw, 2.2rem); padding-top: clamp(1rem, 2vw, 1.5rem);
+    border-top: 1px solid var(--crema-soft);
   }
-  .close-links-label {
+  .deck-links-label {
     font-family: var(--font-ui); font-size: var(--small-size);
-    color: var(--madera-suave); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+    color: var(--madera); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
   }
-  .close-links a {
-    font-family: var(--font-ui); font-size: 0.9rem; color: var(--crema);
-    text-decoration: none; border: 1px solid rgba(201,165,129,0.45);
+  .deck-links a {
+    font-family: var(--font-ui); font-size: 0.85rem; color: var(--oliva-profundo);
+    text-decoration: none; border: 1px solid var(--madera-suave);
     border-radius: 999px; padding: 5px 14px; transition: background .15s, border-color .15s;
   }
-  .close-links a:hover { background: rgba(242,235,221,0.12); border-color: var(--madera-suave); }
+  .deck-links a:hover { background: var(--oliva-profundo); color: var(--crema); border-color: var(--oliva-profundo); }
   .close-seal {
     margin-bottom: clamp(1rem, 2vw, 1.5rem);
     width: clamp(80px, 10vw, 130px);
@@ -1350,7 +1351,7 @@
       </div>
     </div>
   </div>
-  <div class="slide-num">01 · 07</div>
+  <div class="slide-num">01 · 06</div>
 </section>
 
 <!-- ============ SLIDE 4: CAJONES ============ -->
@@ -1413,7 +1414,7 @@
       <button type="button" class="btn-spiga" id="openEditor">✎ Editar productos, cantidades y precios</button>
     </div>
   </div>
-  <div class="slide-num">02 · 07</div>
+  <div class="slide-num">02 · 06</div>
 </section>
 
 <!-- ============ SLIDE 3: FLUJO CLIENTE ============ -->
@@ -1457,7 +1458,7 @@
     </div>
     <p class="cajones-note reveal" style="text-align:center;">Es una suscripción: <strong>llega cada semana</strong> y <strong>se cobra una vez por mes</strong>. Entregamos en Nordelta, Villanueva, Tigre, Maschwitz, Escobar y Pilar.</p>
   </div>
-  <div class="slide-num">03 · 07</div>
+  <div class="slide-num">03 · 06</div>
 </section>
 
 <!-- ============ SLIDE 4: FLUJO ALDANA ============ -->
@@ -1501,7 +1502,7 @@
     </div>
     <p class="cajones-note reveal" style="text-align:center;">Lo manejás desde el celu o la compu, cuando quieras — sin planillas ni programadores.</p>
   </div>
-  <div class="slide-num">04 · 07</div>
+  <div class="slide-num">04 · 06</div>
 </section>
 
 <!-- ============ SLIDE 5: AUTOMATIZACIONES ============ -->
@@ -1521,49 +1522,10 @@
       <div class="tool-card reveal"><div class="tool-icon">◔</div><div class="tool-name">Aviso de pedido</div><div class="tool-desc">Cada suscripción nueva te llega al panel y al teléfono.</div></div>
     </div>
   </div>
-  <div class="slide-num">05 · 07</div>
+  <div class="slide-num">05 · 06</div>
 </section>
 
-<!-- ============ SLIDE 17: CIERRE ============ -->
-<section class="slide close-slide">
-  <div class="slide-content">
-    <svg class="close-seal reveal" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="100" cy="100" r="95" fill="none" stroke="#F2EBDD" stroke-width="1.4" />
-      <circle cx="100" cy="100" r="86" fill="none" stroke="#F2EBDD" stroke-width="0.5" />
-      <g fill="#F2EBDD">
-        <g transform="translate(100,46) scale(0.55)"><polygon points="0,-10 3,-3 10,-3 4,2 6,10 0,5 -6,10 -4,2 -10,-3 -3,-3"/></g>
-        <g transform="translate(100,144) scale(0.55)"><polygon points="0,-10 3,-3 10,-3 4,2 6,10 0,5 -6,10 -4,2 -10,-3 -3,-3"/></g>
-      </g>
-      <text x="100" y="125" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="78" font-style="italic" font-weight="500" fill="#F2EBDD">S</text>
-    </svg>
-    <h2 class="reveal">El próximo paso <em>es construirlo.</em></h2>
-    <p class="lead reveal">Si así es como querés que funcione Spiga, el próximo paso es pasarlo a los programadores y construir el sitio real, con todo automatizado.</p>
-    <div class="close-contacts">
-      <div class="close-contact reveal">
-        <span class="label">Paso 1</span>
-        <span class="value">Aprobás el flujo</span>
-        <span class="label" style="margin-top: 2px; letter-spacing: 0.06em">vos y Aldana</span>
-      </div>
-      <div class="close-contact reveal">
-        <span class="label">Paso 2</span>
-        <span class="value">Lo construimos</span>
-        <span class="label" style="margin-top: 2px; letter-spacing: 0.06em">brief → sitio real automatizado</span>
-      </div>
-    </div>
-    <div class="close-links reveal">
-      <span class="close-links-label">Links</span>
-      <a href="https://rampedsaint.github.io/spiga/" target="_blank" rel="noopener">Web</a>
-      <a href="devs/index.html" target="_blank" rel="noopener">Brief devs</a>
-      <a href="manual/index.html" target="_blank" rel="noopener">Manual</a>
-      <a href="dashboard/index.html" target="_blank" rel="noopener">Dashboard</a>
-      <a href="intake/index.html" target="_blank" rel="noopener">Intake</a>
-    </div>
-    <div class="close-tag reveal">La cosecha de la semana — desde julio 2026.</div>
-  </div>
-  <div class="slide-num">06 · 07</div>
-</section>
-
-<!-- ============ SLIDE 7: PENDIENTES Y PREGUNTAS ============ -->
+<!-- ============ SLIDE 6: PENDIENTES Y PREGUNTAS ============ -->
 <section class="slide">
   <div class="slide-content">
     <div class="head-block">
@@ -1596,8 +1558,16 @@
         </ul>
       </div>
     </div>
+    <div class="deck-links reveal">
+      <span class="deck-links-label">Links</span>
+      <a href="https://rampedsaint.github.io/spiga/" target="_blank" rel="noopener">Web</a>
+      <a href="devs/index.html" target="_blank" rel="noopener">Brief devs</a>
+      <a href="manual/index.html" target="_blank" rel="noopener">Manual</a>
+      <a href="dashboard/index.html" target="_blank" rel="noopener">Dashboard</a>
+      <a href="intake/index.html" target="_blank" rel="noopener">Intake</a>
+    </div>
   </div>
-  <div class="slide-num">07 · 07</div>
+  <div class="slide-num">06 · 06</div>
 </section>
 
 <!-- ============ FLOATING EDITOR BUTTON ============ -->
