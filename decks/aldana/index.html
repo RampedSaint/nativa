@@ -1130,6 +1130,21 @@
     font-size: clamp(0.95rem, 1.3vw, 1.1rem);
     color: var(--madera-suave);
   }
+  .close-links {
+    display: flex; flex-wrap: wrap; gap: clamp(0.5rem, 1.4vw, 1rem);
+    justify-content: center; align-items: center;
+    margin-top: clamp(1.4rem, 2.5vw, 2rem);
+  }
+  .close-links-label {
+    font-family: var(--font-ui); font-size: var(--small-size);
+    color: var(--madera-suave); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+  }
+  .close-links a {
+    font-family: var(--font-ui); font-size: 0.9rem; color: var(--crema);
+    text-decoration: none; border: 1px solid rgba(201,165,129,0.45);
+    border-radius: 999px; padding: 5px 14px; transition: background .15s, border-color .15s;
+  }
+  .close-links a:hover { background: rgba(242,235,221,0.12); border-color: var(--madera-suave); }
   .close-seal {
     margin-bottom: clamp(1rem, 2vw, 1.5rem);
     width: clamp(80px, 10vw, 130px);
@@ -1534,6 +1549,14 @@
         <span class="value">Lo construimos</span>
         <span class="label" style="margin-top: 2px; letter-spacing: 0.06em">brief → sitio real automatizado</span>
       </div>
+    </div>
+    <div class="close-links reveal">
+      <span class="close-links-label">Links</span>
+      <a href="https://rampedsaint.github.io/spiga/" target="_blank" rel="noopener">Web</a>
+      <a href="devs/index.html" target="_blank" rel="noopener">Brief devs</a>
+      <a href="manual/index.html" target="_blank" rel="noopener">Manual</a>
+      <a href="dashboard/index.html" target="_blank" rel="noopener">Dashboard</a>
+      <a href="intake/index.html" target="_blank" rel="noopener">Intake</a>
     </div>
     <div class="close-tag reveal">La cosecha de la semana — desde julio 2026.</div>
   </div>

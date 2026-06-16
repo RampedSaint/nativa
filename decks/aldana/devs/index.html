@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>Spiga · Brief de desarrollo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --oliva-profundo: #54613F;
+    --oliva-texto: #6F7A5C;
+    --oliva: #8A9476;
+    --oliva-soft: #B8BFA8;
+    --crema: #F2EBDD;
+    --crema-soft: #E6DCC4;
+    --tinta: #1A1A18;
+    --madera: #A07545;
+    --acento: #C9573A;
+    --acento-2: #E8C766;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-display: 'Cinzel', serif;
+    --font-ui: 'Inter', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--crema); color: var(--tinta);
+    font-family: var(--font-ui); font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: clamp(28px, 6vw, 72px) clamp(20px, 5vw, 48px) 96px; }
+
+  header { border-bottom: 1px solid var(--crema-soft); padding-bottom: 28px; margin-bottom: 36px; }
+  .eyebrow { font-family: var(--font-display); font-size: 12px; letter-spacing: .28em; text-transform: uppercase; color: var(--madera); font-weight: 700; }
+  h1 { font-family: var(--font-serif); font-weight: 600; font-size: clamp(38px, 7vw, 58px); line-height: 1.02; margin: 14px 0 6px; color: var(--oliva-profundo); }
+  h1 em { font-style: italic; color: var(--acento); }
+  .sub { font-family: var(--font-serif); font-style: italic; font-size: 22px; color: var(--oliva-texto); margin: 0 0 20px; }
+  .meta { font-size: 13.5px; color: var(--oliva-texto); }
+  .meta a { color: var(--madera); }
+
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 0; }
+  .toc a {
+    font-size: 12.5px; text-decoration: none; color: var(--oliva-profundo);
+    border: 1px solid var(--crema-soft); border-radius: 999px; padding: 5px 13px; background: #fff8ec;
+  }
+  .toc a:hover { border-color: var(--oliva); }
+
+  section { margin-top: 44px; scroll-margin-top: 20px; }
+  h2 {
+    font-family: var(--font-serif); font-weight: 600; font-size: 30px; color: var(--oliva-profundo);
+    margin: 0 0 6px; padding-bottom: 8px; border-bottom: 2px solid var(--crema-soft);
+  }
+  h2 .n { font-family: var(--font-display); font-size: 13px; color: var(--madera); letter-spacing: .1em; margin-right: 10px; vertical-align: middle; }
+  h3 { font-family: var(--font-ui); font-weight: 600; font-size: 16px; color: var(--oliva-profundo); margin: 22px 0 4px; text-transform: uppercase; letter-spacing: .04em; }
+  p { margin: 10px 0; }
+  ul { margin: 10px 0; padding-left: 0; list-style: none; }
+  li { position: relative; padding-left: 20px; margin: 6px 0; }
+  li::before { content: '·'; position: absolute; left: 4px; color: var(--madera); font-weight: 700; }
+  strong { color: var(--oliva-profundo); }
+  .tag { display: inline-block; background: var(--oliva-profundo); color: var(--crema); font-size: 11px; font-weight: 600; letter-spacing: .08em; padding: 2px 9px; border-radius: 5px; text-transform: uppercase; }
+  .accent { color: var(--acento); font-weight: 600; }
+
+  .cards { display: grid; gap: 14px; grid-template-columns: 1fr; margin-top: 14px; }
+  @media (min-width: 620px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+  .card { border: 1px solid var(--crema-soft); border-radius: 12px; padding: 18px; background: #fff8ec; }
+  .card .ph { font-family: var(--font-display); font-size: 12px; letter-spacing: .14em; color: var(--madera); text-transform: uppercase; }
+  .card h4 { margin: 6px 0 8px; font-size: 16px; color: var(--oliva-profundo); }
+
+  .links-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  .links-row a {
+    text-decoration: none; font-size: 14px; font-weight: 500; color: var(--crema);
+    background: var(--oliva-profundo); padding: 9px 16px; border-radius: 8px;
+  }
+  .links-row a.ghost { background: transparent; color: var(--oliva-profundo); border: 1px solid var(--oliva); }
+  .links-row a:hover { background: var(--oliva); color: #fff; }
+
+  footer { margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--crema-soft); font-size: 13px; color: var(--oliva-texto); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Spiga · Dal 2026</div>
+    <h1>Brief de <em>desarrollo</em></h1>
+    <p class="sub">Del prototipo al sitio real: backend, pagos, suscripciones y automatizaciones.</p>
+    <p class="meta">Documento de arranque para los programadores · versión también en
+      <a href="https://github.com/RampedSaint/spiga/blob/main/BRIEF-DEVS.md" target="_blank" rel="noopener">Markdown (BRIEF-DEVS.md)</a>.</p>
+    <nav class="toc">
+      <a href="#que">Qué es</a>
+      <a href="#alcance">Alcance</a>
+      <a href="#cliente">Flujo cliente</a>
+      <a href="#operacion">Operación</a>
+      <a href="#integraciones">Integraciones</a>
+      <a href="#precios">Reglas de precio</a>
+      <a href="#datos">Modelo de datos</a>
+      <a href="#nofun">No funcionales</a>
+      <a href="#fases">Fases</a>
+      <a href="#abiertas">Preguntas</a>
+    </nav>
+  </header>
+
+  <section id="que">
+    <h2><span class="n">01</span>Qué es Spiga</h2>
+    <p>Delivery premium de frutas y verduras por <strong>suscripción mensual</strong>, zona norte de Buenos Aires (Nordelta, Villanueva, Tigre, Maschwitz, Escobar, Pilar). El cliente elige un cajón, se suscribe y recibe una entrega semanal curada que rota con la estación. Lanzamiento objetivo: <strong>julio 2026</strong>.</p>
+  </section>
+
+  <section id="alcance">
+    <h2><span class="n">02</span>Alcance del MVP — dos flujos</h2>
+    <ul>
+      <li><strong>Flujo cliente</strong> — web pública: descubre, elige, paga y administra su suscripción.</li>
+      <li><strong>Flujo operación (Aldana)</strong> — panel interno: ve pedidos, arma la lista de compras consolidada, cobra y concilia.</li>
+    </ul>
+    <p>Todo lo que hoy en el prototipo es manual o "a pedido" tiene que quedar automatizado.</p>
+  </section>
+
+  <section id="cliente">
+    <h2><span class="n">03</span>Flujo cliente</h2>
+
+    <h3>Descubrimiento</h3>
+    <ul>
+      <li>Entrada principal por Instagram → debe llevar a la <strong>web</strong> y al <strong>WhatsApp Business</strong>.</li>
+      <li>La web cierra la compra sin fricción desde el celular.</li>
+    </ul>
+
+    <h3>Elegir el cajón</h3>
+    <ul>
+      <li>Planes: <strong>Piccolo</strong> (1–2), <strong>Famiglia</strong> (3–4, <span class="accent">el más elegido</span>), <strong>Abbondanza</strong> (5+), más versiones <strong>Frutta</strong> (solo fruta, oficinas).</li>
+      <li>Mostrar contenido del cajón (base fija + estacional que rota).</li>
+      <li><strong>Extras / sueltos (+10%):</strong> a cualquier cajón se le suman productos sueltos (palta, huevos, frutas extra, berenjena…) con un 10% sobre góndola.</li>
+      <li><strong>Cajón a medida (+15%):</strong> el cliente arma el cajón producto por producto; recargo del 15% por producto, mínimo equivalente a Piccolo.</li>
+    </ul>
+
+    <h3>Suscripción</h3>
+    <ul>
+      <li>Mensual (4 entregas/mes), por adelantado, cancela cuando quiere.</li>
+      <li>El mix siempre presente y rota con la estación.</li>
+      <li><strong>Cajón sorpresa premium cada 3 meses</strong> para todos los suscriptores.</li>
+      <li><span class="accent">A definir:</span> ¿suscripción = "iniciar sesión"? Modelo de cuenta del cliente (registro, login, gestión, pausas, alergias/exclusiones).</li>
+    </ul>
+
+    <h3>Checkout</h3>
+    <ul>
+      <li>Al agregar al carrito, mostrar el <strong>plazo de entrega según la zona</strong> (día fijo por zona).</li>
+      <li><strong>Medios de pago:</strong> transferencia o efectivo → <strong>con descuento</strong>; tarjeta y Mercado Pago (link) → <strong>un poco más caro</strong> (absorbe la pasarela).</li>
+      <li>Al elegir el medio, enviar <strong>automáticamente el link de pago</strong> (Mercado Pago) o los <strong>datos de transferencia (CBU/alias)</strong>.</li>
+      <li>Cobro mensual recurrente.</li>
+    </ul>
+
+    <h3>Captación y fidelización</h3>
+    <ul>
+      <li><strong>Pop-up "Suscribite"</strong> al entrar: captura de email para ofertas y descuentos.</li>
+      <li><strong>Mail de bienvenida</strong> automático con <strong>cupón de primera compra</strong>.</li>
+      <li>El primer DM por <strong>Instagram</strong> dispara mensaje automático de bienvenida (ref. GoFruit).</li>
+      <li><strong>Códigos de descuento por influencer</strong> (ej. <code>Aldi10</code>): aplica el descuento y registra cuántos clientes trajo, para medir <strong>rentabilidad por influencer</strong> (CAC, conversión, recurrencia).</li>
+    </ul>
+  </section>
+
+  <section id="operacion">
+    <h2><span class="n">04</span>Flujo operación (Aldana)</h2>
+    <h3>Pedidos</h3>
+    <ul>
+      <li>Panel con <strong>pedidos nuevos + suscripciones activas/remanentes</strong> (no solo las nuevas), para armar la semana completa.</li>
+      <li>Aviso de cada suscripción nueva al panel y al teléfono.</li>
+    </ul>
+    <h3>Lista de compras consolidada</h3>
+    <ul>
+      <li>De todos los pedidos de la semana, calcular el <strong>total a comprar por producto</strong> en la unidad de compra real: <strong>cajones / bultos / unidades</strong>.</li>
+      <li>Usa el rinde por bulto (ya modelado en el deck: <code>precio bulto ÷ rinde</code>).</li>
+    </ul>
+    <h3>Cobro y conciliación</h3>
+    <ul>
+      <li>Ver quién está al día con la suscripción.</li>
+      <li><strong>Conciliación bancaria</strong>: cruzar avisos de pago contra movimientos de la cuenta.</li>
+    </ul>
+    <h3>Precios de costo</h3>
+    <ul>
+      <li><strong>Linkear los precios de verdulería con COTO / JUMBO</strong> (feed o scraping) para mantener costos y márgenes actualizados sin cargarlos a mano.</li>
+    </ul>
+  </section>
+
+  <section id="integraciones">
+    <h2><span class="n">05</span>Integraciones</h2>
+    <ul>
+      <li><strong>WhatsApp Business + bot</strong>: coordina el primer cajón y responde sin intervención manual.</li>
+      <li><strong>Instagram</strong>: DM automático de bienvenida.</li>
+      <li><strong>Mercado Pago</strong>: links de pago y suscripción recurrente.</li>
+      <li><strong>Transferencia</strong>: datos CBU/alias y matcheo con la conciliación.</li>
+      <li><strong>Email transaccional</strong>: bienvenida, cupones, comprobantes.</li>
+      <li><strong>COTO / JUMBO</strong>: fuente de precios de referencia.</li>
+    </ul>
+  </section>
+
+  <section id="precios">
+    <h2><span class="n">06</span>Reglas de negocio (precios)</h2>
+    <ul>
+      <li>Precio del cajón = costo unitario × markup, redondeado.</li>
+      <li><strong>Recargo cajón a medida: +15%</strong> sobre el precio del cajón estándar.</li>
+      <li><strong>Recargo productos sueltos: +10%</strong> sobre el precio de góndola.</li>
+      <li><strong>Descuento</strong> por transferencia/efectivo; <strong>recargo</strong> por tarjeta/Mercado Pago.</li>
+      <li>Mínimo del cajón a medida: equivalente a Piccolo.</li>
+      <li>Cupones de descuento por código, con atribución a influencer.</li>
+    </ul>
+  </section>
+
+  <section id="datos">
+    <h2><span class="n">07</span>Modelo de datos (entidades base)</h2>
+    <ul>
+      <li><strong>Producto</strong>: nombre, unidad, costo (d1), valor verdulería (d2), bulto, rinde, precio bulto (pb).</li>
+      <li><strong>Cajón / Plan</strong>: nombre, descripción, items (producto + cantidad), tamaño.</li>
+      <li><strong>Cliente</strong>: datos, zona, alergias/exclusiones, cuenta.</li>
+      <li><strong>Suscripción</strong>: plan, estado, ciclo de cobro, pausas, extras fijos.</li>
+      <li><strong>Pedido semanal</strong>: cliente, cajón, extras/sueltos, a medida, zona, fecha de entrega, estado de pago.</li>
+      <li><strong>Cupón</strong>: código, descuento, influencer, métricas de uso.</li>
+      <li><strong>Pago</strong>: medio, monto, estado, conciliación.</li>
+    </ul>
+  </section>
+
+  <section id="nofun">
+    <h2><span class="n">08</span>No funcionales y legal</h2>
+    <ul>
+      <li><strong>Responsive</strong> (celular y compu) — prioridad celular.</li>
+      <li><strong>Dominio:</strong> <code>spiga.com.ar</code> está tomado. Opciones a comprar: <code>spigastore.com.ar</code>, <code>spiga.ar</code>, <code>spigamarket.com.ar</code>, <code>somosspiga.com.ar</code>.</li>
+      <li><strong>Bromatología:</strong> por ahora no. Evaluar abrir <strong>SRL o SAS</strong> para facturar.</li>
+      <li>Hosting/infra a definir con el equipo de dev.</li>
+    </ul>
+  </section>
+
+  <section id="fases">
+    <h2><span class="n">09</span>Fases sugeridas</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="ph">Fase 1</div>
+        <h4>MVP</h4>
+        <p>Catálogo + suscripción + checkout (transferencia/MP con link automático) + panel de pedidos + lista de compras consolidada + responsive + dominio.</p>
+      </div>
+      <div class="card">
+        <div class="ph">Fase 2</div>
+        <h4>Conversión</h4>
+        <p>Cajón a medida y sueltos online, cupones con atribución de influencer, pop-up + mail de bienvenida, bot de WhatsApp, DM automático de IG.</p>
+      </div>
+      <div class="card">
+        <div class="ph">Fase 3</div>
+        <h4>Automatización</h4>
+        <p>Conciliación bancaria automática, precios linkeados a COTO/JUMBO, analytics de rentabilidad por influencer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="abiertas">
+    <h2><span class="n">10</span>Preguntas abiertas</h2>
+    <ul>
+      <li>¿Suscripción = login? Definir el modelo de cuenta.</li>
+      <li>¿Cuántas coliflores (y unidades sin rinde claro) trae cada bulto del mayorista?</li>
+      <li>¿TikTok además de Instagram para influencers/recetas?</li>
+    </ul>
+  </section>
+
+  <section id="links">
+    <h2><span class="n">11</span>Links del proyecto</h2>
+    <div class="links-row">
+      <a href="../../../index.html">Web (prototipo)</a>
+      <a href="../index.html">Deck de Aldana</a>
+      <a href="../manual/index.html" class="ghost">Manual</a>
+      <a href="../dashboard/index.html" class="ghost">Plan / dashboard</a>
+      <a href="../intake/index.html" class="ghost">Intake</a>
+      <a href="https://github.com/RampedSaint/spiga" class="ghost" target="_blank" rel="noopener">Repo GitHub</a>
+    </div>
+  </section>
+
+  <footer>
+    Spiga · brief de desarrollo · uso interno. La cosecha de la semana, desde julio 2026.
+  </footer>
+
+</div>
+</body>
+</html>

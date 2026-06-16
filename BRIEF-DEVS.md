@@ -22,7 +22,7 @@ Todo lo que hoy en el prototipo es manual o "a pedido" tiene que quedar automati
 - La web tiene que poder cerrar la compra sin fricción desde el celular.
 
 ### 3.2 Elegir el cajón
-- Planes base: **Piccolo** (1–2 personas), **Famiglia** (3–4), **Abbondanza** (5+), más versiones **Frutta** (solo fruta, para oficinas).
+- Planes base: **Piccolo** (1–2 personas), **Famiglia** (3–4, el más elegido), **Abbondanza** (5+), más versiones **Frutta** (solo fruta, para oficinas).
 - Mostrar el contenido del cajón (base fija + estacional que rota).
 - **Extras / productos sueltos (+10%):** a cualquier cajón se le suman productos sueltos (palta, huevos, frutas extra, berenjena, etc.) con un 10% sobre el precio de góndola.
 - **Cajón a medida (+15%):** el cliente arma el cajón producto por producto; recargo del 15% por producto, mínimo equivalente a Piccolo.
@@ -107,5 +107,4 @@ Todo lo que hoy en el prototipo es manual o "a pedido" tiene que quedar automati
 ## 11. Preguntas abiertas
 - ¿Suscripción = login? Definir el modelo de cuenta.
 - ¿Cuántas coliflores (y unidades sin rinde claro) trae cada bulto del mayorista?
-- ¿Tier destacado: Famiglia o Abbondanza? (el prototipo está inconsistente entre deck y web).
 - ¿TikTok además de Instagram para influencers/recetas?
