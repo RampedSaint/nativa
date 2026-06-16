@@ -24,7 +24,7 @@ Todo lo que hoy en el prototipo es manual o "a pedido" tiene que quedar automati
 ### 3.2 Elegir el cajón
 - Planes base: **Piccolo** (1–2 personas), **Famiglia** (3–4, el más elegido), **Abbondanza** (5+), más versiones **Frutta** (solo fruta, para oficinas).
 - Mostrar el contenido del cajón (base fija + estacional que rota).
-- **Extras / productos sueltos (+10%):** a cualquier cajón se le suman productos sueltos (palta, huevos, frutas extra, berenjena, etc.) con un 10% sobre el precio de góndola.
+- **Extras / productos sueltos (+10%):** a cualquier cajón se le suman productos sueltos (palta, huevos, frutas extra, berenjena, etc.) con un 10% sobre el precio Spiga del producto.
 - **Cajón a medida (+15%):** el cliente arma el cajón producto por producto; recargo del 15% por producto, mínimo equivalente a Piccolo.
 - Regla de precios horneada (ver §6).
 
@@ -76,7 +76,7 @@ Todo lo que hoy en el prototipo es manual o "a pedido" tiene que quedar automati
 ## 6. Reglas de negocio (precios)
 - Precio del cajón = costo unitario × markup, redondeado.
 - **Recargo cajón a medida: +15%** sobre el precio del cajón estándar.
-- **Recargo productos sueltos: +10%** sobre el precio de góndola.
+- **Recargo productos sueltos: +10%** sobre el precio Spiga del producto.
 - **Descuento** por transferencia/efectivo; **recargo** por tarjeta/Mercado Pago.
 - Mínimo del cajón a medida: equivalente a Piccolo.
 - Cupones de descuento por código, con atribución a influencer.
@@ -95,15 +95,12 @@ Todo lo que hoy en el prototipo es manual o "a pedido" tiene que quedar automati
 - **Dominio**: elegido **`spigastore.com.ar`** (`spiga.com.ar` y `spiga.ar` están tomados). Falta registrarlo en nic.ar.
 - Hosting/infra a definir con el equipo de dev.
 
-## 9. Legal
-- Evaluar abrir **SRL o SAS** para facturar.
-
-## 10. Fases sugeridas
+## 9. Fases sugeridas
 1. **MVP:** catálogo + suscripción + checkout (transferencia/MP con link automático) + panel de pedidos + lista de compras consolidada + responsive + dominio.
 2. **V2:** cajón a medida y sueltos online, cupones con atribución de influencer, pop-up + mail de bienvenida, bot de WhatsApp, DM automático de IG.
 3. **V3:** conciliación bancaria automática, precios linkeados a COTO/JUMBO, analytics de rentabilidad por influencer.
 
-## 11. Preguntas abiertas
+## 10. Preguntas abiertas
 - ¿Suscripción = login? Definir el modelo de cuenta.
 - ¿Cuántas coliflores (y unidades sin rinde claro) trae cada bulto del mayorista?
 - ¿TikTok además de Instagram para influencers/recetas?

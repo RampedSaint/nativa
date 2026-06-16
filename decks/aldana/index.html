@@ -1130,22 +1130,25 @@
     font-size: clamp(0.95rem, 1.3vw, 1.1rem);
     color: var(--madera-suave);
   }
-  .deck-links {
-    display: flex; flex-wrap: wrap; gap: clamp(0.5rem, 1.4vw, 1rem);
-    justify-content: center; align-items: center;
-    margin-top: clamp(1.4rem, 3vw, 2.2rem); padding-top: clamp(1rem, 2vw, 1.5rem);
-    border-top: 1px solid var(--crema-soft);
+  .deck-topbar {
+    position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 60;
+    display: flex; align-items: center; gap: 6px; max-width: 94vw;
+    padding: 6px 10px; border-radius: 999px;
+    background: rgba(242,235,221,0.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    border: 1px solid var(--crema-soft); box-shadow: 0 6px 20px rgba(63,74,48,0.12);
+    overflow-x: auto; scrollbar-width: none;
   }
-  .deck-links-label {
-    font-family: var(--font-ui); font-size: var(--small-size);
-    color: var(--madera); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
+  .deck-topbar::-webkit-scrollbar { display: none; }
+  .deck-topbar .tb-label {
+    font-family: var(--font-ui); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--madera); font-weight: 600; padding: 0 4px; flex: none;
   }
-  .deck-links a {
-    font-family: var(--font-ui); font-size: 0.85rem; color: var(--oliva-profundo);
-    text-decoration: none; border: 1px solid var(--madera-suave);
-    border-radius: 999px; padding: 5px 14px; transition: background .15s, border-color .15s;
+  .deck-topbar a {
+    flex: none; font-family: var(--font-ui); font-size: 0.8rem; color: var(--oliva-profundo);
+    text-decoration: none; padding: 4px 11px; border-radius: 999px; white-space: nowrap;
+    transition: background .14s, color .14s;
   }
-  .deck-links a:hover { background: var(--oliva-profundo); color: var(--crema); border-color: var(--oliva-profundo); }
+  .deck-topbar a:hover { background: var(--oliva-profundo); color: var(--crema); }
   .close-seal {
     margin-bottom: clamp(1rem, 2vw, 1.5rem);
     width: clamp(80px, 10vw, 130px);
@@ -1306,6 +1309,16 @@
 
 <!-- Nav dots -->
 <nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+<!-- Barra de links · siempre arriba -->
+<div class="deck-topbar">
+  <span class="tb-label">Links</span>
+  <a href="https://rampedsaint.github.io/spiga/" target="_blank" rel="noopener">Web</a>
+  <a href="devs/index.html" target="_blank" rel="noopener">Brief devs</a>
+  <a href="manual/index.html" target="_blank" rel="noopener">Manual</a>
+  <a href="dashboard/index.html" target="_blank" rel="noopener">Dashboard</a>
+  <a href="intake/index.html" target="_blank" rel="noopener">Intake</a>
+</div>
 
 <!-- ============ SLIDE 1: TITLE ============ -->
 <section class="slide title-slide">
@@ -1547,7 +1560,6 @@
           <li data-todo="responsive">Web apta para celular y compu</li>
           <li data-todo="fotos">Fotos reales de cajones y productos</li>
           <li data-todo="ig">Abrir y armar el Instagram</li>
-          <li data-todo="srl">Evaluar abrir SRL o SAS</li>
         </ul>
       </div>
       <div class="todo-col reveal">
@@ -1557,14 +1569,6 @@
           <li data-todo="q-coliflor">¿Cuántas coliflores trae el bulto del mayorista?</li>
         </ul>
       </div>
-    </div>
-    <div class="deck-links reveal">
-      <span class="deck-links-label">Links</span>
-      <a href="https://rampedsaint.github.io/spiga/" target="_blank" rel="noopener">Web</a>
-      <a href="devs/index.html" target="_blank" rel="noopener">Brief devs</a>
-      <a href="manual/index.html" target="_blank" rel="noopener">Manual</a>
-      <a href="dashboard/index.html" target="_blank" rel="noopener">Dashboard</a>
-      <a href="intake/index.html" target="_blank" rel="noopener">Intake</a>
     </div>
   </div>
   <div class="slide-num">06 · 06</div>
