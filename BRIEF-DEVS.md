@@ -92,11 +92,10 @@ Todo lo que hoy en el prototipo es manual o "a pedido" tiene que quedar automati
 
 ## 8. No funcionales
 - **Responsive** (celular y compu) — prioridad celular.
-- **Dominio**: `spiga.com.ar` está tomado. Opciones a comprar: `spigastore.com.ar`, `spiga.ar`, `spigamarket.com.ar`, `somosspiga.com.ar`.
+- **Dominio**: elegido **`spigastore.com.ar`** (`spiga.com.ar` y `spiga.ar` están tomados). Falta registrarlo en nic.ar.
 - Hosting/infra a definir con el equipo de dev.
 
 ## 9. Legal
-- **Bromatología**: por ahora no.
 - Evaluar abrir **SRL o SAS** para facturar.
 
 ## 10. Fases sugeridas
