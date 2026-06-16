@@ -250,9 +250,13 @@
     position: relative;
     aspect-ratio: 4 / 5;
     background:
-      linear-gradient(135deg, rgba(20,32,26,0.86) 0%, rgba(20,83,45,0.90) 100%),
-      url('img/hero-bg.jpg') center/cover no-repeat;
-    background-color: var(--verde-mas-oscuro);
+      /* juntas entre tablas (4 tablas verticales tipo cajón) */
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.28) 0 1.5px, transparent 1.5px 25%),
+      /* veta sutil de la madera */
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 8px),
+      /* tono madera cálido */
+      linear-gradient(165deg, #714c25 0%, #573a1c 60%, #3f2a13 100%);
+    background-color: #573a1c;
     border-radius: 8px;
     overflow: hidden;
     display: flex;
@@ -279,7 +283,7 @@
     bottom: 24px;
     left: 24px;
     right: 24px;
-    color: var(--verde-soft);
+    color: var(--crema);
     font-family: "Inter", sans-serif;
     font-size: 11px;
     letter-spacing: 0.22em;
