@@ -1592,6 +1592,24 @@
     .week-foot, .seasonal-intro h3 { font-size: clamp(22px, 6vw, 30px); }
     .basics-pills { gap: 8px; }
   }
+
+  /* ============ TABS ESTACIONALES + STICKY CTA (override) ============ */
+  .season-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0 auto 28px; max-width: 760px; }
+  .season-tab { font-family: "Inter", sans-serif; font-size: 13px; letter-spacing: 0.04em; font-weight: 500; color: var(--verde-texto); background: var(--crema); border: 1px solid var(--verde-soft); border-radius: 999px; padding: 9px 20px; cursor: pointer; transition: all 180ms ease; position: relative; }
+  .season-tab:hover { border-color: var(--verde); color: var(--verde-bosque); }
+  .season-tab.is-selected { background: var(--verde-bosque); border-color: var(--verde-bosque); color: var(--crema); }
+  .season-tab.is-current::after { content: ""; position: absolute; top: 6px; right: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--ambar); }
+  .season-tab.is-current.is-selected::after { background: var(--crema); }
+  .cajon-seasons { display: block; max-width: 720px; margin: 0 auto; }
+  .cajon-season { display: none; }
+  .cajon-season.is-active { display: block; }
+  .cajon-season.is-active:hover { transform: none; box-shadow: none; }
+  .cajon-season.is-current-season.is-active:hover { box-shadow: 0 16px 36px -10px rgba(200,130,30,0.32); }
+  @media (min-width: 600px) { .cajon-season.is-active .season-cols { grid-template-columns: 1fr 1fr; gap: 32px; } }
+  .sticky-cta { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 80; display: none; text-align: center; font-family: "Inter", sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: var(--crema); background: var(--verde-bosque); padding: 15px 20px; border-radius: 999px; box-shadow: 0 10px 30px -8px rgba(20,32,26,0.45); text-decoration: none; transform: translateY(150%); transition: transform 280ms ease; }
+  .sticky-cta.is-visible { transform: translateY(0); }
+  @media (max-width: 760px) { .sticky-cta { display: block; } }
+
 </style>
 </head>
 <body>
@@ -1689,6 +1707,90 @@
   </div>
 </section>
 
+<!-- ============ PLANES ============ -->
+<section class="block" id="planes">
+  <div class="block-head">
+    <span class="label">Planes</span>
+    <h2>Elegí tu cajón. <em>Cancelás cuando quieras.</em></h2>
+    <p>Tres tamaños pensados para distintas familias. El precio es por mes e incluye cuatro entregas semanales puerta a puerta.</p>
+  </div>
+
+  <div class="zone-selector">
+    <span class="zone-label">¿De dónde sos? (opcional)</span>
+    <div class="zone-pills" role="radiogroup" aria-label="Tu zona de entrega">
+      <button type="button" class="zone-pill" data-zone="Nordelta">Nordelta</button>
+      <button type="button" class="zone-pill" data-zone="Villanueva">Villanueva</button>
+      <button type="button" class="zone-pill" data-zone="Tigre">Tigre</button>
+      <button type="button" class="zone-pill" data-zone="Maschwitz">Maschwitz</button>
+      <button type="button" class="zone-pill" data-zone="Escobar">Escobar</button>
+      <button type="button" class="zone-pill" data-zone="Pilar">Pilar</button>
+      <button type="button" class="zone-pill" data-zone="otra">Otra zona</button>
+    </div>
+    <div id="zone-feedback" class="zone-feedback" aria-live="polite"></div>
+  </div>
+
+  <div class="plans-grid">
+    <div class="plan">
+      <span class="label">Para dos</span>
+      <h3>Duo</h3>
+      <p class="plan-desc">Para 1 o 2 personas. Lo justo para una semana de cocina ligera.</p>
+      <div class="price">$ —</div>
+      <div class="price-meta">Por mes · 4 entregas</div>
+      <ul class="plan-features">
+        <li>18 productos por semana</li>
+        <li>4 verduras de hoja (lechuga, espinaca, acelga, rúcula)</li>
+        <li>9 verduras para cocinar (papa, batata, zanahoria, zapallo…)</li>
+        <li>3 frescas (tomate cherry, morrón, limón)</li>
+        <li>2 frutas (mandarina, banana)</li>
+        <li>Cajón sorpresa cada 3 meses con producto premium</li>
+        <li>Cancelás cuando quieras</li>
+      </ul>
+      <a href="https://wa.me/5491150562645?text=Hola%20Nativa%2C%20me%20interesa%20el%20plan%20Duo%20(1%E2%80%932%20personas).%20%C2%BFMe%20confirman%20precio%20y%20cu%C3%A1ndo%20llega%20el%20primer%20caj%C3%B3n%3F" class="btn plan-cta" data-plan="Duo" data-personas="1–2 personas" target="_blank" rel="noopener noreferrer" aria-label="Empezar plan Duo por WhatsApp">Empezar</a>
+    </div>
+
+    <div class="plan featured">
+      <span class="badge-feat">Más elegido</span>
+      <span class="label">Familiar</span>
+      <h3>Family</h3>
+      <p class="plan-desc">Para 3 o 4 personas. La misma variedad que Duo, en cantidades para familia.</p>
+      <div class="price">$ —</div>
+      <div class="price-meta">Por mes · 4 entregas</div>
+      <ul class="plan-features">
+        <li>18 productos por semana en cantidades familiares</li>
+        <li>4 verduras de hoja (2 unidades de cada)</li>
+        <li>9 verduras para cocinar (papa 1kg, zanahoria 600g, etc.)</li>
+        <li>3 frescas (cherry 350g, morrón, limón ×3)</li>
+        <li>2 frutas (mandarina 1kg, banana ×4)</li>
+        <li>Entrega prioritaria</li>
+        <li>Cajón sorpresa cada 3 meses con producto premium</li>
+        <li>Cancelás cuando quieras</li>
+      </ul>
+      <a href="https://wa.me/5491150562645?text=Hola%20Nativa%2C%20me%20interesa%20el%20plan%20Family%20(3%E2%80%934%20personas).%20%C2%BFMe%20confirman%20precio%20y%20cu%C3%A1ndo%20llega%20el%20primer%20caj%C3%B3n%3F" class="btn plan-cta" data-plan="Family" data-personas="3–4 personas" target="_blank" rel="noopener noreferrer" aria-label="Empezar plan Family por WhatsApp">Empezar</a>
+    </div>
+
+    <div class="plan">
+      <span class="label">Completo</span>
+      <h3>Full House</h3>
+      <p class="plan-desc">Para 5+ personas o quien cocina mucho. Todo lo de Family más cinco frutas extra.</p>
+      <div class="price">$ —</div>
+      <div class="price-meta">Por mes · 4 entregas</div>
+      <ul class="plan-features">
+        <li>23 productos por semana</li>
+        <li>Toda la variedad de Family</li>
+        <li>+ 5 frutas extra (kiwi, uva, manzana, naranja, pomelo)</li>
+        <li>Entrega prioritaria</li>
+        <li>Cajón sorpresa cada 3 meses con producto premium</li>
+        <li>Cancelás cuando quieras</li>
+      </ul>
+      <a href="https://wa.me/5491150562645?text=Hola%20Nativa%2C%20me%20interesa%20el%20plan%20Full%20House%20(5%2B%20personas).%20%C2%BFMe%20confirman%20precio%20y%20cu%C3%A1ndo%20llega%20el%20primer%20caj%C3%B3n%3F" class="btn plan-cta" data-plan="Full House" data-personas="5+ personas" target="_blank" rel="noopener noreferrer" aria-label="Empezar plan Full House por WhatsApp">Empezar</a>
+    </div>
+  </div>
+
+  <div class="plans-foot">
+    Con la suscripción mensual el mix de productos siempre está presente y rota con la estación. Cada 3 meses recibís un cajón sorpresa premium, con entrega coordinada en todos los tamaños. Los precios se confirman al momento de suscribirte. Transferencia o efectivo con descuento; tarjeta y Mercado Pago un poco más caro. La suscripción es mensual por adelantado.
+  </div>
+</section>
+
 <!-- ============ QUÉ VIENE EN EL CAJÓN ============ -->
 <section class="block" id="cajon">
   <div class="block-head">
@@ -1720,6 +1822,13 @@
   <div class="seasonal-intro">
     <span class="label">Lo que cambia con la estación</span>
     <h3>Frescos en su mejor momento.</h3>
+  </div>
+
+  <div class="season-tabs" role="tablist" aria-label="Estaciones del año">
+    <button class="season-tab" type="button" data-season-tab="primavera" role="tab" aria-selected="false">Primavera</button>
+    <button class="season-tab" type="button" data-season-tab="verano" role="tab" aria-selected="false">Verano</button>
+    <button class="season-tab" type="button" data-season-tab="otono" role="tab" aria-selected="false">Otoño</button>
+    <button class="season-tab is-selected is-current" type="button" data-season-tab="invierno" role="tab" aria-selected="true">Invierno</button>
   </div>
 
   <div class="cajon-seasons">
@@ -1807,7 +1916,7 @@
       </div>
     </div>
 
-    <div class="cajon-season" data-season="invierno" style="--season-color: #2c7a6b;">
+    <div class="cajon-season is-active" data-season="invierno" style="--season-color: #2c7a6b;">
       <div class="season-name">Invierno</div>
       <div class="season-months">jun · jul · ago</div>
       <div class="season-divider"></div>
@@ -1867,7 +1976,7 @@
       <span class="label" style="color: var(--acento-2);">Selección de la semana</span>
       <h2 style="margin-top: 16px;">Esta semana, <em>en el cajón.</em></h2>
       <p class="lead">Una mirada al cajón curado de esta semana. Cada cajón es distinto, porque la estación también lo es.</p>
-      <div class="week-foot">Mayo · semana 3 · 2026</div>
+      <div class="week-foot">Junio · semana 2 · 2026</div>
     </div>
     <ul class="week-list">
       <li>
@@ -1895,20 +2004,20 @@
         <span class="badge base">siempre</span>
       </li>
       <li>
-        <span class="name">Pera williams <em>punto justo</em></span>
-        <span class="badge">de otoño</span>
+        <span class="name">Puerro <em>de huerta</em></span>
+        <span class="badge">de invierno</span>
       </li>
       <li>
-        <span class="name">Manzana red <em>cosecha tardía</em></span>
-        <span class="badge">de otoño</span>
+        <span class="name">Kale <em>hoja tierna</em></span>
+        <span class="badge">de invierno</span>
       </li>
       <li>
-        <span class="name">Brócoli baby <em>cosecha lunes</em></span>
-        <span class="badge">de otoño</span>
+        <span class="name">Mandarina <em>bien dulce</em></span>
+        <span class="badge">de invierno</span>
       </li>
       <li>
-        <span class="name">Hinojo <em>fresco</em></span>
-        <span class="badge">de otoño</span>
+        <span class="name">Kiwi <em>maduro en su punto</em></span>
+        <span class="badge">de invierno</span>
       </li>
     </ul>
   </div>
@@ -1917,103 +2026,20 @@
   </div>
 </section>
 
-<!-- ============ PLANES ============ -->
-<section class="block" id="planes">
-  <div class="block-head">
-    <span class="label">Planes</span>
-    <h2>Elegí tu cajón. <em>Cancelás cuando quieras.</em></h2>
-    <p>Tres tamaños pensados para distintas familias. El precio es por mes e incluye cuatro entregas semanales puerta a puerta.</p>
-  </div>
-
-  <div class="zone-selector">
-    <span class="zone-label">¿De dónde sos? (opcional)</span>
-    <div class="zone-pills" role="radiogroup" aria-label="Tu zona de entrega">
-      <button type="button" class="zone-pill" data-zone="Nordelta">Nordelta</button>
-      <button type="button" class="zone-pill" data-zone="Villanueva">Villanueva</button>
-      <button type="button" class="zone-pill" data-zone="Tigre">Tigre</button>
-      <button type="button" class="zone-pill" data-zone="Maschwitz">Maschwitz</button>
-      <button type="button" class="zone-pill" data-zone="Escobar">Escobar</button>
-      <button type="button" class="zone-pill" data-zone="Pilar">Pilar</button>
-      <button type="button" class="zone-pill" data-zone="otra">Otra zona</button>
-    </div>
-    <div id="zone-feedback" class="zone-feedback" aria-live="polite"></div>
-  </div>
-
-  <div class="plans-grid">
-    <div class="plan">
-      <span class="label">Esencial</span>
-      <h3 lang="it">Essential</h3>
-      <p class="plan-desc">Para 1 o 2 personas. Lo justo para una semana de cocina ligera.</p>
-      <div class="price">$ —</div>
-      <div class="price-meta">Por mes · 4 entregas</div>
-      <ul class="plan-features">
-        <li>18 productos por semana</li>
-        <li>4 verduras de hoja (lechuga, espinaca, acelga, rúcula)</li>
-        <li>9 verduras para cocinar (papa, batata, zanahoria, zapallo…)</li>
-        <li>3 frescas (tomate cherry, morrón, limón)</li>
-        <li>2 frutas (mandarina, banana)</li>
-        <li>Cajón sorpresa cada 3 meses con producto premium</li>
-        <li>Cancelás cuando quieras</li>
-      </ul>
-      <a href="https://wa.me/5491150562645?text=Hola%20Nativa%2C%20me%20interesa%20el%20plan%20Mini%20(1%E2%80%932%20personas).%20%C2%BFMe%20confirman%20precio%20y%20cu%C3%A1ndo%20llega%20el%20primer%20caj%C3%B3n%3F" class="btn plan-cta" data-plan="Essential" data-personas="1–2 personas" target="_blank" rel="noopener noreferrer" aria-label="Empezar plan Essential por WhatsApp">Empezar</a>
-    </div>
-
-    <div class="plan featured">
-      <span class="badge-feat">Más elegido</span>
-      <span class="label">Familiar</span>
-      <h3 lang="it">Family</h3>
-      <p class="plan-desc">Para 3 o 4 personas. La misma variedad que Essential, en cantidades para familia.</p>
-      <div class="price">$ —</div>
-      <div class="price-meta">Por mes · 4 entregas</div>
-      <ul class="plan-features">
-        <li>18 productos por semana en cantidades familiares</li>
-        <li>4 verduras de hoja (2 unidades de cada)</li>
-        <li>9 verduras para cocinar (papa 1kg, zanahoria 600g, etc.)</li>
-        <li>3 frescas (cherry 350g, morrón, limón ×3)</li>
-        <li>2 frutas (mandarina 1kg, banana ×4)</li>
-        <li>Entrega prioritaria</li>
-        <li>Cajón sorpresa cada 3 meses con producto premium</li>
-        <li>Cancelás cuando quieras</li>
-      </ul>
-      <a href="https://wa.me/5491150562645?text=Hola%20Nativa%2C%20me%20interesa%20el%20plan%20Family%20(3%E2%80%934%20personas).%20%C2%BFMe%20confirman%20precio%20y%20cu%C3%A1ndo%20llega%20el%20primer%20caj%C3%B3n%3F" class="btn plan-cta" data-plan="Family" data-personas="3–4 personas" target="_blank" rel="noopener noreferrer" aria-label="Empezar plan Family por WhatsApp">Empezar</a>
-    </div>
-
-    <div class="plan">
-      <span class="label">Completo</span>
-      <h3 lang="it">Harvest</h3>
-      <p class="plan-desc">Para 5+ personas o quien cocina mucho. Todo lo de Family más cinco frutas extra.</p>
-      <div class="price">$ —</div>
-      <div class="price-meta">Por mes · 4 entregas</div>
-      <ul class="plan-features">
-        <li>23 productos por semana</li>
-        <li>Toda la variedad de Family</li>
-        <li>+ 5 frutas extra (kiwi, uva, manzana, naranja, pomelo)</li>
-        <li>Entrega prioritaria</li>
-        <li>Cajón sorpresa cada 3 meses con producto premium</li>
-        <li>Cancelás cuando quieras</li>
-      </ul>
-      <a href="https://wa.me/5491150562645?text=Hola%20Nativa%2C%20me%20interesa%20el%20plan%20Harvest%20(5%2B%20personas).%20%C2%BFMe%20confirman%20precio%20y%20cu%C3%A1ndo%20llega%20el%20primer%20caj%C3%B3n%3F" class="btn plan-cta" data-plan="Harvest" data-personas="5+ personas" target="_blank" rel="noopener noreferrer" aria-label="Empezar plan Harvest por WhatsApp">Empezar</a>
-    </div>
-  </div>
-
-  <div class="plans-foot">
-    Con la suscripción mensual el mix de productos siempre está presente y rota con la estación. Cada 3 meses recibís un cajón sorpresa premium, con entrega coordinada en todos los tamaños. Los precios se confirman al momento de suscribirte. Transferencia o efectivo con descuento; tarjeta y Mercado Pago un poco más caro. La suscripción es mensual por adelantado.
-  </div>
-</section>
 
 <!-- ============ ARMÁ TU CAJÓN A MEDIDA ============ -->
 <section class="block" id="a-medida">
   <div class="block-head">
     <span class="label">A medida</span>
     <h2>Armá tu propio cajón. <em>Vos elegís todo.</em></h2>
-    <p>Si preferís elegir producto por producto en vez de la curaduría de la semana, armás tu cajón a medida. Elegís qué entra y en qué cantidad. Tiene un 15% extra por producto sobre el cajón curado, con un mínimo equivalente al plan Essential y la misma entrega semanal.</p>
+    <p>Si preferís elegir producto por producto en vez de la curaduría de la semana, armás tu cajón a medida. Elegís qué entra y en qué cantidad. Tiene un 15% extra por producto sobre el cajón curado, con un mínimo equivalente al plan Duo y la misma entrega semanal.</p>
   </div>
   <div class="basics">
     <div class="basics-pills">
       <span class="pill-wood">Elegís cada producto</span>
       <span class="pill-wood">Cantidades a tu medida</span>
       <span class="pill-wood">+15% por producto</span>
-      <span class="pill-wood">Mínimo igual a Essential</span>
+      <span class="pill-wood">Mínimo igual a Duo</span>
       <span class="pill-wood">Misma entrega semanal</span>
     </div>
   </div>
@@ -2285,6 +2311,9 @@
   </div>
 </div>
 
+<!-- ============ STICKY CTA (mobile) ============ -->
+<a href="#planes" class="sticky-cta">Ver planes <span aria-hidden="true">→</span></a>
+
 <script>
   // Zone selector → actualiza CTAs WhatsApp + sincroniza con sección Zonas + feedback visible
   (function () {
@@ -2364,28 +2393,34 @@
     }));
   })();
 
-  // Detecta estación actual (hemisferio sur, Argentina), la destaca,
-  // y reordena las 4 cards para que sigan el ciclo natural desde la actual
+  // Estación actual (hemisferio sur) -> selecciona el tab del cajón y ordena los tabs desde la actual
   (function () {
-    const SEASONS = {
-      primavera: [9, 10, 11],
-      verano:    [12, 1, 2],
-      otono:     [3, 4, 5],
-      invierno:  [6, 7, 8]
-    };
+    const SEASONS = { primavera: [9, 10, 11], verano: [12, 1, 2], otono: [3, 4, 5], invierno: [6, 7, 8] };
     const CYCLE = ['primavera', 'verano', 'otono', 'invierno'];
     const month = new Date().getMonth() + 1;
-    const current = Object.keys(SEASONS).find(s => SEASONS[s].includes(month));
-    if (!current) return;
+    const current = Object.keys(SEASONS).find(s => SEASONS[s].includes(month)) || 'invierno';
     const startIdx = CYCLE.indexOf(current);
-    document.querySelectorAll('.cajon-season').forEach(card => {
-      const season = card.dataset.season;
-      const cycleIdx = CYCLE.indexOf(season);
-      // Distancia desde la actual en el ciclo (0 = actual, 1 = siguiente, etc.)
-      const distance = (cycleIdx - startIdx + 4) % 4;
-      card.style.order = String(distance);
-      if (season === current) card.classList.add('is-current-season');
+    const tabs = Array.from(document.querySelectorAll('.season-tab'));
+    const cards = Array.from(document.querySelectorAll('.cajon-season'));
+    if (!tabs.length || !cards.length) return;
+
+    function select(season) {
+      cards.forEach(c => c.classList.toggle('is-active', c.dataset.season === season));
+      tabs.forEach(t => {
+        const on = t.dataset.seasonTab === season;
+        t.classList.toggle('is-selected', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+    }
+
+    tabs.forEach(t => {
+      const s = t.dataset.seasonTab;
+      t.style.order = String((CYCLE.indexOf(s) - startIdx + 4) % 4);
+      t.classList.toggle('is-current', s === current);
+      t.addEventListener('click', () => select(s));
     });
+    cards.forEach(c => c.classList.toggle('is-current-season', c.dataset.season === current));
+    select(current);
   })();
 
   // Form modal de suscripción → POST a Apps Script webhook
@@ -2489,7 +2524,26 @@
       }
     });
   })();
+
+  // Sticky CTA mobile: aparece al pasar el hero, se oculta cuando los planes están en viewport
+  (function () {
+    const bar = document.querySelector('.sticky-cta');
+    const hero = document.getElementById('top');
+    const planes = document.getElementById('planes');
+    if (!bar || !hero || !planes || !('IntersectionObserver' in window)) return;
+    let heroOut = false, planesIn = false;
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.target === hero) heroOut = !e.isIntersecting;
+        if (e.target === planes) planesIn = e.isIntersecting;
+      });
+      bar.classList.toggle('is-visible', heroOut && !planesIn);
+    }, { threshold: 0.05 });
+    io.observe(hero);
+    io.observe(planes);
+  })();
 </script>
+
 
 </body>
 </html>
